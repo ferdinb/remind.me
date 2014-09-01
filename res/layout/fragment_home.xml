@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/background_gray">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:minHeight="@dimen/action_bar_size"
+        android:paddingBottom="@dimen/padding_size_5dp"
+        android:paddingLeft="@dimen/padding_size_15dp"
+        android:paddingRight="@dimen/padding_size_15dp"
+        android:paddingTop="@dimen/padding_size_5dp" >
+
+        <ImageView
+            android:id="@+id/action_bar_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_logo" />
+
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/action_bar_title"
+            style="@style/FontWhiteHuge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_size_10dp"
+            android:layout_marginRight="@dimen/padding_size_10dp"
+            android:layout_toRightOf="@id/action_bar_icon"
+            android:text="@string/app_name" />
+
+        <ImageButton
+            android:id="@+id/action_bar_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_add_reminder" >
+        </ImageButton>
+    </RelativeLayout>
+
+</LinearLayout>
