@@ -11,8 +11,6 @@ public class HomeActivity extends FragmentActivity {
 		setContentView(R.layout.activity_home);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();
-			
-//			aa
 		}
 	}
 }
