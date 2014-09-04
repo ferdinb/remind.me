@@ -12,10 +12,10 @@
         android:background="@drawable/background_drawable_white_gray"
         android:clickable="true"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_size_5dp"
+        android:paddingBottom="@dimen/padding_size_10dp"
         android:paddingLeft="@dimen/padding_size_15dp"
         android:paddingRight="@dimen/padding_size_15dp"
-        android:paddingTop="@dimen/padding_size_5dp" >
+        android:paddingTop="@dimen/padding_size_10dp" >
 
         <com.f.ninaber.android.widget.ArialText
             android:id="@+id/add_task_date"
@@ -31,23 +31,30 @@
             android:background="@drawable/ic_drop_down" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/red" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_size_5dp"
-        android:paddingLeft="@dimen/padding_size_15dp"
-        android:paddingRight="@dimen/padding_size_15dp"
-        android:paddingTop="@dimen/padding_size_5dp" >
+        android:orientation="horizontal" >
 
         <Switch
             android:id="@+id/add_task_repeat_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/padding_size_5dp"
+            android:paddingLeft="@dimen/padding_size_15dp"
+            android:paddingRight="@dimen/padding_size_15dp"
+            android:paddingTop="@dimen/padding_size_10dp"
             android:text="@string/repeat"
+            android:textColor="@color/black"
             android:textOff="@string/off"
-            android:textOn="@string/on" >
+            android:textOn="@string/on"
+            android:textSize="@dimen/text_size_normal" >
         </Switch>
 
         <LinearLayout
@@ -60,12 +67,17 @@
             android:background="@drawable/background_drawable_white_gray"
             android:clickable="true"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_size_5dp"
+            android:paddingLeft="@dimen/padding_size_15dp"
+            android:paddingRight="@dimen/padding_size_15dp"
+            android:paddingTop="@dimen/padding_size_10dp" >
 
             <ImageView
                 android:id="@+id/add_task_timer_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/padding_size_10dp"
                 android:background="@drawable/ic_add_task_time" />
 
@@ -74,6 +86,7 @@
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/title"
                 android:singleLine="true" />
         </LinearLayout>
@@ -91,6 +104,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/padding_size_10dp"
             android:background="@drawable/ic_add_task_title" />
 
@@ -99,6 +113,7 @@
             style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:hint="@string/title"
             android:singleLine="true" />
     </LinearLayout>
@@ -116,6 +131,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/padding_size_10dp"
             android:background="@drawable/ic_add_task_message" />
 
@@ -124,7 +140,46 @@
             style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:hint="@string/notes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <ImageView 
+            android:layout_width=""
+            />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_size_15dp" >
+
+        <Button
+            android:id="@+id/activity_add_task_save"
+            style="@style/FontBlackNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_size_15dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_drawable_round_red"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/activity_add_task_cancel"
+            style="@style/FontBlackNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_size_15dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_drawable_round_red"
+            android:text="@string/cancel" />
     </LinearLayout>
 
 </LinearLayout>

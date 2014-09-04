@@ -9,5 +9,7 @@
     <string name="repeat">Repeat</string>
     <string name="on">On</string>
     <string name="off">Off</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
