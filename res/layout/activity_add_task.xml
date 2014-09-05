@@ -1,112 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_gray"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/add_task_date_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_drawable_white_gray"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_size_10dp"
-        android:paddingLeft="@dimen/padding_size_15dp"
-        android:paddingRight="@dimen/padding_size_15dp"
-        android:paddingTop="@dimen/padding_size_10dp" >
-
-        <com.f.ninaber.android.widget.ArialText
-            android:id="@+id/add_task_date"
-            style="@style/FontBlackLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_size_10dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding_size_5dp"
-            android:background="@drawable/ic_drop_down" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/red" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Switch
-            android:id="@+id/add_task_repeat_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingBottom="@dimen/padding_size_5dp"
-            android:paddingLeft="@dimen/padding_size_15dp"
-            android:paddingRight="@dimen/padding_size_15dp"
-            android:paddingTop="@dimen/padding_size_10dp"
-            android:text="@string/repeat"
-            android:textColor="@color/black"
-            android:textOff="@string/off"
-            android:textOn="@string/on"
-            android:textSize="@dimen/text_size_normal" >
-        </Switch>
+        android:background="@drawable/state_bg_round_white"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/add_task_time_group"
+            android:id="@+id/add_task_date_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/add_task_repeat_btn"
-            android:layout_alignTop="@id/add_task_repeat_btn"
-            android:layout_toLeftOf="@id/add_task_repeat_btn"
-            android:background="@drawable/background_drawable_white_gray"
+            android:background="@drawable/state_bg_round_white_gray"
             android:clickable="true"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_size_5dp"
+            android:paddingBottom="@dimen/padding_size_10dp"
             android:paddingLeft="@dimen/padding_size_15dp"
             android:paddingRight="@dimen/padding_size_15dp"
             android:paddingTop="@dimen/padding_size_10dp" >
 
-            <ImageView
-                android:id="@+id/add_task_timer_image"
+            <com.f.ninaber.android.widget.ArialText
+                android:id="@+id/add_task_date"
+                style="@style/FontBlackLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/padding_size_10dp"
-                android:background="@drawable/ic_add_task_time" />
+                android:layout_marginRight="@dimen/padding_size_10dp" />
 
-            <com.f.ninaber.android.widget.ArialText
-                android:id="@+id/add_task_time"
-                style="@style/FontBlackNormal"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_size_5dp"
+                android:background="@drawable/ic_drop_down" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/red" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Switch
+                android:id="@+id/add_task_repeat_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="@dimen/padding_size_5dp"
+                android:paddingLeft="@dimen/padding_size_15dp"
+                android:paddingRight="@dimen/padding_size_15dp"
+                android:paddingTop="@dimen/padding_size_10dp"
+                android:text="@string/repeat"
+                android:textColor="@color/black"
+                android:textOff="@string/off"
+                android:textOn="@string/on"
+                android:textSize="@dimen/text_size_normal" >
+            </Switch>
+
+            <LinearLayout
+                android:id="@+id/add_task_time_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/title"
-                android:singleLine="true" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_alignBottom="@id/add_task_repeat_btn"
+                android:layout_alignTop="@id/add_task_repeat_btn"
+                android:layout_toLeftOf="@id/add_task_repeat_btn"
+                android:background="@drawable/state_bg_white_gray"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_size_5dp"
+                android:paddingLeft="@dimen/padding_size_15dp"
+                android:paddingRight="@dimen/padding_size_15dp"
+                android:paddingTop="@dimen/padding_size_10dp" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_size_5dp"
-        android:paddingLeft="@dimen/padding_size_15dp"
-        android:paddingRight="@dimen/padding_size_15dp"
-        android:paddingTop="@dimen/padding_size_5dp" >
+                <ImageView
+                    android:id="@+id/add_task_timer_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/padding_size_10dp"
+                    android:background="@drawable/ic_add_task_time" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/padding_size_10dp"
-            android:background="@drawable/ic_add_task_title" />
+                <com.f.ninaber.android.widget.ArialText
+                    android:id="@+id/add_task_time"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/title"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/add_task_title"
@@ -114,26 +102,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/padding_size_5dp"
+            android:layout_marginLeft="@dimen/padding_size_15dp"
+            android:layout_marginRight="@dimen/padding_size_15dp"
+            android:layout_marginTop="@dimen/padding_size_5dp"
             android:hint="@string/title"
             android:singleLine="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_drawable_white_gray"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_size_5dp"
-        android:paddingLeft="@dimen/padding_size_15dp"
-        android:paddingRight="@dimen/padding_size_15dp"
-        android:paddingTop="@dimen/padding_size_5dp" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/padding_size_10dp"
-            android:background="@drawable/ic_add_task_message" />
 
         <EditText
             android:id="@+id/add_task_notes"
@@ -141,45 +115,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:hint="@string/notes" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        <ImageView 
-            android:layout_width=""
-            />
-        
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_size_15dp" >
-
-        <Button
-            android:id="@+id/activity_add_task_save"
-            style="@style/FontBlackNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_size_15dp"
-            android:layout_weight="1"
-            android:background="@drawable/background_drawable_round_red"
-            android:text="@string/save" />
-
-        <Button
-            android:id="@+id/activity_add_task_cancel"
-            style="@style/FontBlackNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_size_5dp"
             android:layout_marginLeft="@dimen/padding_size_15dp"
-            android:layout_weight="1"
-            android:background="@drawable/background_drawable_round_red"
-            android:text="@string/cancel" />
+            android:layout_marginRight="@dimen/padding_size_15dp"
+            android:layout_marginTop="@dimen/padding_size_5dp"
+            android:hint="@string/notes" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_size_10dp"
+            android:layout_marginTop="@dimen/padding_size_10dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/activity_add_task_recorder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_gray_white"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/padding_size_5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_recorder" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_add_task_photo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_gray_white"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/padding_size_5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_camera" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_add_task_maps"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_gray_white"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/padding_size_5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_map" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_size_15dp" >
+
+            <Button
+                android:id="@+id/activity_add_task_cancel"
+                style="@style/FontBlackNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_size_15dp"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_corner_red"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/activity_add_task_save"
+                style="@style/FontWhiteNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_size_15dp"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_red"
+                android:text="@string/save" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
