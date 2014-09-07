@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/state_bg_round_whitelight_gray"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_size_5dp" >
+
+    <com.f.ninaber.android.widget.ArialText
+        android:id="@+id/adapter_task_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        style="@style/FontBlackLarge"/>
+
+    <com.f.ninaber.android.widget.ArialText
+        android:id="@+id/adapter_task_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        style="@style/FontBlackNormal"/>
+
+    <com.f.ninaber.android.widget.ArialText
+        android:id="@+id/adapter_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        style="@style/FontBlackNormal"/>
+
+    <com.f.ninaber.android.widget.ArialText
+        android:id="@+id/adapter_task_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        style="@style/FontBlackNormal"/>
+
+</LinearLayout>

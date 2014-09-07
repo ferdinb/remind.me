@@ -26,6 +26,10 @@
             android:name="com.f.ninaber.android.AddTaskActivity"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" >
         </activity>
+
+        <provider
+            android:name="com.f.ninaber.android.db.DataProvider"
+            android:authorities="com.f.ninaber.android" />
     </application>
 
 </manifest>

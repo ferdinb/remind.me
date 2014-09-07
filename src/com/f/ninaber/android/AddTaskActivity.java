@@ -12,9 +12,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
+import com.f.ninaber.android.db.TaskHelper;
+import com.f.ninaber.android.model.Task;
+import com.f.ninaber.android.model.Type;
 import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.widget.ArialText;
 
@@ -25,6 +29,8 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 	private ArialText timeView;
 	private LinearLayout dateLayout;
 	private LinearLayout timeLayout;
+	private EditText editTitle;
+	private EditText editNotes;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,13 +52,38 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		timeView = (ArialText) findViewById(R.id.add_task_time);
 		timeView.setText(mTime);
 
+		editTitle = (EditText) findViewById(R.id.add_task_title);
+		editNotes = (EditText) findViewById(R.id.add_task_notes);
+		
 		Button cancel = (Button) findViewById(R.id.activity_add_task_cancel);
 		cancel.setOnClickListener(this);
+		
+		Button save = (Button) findViewById(R.id.activity_add_task_save);
+		save.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.activity_add_task_save:
+			String title = editTitle.getText().toString();
+			String notes = editNotes.getText().toString();
+			String day = dateView.getText().toString();
+			String time = timeView.getText().toString();
+			long timestamp = DateUtil.timestampDay(day, time);			
+			
+			if(!TextUtils.isEmpty(title) && timestamp > 0){
+				Task task = new Task();
+				task.setTid(String.valueOf(System.currentTimeMillis() / 1000));
+				task.setTitle(title);
+				task.setNotes(notes);
+				task.setTimestamp(timestamp);
+				task.setType(Type.TEXT.toString());
+				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+				this.finish();
+			}			
+			break;
+		
 		case R.id.add_task_date_group: {
 			int[] val = DateUtil.dayParseDate(mDate);
 			DatePickerDialog datePicker = new DatePickerDialog(this, dateListener, val[2], val[1], val[0]);

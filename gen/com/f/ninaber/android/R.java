@@ -11,13 +11,13 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int background_gray=0x7f040006;
         public static final int black=0x7f040001;
         public static final int blue=0x7f040003;
         public static final int gray=0x7f040004;
         public static final int red=0x7f040000;
         public static final int white=0x7f040002;
         public static final int white_darker=0x7f040005;
+        public static final int white_lighter=0x7f040006;
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f050000;
@@ -51,18 +51,22 @@ public final class R {
         public static final int state_bg_round_red=0x7f02000f;
         public static final int state_bg_round_white=0x7f020010;
         public static final int state_bg_round_white_gray=0x7f020011;
-        public static final int state_bg_white_gray=0x7f020012;
+        public static final int state_bg_round_whitelight_gray=0x7f020012;
+        public static final int state_bg_white_gray=0x7f020013;
     }
     public static final class id {
-        public static final int action_bar_add=0x7f090010;
-        public static final int action_bar_icon=0x7f09000e;
-        public static final int action_bar_title=0x7f09000f;
-        public static final int action_settings=0x7f090011;
+        public static final int action_bar_add=0x7f090013;
+        public static final int action_bar_title=0x7f090012;
+        public static final int action_settings=0x7f090015;
         public static final int activity_add_task_cancel=0x7f09000b;
         public static final int activity_add_task_maps=0x7f09000a;
         public static final int activity_add_task_photo=0x7f090009;
         public static final int activity_add_task_recorder=0x7f090008;
         public static final int activity_add_task_save=0x7f09000c;
+        public static final int adapter_task_date=0x7f09000e;
+        public static final int adapter_task_notes=0x7f090011;
+        public static final int adapter_task_time=0x7f09000f;
+        public static final int adapter_task_title=0x7f090010;
         public static final int add_task_date=0x7f090001;
         public static final int add_task_date_group=0x7f090000;
         public static final int add_task_notes=0x7f090007;
@@ -72,11 +76,13 @@ public final class R {
         public static final int add_task_timer_image=0x7f090004;
         public static final int add_task_title=0x7f090006;
         public static final int container=0x7f09000d;
+        public static final int list_task=0x7f090014;
     }
     public static final class layout {
         public static final int activity_add_task=0x7f030000;
         public static final int activity_home=0x7f030001;
-        public static final int fragment_home=0x7f030002;
+        public static final int adapter_task_item=0x7f030002;
+        public static final int fragment_home=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f080000;

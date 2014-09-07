@@ -9,7 +9,35 @@ import java.util.Locale;
 import android.util.Log;
 
 public class DateUtil {
+	
+	public static long timestampDay(String day, String time){
+		StringBuilder builder = new StringBuilder();
+		builder.append(day);
+		builder.append("/");
+		builder.append(time);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy/HH:mm", Locale.getDefault());
+		try {
+			Date date = sdf.parse(builder.toString());
+			return date.getTime();
+		} catch (ParseException e) {
+			Log.e("f.ninaber", "Exception: " + DateUtil.class.getSimpleName() + " | " + e);
+		}
+		return 0;
+	}
 
+	public static String dateTimestamp(long timestamp){
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
+		Date date = new Date(timestamp);
+		return sdf.format(date);
+	}
+	
+	public static String timeTimestamp(long timestamp){
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+		Date time = new Date(timestamp);
+		return sdf.format(time);
+	}
+	
 	public static String calendarDay() {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
 		Calendar calendar = Calendar.getInstance();
