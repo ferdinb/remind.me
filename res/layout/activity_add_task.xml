@@ -189,6 +189,7 @@
                 style="@style/FontBlackNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_size_15dp"
                 android:layout_marginRight="@dimen/padding_size_15dp"
                 android:layout_weight="1"
                 android:background="@drawable/state_bg_corner_red"
@@ -200,6 +201,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_size_15dp"
+                android:layout_marginStart="@dimen/padding_size_15dp"
                 android:layout_weight="1"
                 android:background="@drawable/state_bg_round_red"
                 android:text="@string/save" />

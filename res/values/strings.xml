@@ -11,5 +11,7 @@
     <string name="off">Off</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="today">Today</string>
+    <string name="notes_desc"><u>Notes : </u> %s</string>
 
 </resources>

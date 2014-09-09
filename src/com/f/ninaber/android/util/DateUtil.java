@@ -146,4 +146,20 @@ public class DateUtil {
 		}
 		return builder.toString();
 	}
+	
+	public static String getDate(long timestamp){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yyyy", Locale.getDefault()); 
+		return sdf.format(timestamp);
+	}
+	
+	public static long getBeginningOfday(){
+		Calendar calendar = Calendar.getInstance(Locale.getDefault());
+		Date date = new Date(System.currentTimeMillis());
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);		
+		return calendar.getTimeInMillis();
+	}
 }

@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/adapter_task_master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/state_bg_round_whitelight_gray"
-    android:orientation="vertical"
-    android:padding="@dimen/padding_size_5dp" >
+    android:orientation="vertical" >
 
-    <com.f.ninaber.android.widget.ArialText
-        android:id="@+id/adapter_task_date"
+    <RelativeLayout
+        android:id="@+id/adapter_date_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        style="@style/FontBlackLarge"/>
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:padding="@dimen/padding_size_10dp" >
 
-    <com.f.ninaber.android.widget.ArialText
-        android:id="@+id/adapter_task_time"
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/adapter_task_day"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="gone" />
+
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/adapter_task_date"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        style="@style/FontBlackNormal"/>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/padding_size_5dp"
+        android:layout_marginLeft="@dimen/padding_size_10dp"
+        android:layout_marginRight="@dimen/padding_size_10dp"
+        android:layout_marginTop="@dimen/padding_size_5dp"
+        android:background="@drawable/state_bg_round_whitelight_gray"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_size_5dp" >
 
-    <com.f.ninaber.android.widget.ArialText
-        android:id="@+id/adapter_task_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        style="@style/FontBlackNormal"/>
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/adapter_task_time"
+            style="@style/FontBlackLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding_size_5dp"
+            android:layout_marginRight="@dimen/padding_size_10dp"
+            android:textColor="@color/red"
+            android:textStyle="bold|italic" />
 
-    <com.f.ninaber.android.widget.ArialText
-        android:id="@+id/adapter_task_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        style="@style/FontBlackNormal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_size_10dp"
+            android:orientation="vertical" >
 
+            <com.f.ninaber.android.widget.ArialText
+                android:id="@+id/adapter_task_title"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.f.ninaber.android.widget.ArialText
+                android:id="@+id/adapter_task_notes"
+                style="@style/FontBlackSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_size_5dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

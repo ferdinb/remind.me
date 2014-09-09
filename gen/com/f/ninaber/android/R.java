@@ -11,13 +11,16 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f040001;
-        public static final int blue=0x7f040003;
-        public static final int gray=0x7f040004;
-        public static final int red=0x7f040000;
-        public static final int white=0x7f040002;
-        public static final int white_darker=0x7f040005;
-        public static final int white_lighter=0x7f040006;
+        public static final int black=0x7f040004;
+        public static final int blue=0x7f040006;
+        public static final int blue_light=0x7f040000;
+        public static final int gray=0x7f040007;
+        public static final int green_light=0x7f040002;
+        public static final int red=0x7f040003;
+        public static final int red_light=0x7f040001;
+        public static final int white=0x7f040005;
+        public static final int white_darker=0x7f040008;
+        public static final int white_lighter=0x7f040009;
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f050000;
@@ -46,27 +49,32 @@ public final class R {
         public static final int ic_map=0x7f02000a;
         public static final int ic_recorder=0x7f02000b;
         public static final int ic_sound_recorder=0x7f02000c;
-        public static final int state_bg_corner_red=0x7f02000d;
-        public static final int state_bg_round_gray_white=0x7f02000e;
-        public static final int state_bg_round_red=0x7f02000f;
-        public static final int state_bg_round_white=0x7f020010;
-        public static final int state_bg_round_white_gray=0x7f020011;
-        public static final int state_bg_round_whitelight_gray=0x7f020012;
-        public static final int state_bg_white_gray=0x7f020013;
+        public static final int state_bg_corner_blue=0x7f02000d;
+        public static final int state_bg_corner_red=0x7f02000e;
+        public static final int state_bg_round_blue=0x7f02000f;
+        public static final int state_bg_round_gray_white=0x7f020010;
+        public static final int state_bg_round_red=0x7f020011;
+        public static final int state_bg_round_white=0x7f020012;
+        public static final int state_bg_round_white_gray=0x7f020013;
+        public static final int state_bg_round_whitelight_gray=0x7f020014;
+        public static final int state_bg_white_gray=0x7f020015;
     }
     public static final class id {
-        public static final int action_bar_add=0x7f090013;
-        public static final int action_bar_title=0x7f090012;
-        public static final int action_settings=0x7f090015;
+        public static final int action_bar_add=0x7f090016;
+        public static final int action_bar_title=0x7f090015;
+        public static final int action_settings=0x7f090018;
         public static final int activity_add_task_cancel=0x7f09000b;
         public static final int activity_add_task_maps=0x7f09000a;
         public static final int activity_add_task_photo=0x7f090009;
         public static final int activity_add_task_recorder=0x7f090008;
         public static final int activity_add_task_save=0x7f09000c;
-        public static final int adapter_task_date=0x7f09000e;
-        public static final int adapter_task_notes=0x7f090011;
-        public static final int adapter_task_time=0x7f09000f;
-        public static final int adapter_task_title=0x7f090010;
+        public static final int adapter_date_group=0x7f09000f;
+        public static final int adapter_task_date=0x7f090011;
+        public static final int adapter_task_day=0x7f090010;
+        public static final int adapter_task_master=0x7f09000e;
+        public static final int adapter_task_notes=0x7f090014;
+        public static final int adapter_task_time=0x7f090012;
+        public static final int adapter_task_title=0x7f090013;
         public static final int add_task_date=0x7f090001;
         public static final int add_task_date_group=0x7f090000;
         public static final int add_task_notes=0x7f090007;
@@ -76,7 +84,7 @@ public final class R {
         public static final int add_task_timer_image=0x7f090004;
         public static final int add_task_title=0x7f090006;
         public static final int container=0x7f09000d;
-        public static final int list_task=0x7f090014;
+        public static final int list_task=0x7f090017;
     }
     public static final class layout {
         public static final int activity_add_task=0x7f030000;
@@ -93,20 +101,23 @@ public final class R {
         public static final int cancel=0x7f060009;
         public static final int hello_world=0x7f060001;
         public static final int notes=0x7f060004;
+        public static final int notes_desc=0x7f06000b;
         public static final int off=0x7f060007;
         public static final int on=0x7f060006;
         public static final int repeat=0x7f060005;
         public static final int save=0x7f060008;
         public static final int title=0x7f060003;
+        public static final int today=0x7f06000a;
     }
     public static final class style {
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070000;
-        public static final int FontBlackLarge=0x7f070002;
+        public static final int FontBlackLarge=0x7f070003;
         public static final int FontBlackNormal=0x7f070001;
-        public static final int FontWhiteHuge=0x7f070003;
-        public static final int FontWhiteNormal=0x7f070004;
+        public static final int FontBlackSmall=0x7f070002;
+        public static final int FontWhiteHuge=0x7f070004;
+        public static final int FontWhiteNormal=0x7f070005;
     }
 }

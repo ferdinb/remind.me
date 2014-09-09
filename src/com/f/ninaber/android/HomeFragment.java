@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.f.ninaber.android.adapter.TaskAdapter;
 import com.f.ninaber.android.db.TableTask;
+import com.f.ninaber.android.util.DateUtil;
 
 public class HomeFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 	private static final int CURSOR_LOADER_TASK = 100;
@@ -22,18 +23,22 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	private ListView mListView;
 	private TaskAdapter mAdapter;
 	private String mSelection;
-	private String[] mArgs;
-	private String mOrder = TableTask.Column.TIMESTAMP + " ASC";
+	private String[] mArgs = {String.valueOf(DateUtil.getBeginningOfday())};
+	private String mOrder;
 	private View root;
 	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActivity().getSupportLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
+		
+		mSelection = TableTask.Column.TIMESTAMP + " > ?";
 
+		mOrder = TableTask.Column.TIMESTAMP + " ASC";
+		
+		getActivity().getSupportLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
 	}
-	
+		
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = inflater.inflate(R.layout.fragment_home, container, false);
