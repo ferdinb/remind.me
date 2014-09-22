@@ -29,6 +29,7 @@ public final class R {
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f050000;
+        public static final int attachment_height_layout=0x7f050011;
         public static final int attachment_size=0x7f050010;
         public static final int circle_status_size=0x7f05000e;
         public static final int padding_size_10dp=0x7f050004;

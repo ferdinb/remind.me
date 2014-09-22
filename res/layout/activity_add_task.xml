@@ -122,14 +122,14 @@
         <RelativeLayout
             android:id="@+id/add_task_image_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:visibility="gone" >
 
             <ImageView
                 android:id="@+id/add_task_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="center" />
+                android:adjustViewBounds="true" />
 
             <ImageView
                 android:id="@+id/add_task_image_remove"

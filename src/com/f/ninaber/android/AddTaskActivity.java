@@ -29,7 +29,6 @@ import com.f.ninaber.android.model.Type;
 import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.ImageUtil;
 import com.f.ninaber.android.widget.ArialText;
-import com.squareup.picasso.Picasso;
 
 public class AddTaskActivity extends Activity implements OnClickListener {
 	private String mDate;
@@ -209,11 +208,12 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		if (resultCode == RESULT_OK) {
 			if(requestCode == GALLERY && null != data){
 				Uri uri = data.getData();
+				photoAttachment.setImageURI(uri);
+				
 				doResize(uri);				
 			} else if(requestCode == CAMERA && null != cameraUri){
 				doResize(cameraUri);
 			}
-
 		}
 	}
 
@@ -221,7 +221,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		new AsyncTask<Uri, Void, Uri>() {
 			@Override
 			protected Uri doInBackground(Uri... params) {
-//				return params[0];
 				return ImageUtil.getReziedImageUri(AddTaskActivity.this, params[0]);
 			}
 
@@ -229,7 +228,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 				photoGroup.setVisibility(View.VISIBLE);
 				addAttachmentGroup.setVisibility(View.GONE);
 				photoAttachment.setImageURI(result);
-				Picasso.with(AddTaskActivity.this).load(result).skipMemoryCache().into(photoAttachment);
 			};
 
 		}.execute(uri);
