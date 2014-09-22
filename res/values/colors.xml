@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="blue_light">#b3d7fd</color>
-    <color name="red_light">#f7cdf1</color>
+    <color name="red_light">#e2bac9</color>
     <color name="green_light">#d7f9c2</color>
-    <color name="red">#631c25</color>
+    <color name="red">#c6054d</color>
     <color name="black">#000000</color>
     <color name="white">#d1d1d1</color>
     <color name="blue">#0463c5</color>
-    <color name="gray">#a5a5a5</color>
+    <color name="darker_blue">#03407e</color>
+    <color name="gray">#a7a7a7</color>
+    <color name="border_color">#c4c4c4</color>
+    <color name="purple_light">#cc02b7</color>
+    <color name="purple">#32012d</color>
     <color name="white_darker">#c2c2c2</color>
     <color name="white_lighter">#e3e3e3</color>
-
+	<color name="green">#00822b</color>
+    
 </resources>

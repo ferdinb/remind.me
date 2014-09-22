@@ -13,5 +13,7 @@
     <string name="cancel">Cancel</string>
     <string name="today">Today</string>
     <string name="notes_desc"><u>Notes : </u> %s</string>
+    <string name="expired">Expired</string>
+    <string name="ongoing">On Going</string>
 
 </resources>

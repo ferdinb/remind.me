@@ -50,11 +50,11 @@ public class TaskAdapter extends CursorAdapter {
 		}
 				
 		if(thisDate < System.currentTimeMillis()){
-			view.findViewById(R.id.adapter_task_master).setBackgroundColor(context.getResources().getColor(R.color.red_light));
+			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_red);
+			((ArialText)view.findViewById(R.id.adapter_task_status)).setText(context.getResources().getString(R.string.expired));
 		}else{
-			view.findViewById(R.id.adapter_task_master).setBackgroundColor(context.getResources().getColor(R.color.blue_light));
-
-
+			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_green);
+			((ArialText)view.findViewById(R.id.adapter_task_status)).setText(context.getResources().getString(R.string.ongoing));
 		}
 		
 		ArialText timeView = (ArialText) view.findViewById(R.id.adapter_task_time);

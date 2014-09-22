@@ -38,7 +38,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/red" />
+            android:background="@color/purple" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -65,8 +65,6 @@
                 android:id="@+id/add_task_time_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/add_task_repeat_btn"
-                android:layout_alignTop="@id/add_task_repeat_btn"
                 android:layout_toLeftOf="@id/add_task_repeat_btn"
                 android:background="@drawable/state_bg_white_gray"
                 android:clickable="true"
@@ -79,11 +77,11 @@
 
                 <ImageView
                     android:id="@+id/add_task_timer_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/timer_size"
+                    android:layout_height="@dimen/timer_size"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/padding_size_10dp"
-                    android:background="@drawable/ic_add_task_time" />
+                    android:background="@drawable/ic_alarm" />
 
                 <com.f.ninaber.android.widget.ArialText
                     android:id="@+id/add_task_time"
@@ -121,7 +119,29 @@
             android:layout_marginTop="@dimen/padding_size_5dp"
             android:hint="@string/notes" />
 
+        <RelativeLayout
+            android:id="@+id/add_task_image_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/add_task_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/add_task_image_remove"
+                android:layout_width="@dimen/attachment_size"
+                android:layout_height="@dimen/attachment_size"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/padding_size_5dp"
+                android:background="@drawable/ic_close" />
+        </RelativeLayout>
+
         <LinearLayout
+            android:id="@+id/add_task_attachments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_size_10dp"
@@ -139,9 +159,25 @@
                 android:padding="@dimen/padding_size_5dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_recorder" />
+                    android:layout_width="@dimen/attachment_size"
+                    android:layout_height="@dimen/attachment_size"
+                    android:background="@drawable/ic_audio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_add_task_gallery"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_gray_white"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/padding_size_5dp" >
+
+                <ImageView
+                    android:layout_width="@dimen/attachment_size"
+                    android:layout_height="@dimen/attachment_size"
+                    android:background="@drawable/ic_gallery" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,8 +191,8 @@
                 android:padding="@dimen/padding_size_5dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/attachment_size"
+                    android:layout_height="@dimen/attachment_size"
                     android:background="@drawable/ic_camera" />
             </LinearLayout>
 
@@ -171,9 +207,9 @@
                 android:padding="@dimen/padding_size_5dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_map" />
+                    android:layout_width="@dimen/attachment_size"
+                    android:layout_height="@dimen/attachment_size"
+                    android:background="@drawable/ic_location" />
             </LinearLayout>
         </LinearLayout>
 
@@ -192,7 +228,7 @@
                 android:layout_marginEnd="@dimen/padding_size_15dp"
                 android:layout_marginRight="@dimen/padding_size_15dp"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_corner_red"
+                android:background="@drawable/state_bg_corner_purple"
                 android:text="@string/cancel" />
 
             <Button
@@ -203,7 +239,7 @@
                 android:layout_marginLeft="@dimen/padding_size_15dp"
                 android:layout_marginStart="@dimen/padding_size_15dp"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_red"
+                android:background="@drawable/state_bg_round_purple"
                 android:text="@string/save" />
         </LinearLayout>
     </LinearLayout>
