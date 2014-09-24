@@ -30,12 +30,9 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
+		super.onCreate(savedInstanceState);		
 		mSelection = TableTask.Column.TIMESTAMP + " > ?";
-
-		mOrder = TableTask.Column.TIMESTAMP + " ASC";
-		
+		mOrder = TableTask.Column.TIMESTAMP + " ASC";		
 		getActivity().getSupportLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
 	}
 		

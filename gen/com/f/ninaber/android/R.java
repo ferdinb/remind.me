@@ -29,8 +29,8 @@ public final class R {
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f050000;
-        public static final int attachment_height_layout=0x7f050011;
-        public static final int attachment_size=0x7f050010;
+        public static final int attachment_height_layout=0x7f050012;
+        public static final int attachment_size=0x7f050011;
         public static final int circle_status_size=0x7f05000e;
         public static final int padding_size_10dp=0x7f050004;
         public static final int padding_size_15dp=0x7f050005;
@@ -40,6 +40,7 @@ public final class R {
         public static final int padding_size_35dp=0x7f050008;
         public static final int padding_size_3dp=0x7f050002;
         public static final int padding_size_5dp=0x7f050003;
+        public static final int plus_addtask_size=0x7f050010;
         public static final int text_size_huge=0x7f050009;
         public static final int text_size_large=0x7f05000a;
         public static final int text_size_normal=0x7f05000b;
@@ -48,36 +49,41 @@ public final class R {
         public static final int timer_size=0x7f05000f;
     }
     public static final class drawable {
-        public static final int btn_add_reminder=0x7f020000;
-        public static final int circle_green=0x7f020001;
-        public static final int circle_red=0x7f020002;
-        public static final int ic_add_reminder_off=0x7f020003;
-        public static final int ic_add_reminder_on=0x7f020004;
-        public static final int ic_alarm=0x7f020005;
-        public static final int ic_audio=0x7f020006;
-        public static final int ic_camera=0x7f020007;
-        public static final int ic_close=0x7f020008;
-        public static final int ic_drop_down=0x7f020009;
-        public static final int ic_gallery=0x7f02000a;
-        public static final int ic_icon=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
-        public static final int ic_location=0x7f02000d;
-        public static final int state_bg_corner_blue=0x7f02000e;
-        public static final int state_bg_corner_purple=0x7f02000f;
-        public static final int state_bg_corner_red=0x7f020010;
-        public static final int state_bg_round_blue=0x7f020011;
-        public static final int state_bg_round_gray_white=0x7f020012;
-        public static final int state_bg_round_purple=0x7f020013;
-        public static final int state_bg_round_red=0x7f020014;
-        public static final int state_bg_round_white=0x7f020015;
-        public static final int state_bg_round_white_gray=0x7f020016;
-        public static final int state_bg_round_whitelight_gray=0x7f020017;
-        public static final int state_bg_white_gray=0x7f020018;
+        public static final int btn_add_filter=0x7f020000;
+        public static final int btn_add_reminder=0x7f020001;
+        public static final int circle_green=0x7f020002;
+        public static final int circle_red=0x7f020003;
+        public static final int ic_add_off=0x7f020004;
+        public static final int ic_add_on=0x7f020005;
+        public static final int ic_alarm=0x7f020006;
+        public static final int ic_audio=0x7f020007;
+        public static final int ic_camera=0x7f020008;
+        public static final int ic_close=0x7f020009;
+        public static final int ic_drop_down=0x7f02000a;
+        public static final int ic_filter_off=0x7f02000b;
+        public static final int ic_filter_on=0x7f02000c;
+        public static final int ic_gallery=0x7f02000d;
+        public static final int ic_icon=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int ic_location=0x7f020010;
+        public static final int state_bg_corner_blue=0x7f020011;
+        public static final int state_bg_corner_purple=0x7f020012;
+        public static final int state_bg_corner_red=0x7f020013;
+        public static final int state_bg_purple=0x7f020014;
+        public static final int state_bg_round_blue=0x7f020015;
+        public static final int state_bg_round_gray_white=0x7f020016;
+        public static final int state_bg_round_purple=0x7f020017;
+        public static final int state_bg_round_red=0x7f020018;
+        public static final int state_bg_round_white=0x7f020019;
+        public static final int state_bg_round_white_gray=0x7f02001a;
+        public static final int state_bg_round_whitelight_gray=0x7f02001b;
+        public static final int state_bg_white_gray=0x7f02001c;
     }
     public static final class id {
         public static final int action_bar_add=0x7f09001e;
+        public static final int action_bar_filter=0x7f09001f;
         public static final int action_bar_title=0x7f09001d;
-        public static final int action_settings=0x7f090020;
+        public static final int action_settings=0x7f090021;
         public static final int activity_add_task_cancel=0x7f090010;
         public static final int activity_add_task_gallery=0x7f09000d;
         public static final int activity_add_task_maps=0x7f09000f;
@@ -107,7 +113,7 @@ public final class R {
         public static final int add_task_timer_image=0x7f090004;
         public static final int add_task_title=0x7f090006;
         public static final int container=0x7f090012;
-        public static final int list_task=0x7f09001f;
+        public static final int list_task=0x7f090020;
     }
     public static final class layout {
         public static final int activity_add_task=0x7f030000;
