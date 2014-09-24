@@ -9,9 +9,9 @@
     <dimen name="padding_size_25dp">25dp</dimen>
     <dimen name="padding_size_30dp">30dp</dimen>
     <dimen name="padding_size_35dp">35dp</dimen>
-    <dimen name="text_size_huge">26dp</dimen>
-    <dimen name="text_size_large">20dp</dimen>
-    <dimen name="text_size_normal">18dp</dimen>
+    <dimen name="text_size_huge">24dp</dimen>
+    <dimen name="text_size_large">19dp</dimen>
+    <dimen name="text_size_normal">17dp</dimen>
     <dimen name="text_size_small">15dp</dimen>
     <dimen name="text_size_tiny">12dp</dimen>
     <dimen name="circle_status_size">12dp</dimen>

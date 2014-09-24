@@ -2,9 +2,9 @@
 <resources>
 
     <color name="blue_light">#b3d7fd</color>
-    <color name="red_light">#e2bac9</color>
+    <color name="red_light">#fc7e7e</color>
     <color name="green_light">#d7f9c2</color>
-    <color name="red">#c6054d</color>
+    <color name="red">#cc0000</color>
     <color name="black">#000000</color>
     <color name="white">#d1d1d1</color>
     <color name="blue">#0463c5</color>
