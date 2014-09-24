@@ -10,15 +10,14 @@
         android:layout_height="wrap_content"
         android:background="@color/purple" >
 
-        <com.f.ninaber.android.widget.ArialText
-            android:id="@+id/action_bar_title"
-            style="@style/FontWhiteHuge"
+        <ImageView
+            android:id="@+id/ic_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_size_10dp"
             android:layout_marginRight="@dimen/padding_size_10dp"
-            android:text="@string/app_name" />
+			android:background="@drawable/ic_icon"/>
 
         <LinearLayout
             android:id="@+id/action_bar_add"
@@ -38,7 +37,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/action_bar_filter"
+            android:id="@+id/action_bar_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -50,7 +49,7 @@
             <ImageView
                 android:layout_width="@dimen/plus_addtask_size"
                 android:layout_height="@dimen/plus_addtask_size"
-                android:background="@drawable/btn_add_filter"
+                android:background="@drawable/btn_add_sort"
                 android:duplicateParentState="true" />
         </LinearLayout>
     </RelativeLayout>

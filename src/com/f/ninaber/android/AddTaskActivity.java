@@ -135,6 +135,8 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.activity_add_task_recorder: {
+			
+			
 			break;
 		}
 
