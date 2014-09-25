@@ -6,15 +6,15 @@
     <color name="green_light">#d7f9c2</color>
     <color name="red">#cc0000</color>
     <color name="black">#000000</color>
-    <color name="white">#d1d1d1</color>
+    <color name="white">#e0e0e0</color>
     <color name="blue">#0463c5</color>
     <color name="darker_blue">#03407e</color>
-    <color name="gray">#a7a7a7</color>
+    <color name="gray">#a3a3a3</color>
     <color name="border_color">#c4c4c4</color>
     <color name="purple_light">#5b0152</color>
     <color name="purple">#32012d</color>
     <color name="white_darker">#c2c2c2</color>
-    <color name="white_lighter">#e3e3e3</color>
+    <color name="white_lighter">#f3f3f3</color>
 	<color name="green">#00822b</color>
     
 </resources>

@@ -8,6 +8,8 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -234,4 +236,5 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 
 		}.execute(uri);
 	}
+	
 }
