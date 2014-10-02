@@ -3,7 +3,7 @@
     android:id="@+id/adapter_task_master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/state_bg_white_gray"
+    android:background="@drawable/state_bg_yellow_100_lv"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -12,15 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/darker_blue" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@color/yellow_900"
             android:padding="@dimen/padding_size_10dp" >
 
             <com.f.ninaber.android.widget.ArialText
@@ -59,15 +54,14 @@
             android:layout_width="@dimen/circle_status_size"
             android:layout_height="@dimen/circle_status_size"
             android:layout_marginLeft="@dimen/padding_size_5dp"
-            android:layout_marginRight="@dimen/padding_size_5dp"
-            android:background="@drawable/circle_red" />
+            android:layout_marginRight="@dimen/padding_size_5dp" />
 
         <com.f.ninaber.android.widget.ArialText
             android:id="@+id/adapter_task_status"
             style="@style/FontBlackTiny"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/red" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,8 +70,8 @@
         android:layout_marginBottom="@dimen/padding_size_10dp"
         android:layout_marginLeft="@dimen/padding_size_10dp"
         android:layout_marginRight="@dimen/padding_size_10dp"
-        android:layout_marginTop="@dimen/padding_size_1dp"
-        android:background="@drawable/state_bg_round_whitelight_gray"
+        android:layout_marginTop="@dimen/padding_size_3dp"
+        android:background="@drawable/state_bg_round_grey100"
         android:orientation="horizontal"
         android:padding="@dimen/padding_size_10dp" >
 
@@ -89,8 +83,8 @@
             android:layout_gravity="top"
             android:layout_marginLeft="@dimen/padding_size_5dp"
             android:layout_marginRight="@dimen/padding_size_5dp"
-            android:textColor="@color/darker_blue"
-            android:textStyle="bold|italic" />
+            android:textColor="@color/grey_700"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -13,4 +13,7 @@ public class HomeActivity extends FragmentActivity {
 			getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();
 		}
 	}
+	
+	
+	
 }

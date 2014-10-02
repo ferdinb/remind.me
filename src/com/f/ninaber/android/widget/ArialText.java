@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+
 public class ArialText extends TextView {
 
 	public ArialText(Context context, AttributeSet attrs, int defStyle) {

@@ -6,19 +6,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/state_bg_round_white"
+        android:background="@color/grey_200"
         android:orientation="vertical" >
 
-        <com.f.ninaber.android.widget.CircleAudioView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/circle_recorder_bg" />
-
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/add_task_date_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/state_bg_round_gray_white"
+            android:background="@drawable/state_bg_square_grey900_grey700"
             android:clickable="true"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/padding_size_10dp"
@@ -28,9 +23,11 @@
 
             <com.f.ninaber.android.widget.ArialText
                 android:id="@+id/add_task_date"
-                style="@style/FontBlackLarge"
+                style="@style/FontWhiteLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/padding_size_10dp"
                 android:ellipsize="end"
                 android:singleLine="true" />
@@ -38,15 +35,16 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/padding_size_5dp"
                 android:background="@drawable/ic_drop_down" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/purple" />
+            android:layout_height="2dp"
+            android:background="@color/yellow_900" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,7 +61,7 @@
                 android:paddingRight="@dimen/padding_size_15dp"
                 android:paddingTop="@dimen/padding_size_10dp"
                 android:text="@string/repeat"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_700"
                 android:textOff="@string/off"
                 android:textOn="@string/on"
                 android:textSize="@dimen/text_size_normal" >
@@ -74,13 +72,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/add_task_repeat_btn"
-                android:background="@drawable/state_bg_white_gray"
+                android:background="@drawable/state_bg_square_grey200_grey400"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/padding_size_5dp"
                 android:paddingLeft="@dimen/padding_size_15dp"
-                android:paddingRight="@dimen/padding_size_15dp"
+                android:paddingRight="@dimen/padding_size_5dp"
                 android:paddingTop="@dimen/padding_size_10dp" >
 
                 <ImageView
@@ -88,7 +86,7 @@
                     android:layout_width="@dimen/timer_size"
                     android:layout_height="@dimen/timer_size"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="@dimen/padding_size_10dp"
+                    android:layout_marginRight="@dimen/padding_size_5dp"
                     android:background="@drawable/ic_alarm" />
 
                 <com.f.ninaber.android.widget.ArialText
@@ -152,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/padding_size_10dp"
-            android:background="@color/purple" />
+            android:background="@color/yellow_900" />
 
         <LinearLayout
             android:id="@+id/add_task_attachments"
@@ -165,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_gray_white"
+                android:background="@drawable/state_bg_square_grey200_grey400"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/padding_size_5dp" >
@@ -181,7 +179,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_gray_white"
+                android:background="@drawable/state_bg_square_grey200_grey400"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/padding_size_5dp" >
@@ -197,7 +195,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_gray_white"
+                android:background="@drawable/state_bg_square_grey200_grey400"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/padding_size_5dp" >
@@ -213,7 +211,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_gray_white"
+                android:background="@drawable/state_bg_square_grey200_grey400"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/padding_size_5dp" >
@@ -228,7 +226,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/purple" />
+            android:background="@color/yellow_900" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -245,7 +243,7 @@
                 android:layout_marginEnd="@dimen/padding_size_15dp"
                 android:layout_marginRight="@dimen/padding_size_15dp"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_corner_purple"
+                android:background="@drawable/state_bg_corner_red"
                 android:text="@string/cancel" />
 
             <Button
@@ -256,7 +254,7 @@
                 android:layout_marginLeft="@dimen/padding_size_15dp"
                 android:layout_marginStart="@dimen/padding_size_15dp"
                 android:layout_weight="1"
-                android:background="@drawable/state_bg_round_purple"
+                android:background="@drawable/state_bg_round_red"
                 android:text="@string/save" />
         </LinearLayout>
     </LinearLayout>

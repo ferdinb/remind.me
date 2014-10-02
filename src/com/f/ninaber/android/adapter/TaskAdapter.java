@@ -49,12 +49,16 @@ public class TaskAdapter extends CursorAdapter {
 			view.findViewById(R.id.adapter_date_group).setVisibility(View.GONE);
 		}
 				
+		
+		ArialText status = (ArialText)view.findViewById(R.id.adapter_task_status);
 		if(thisDate < System.currentTimeMillis()){
 			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_red);
-			((ArialText)view.findViewById(R.id.adapter_task_status)).setText(context.getResources().getString(R.string.expired));
+			status.setText(context.getResources().getString(R.string.expired));
+			status.setTextColor(context.getResources().getColor(R.color.red_800));
 		}else{
 			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_green);
-			((ArialText)view.findViewById(R.id.adapter_task_status)).setText(context.getResources().getString(R.string.ongoing));
+			status.setText(context.getResources().getString(R.string.ongoing));
+			status.setTextColor(context.getResources().getColor(R.color.green_600));
 		}
 		
 		ArialText timeView = (ArialText) view.findViewById(R.id.adapter_task_time);
@@ -75,7 +79,7 @@ public class TaskAdapter extends CursorAdapter {
 			
 			String text = String.format(context.getResources().getString(R.string.notes_desc), sNotes);
 			SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(text);
-			ForegroundColorSpan colorSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.blue));
+			ForegroundColorSpan colorSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.red_800));
 			StyleSpan styleSpan = new StyleSpan(android.graphics.Typeface.BOLD);			
 			spannableBuilder.setSpan(styleSpan, 0, text.indexOf(":"), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 			spannableBuilder.setSpan(colorSpan, 0, text.indexOf(":"), Spannable.SPAN_INCLUSIVE_INCLUSIVE);

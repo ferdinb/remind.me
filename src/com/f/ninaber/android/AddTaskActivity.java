@@ -8,16 +8,16 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,8 +37,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 	private String mTime;
 	private ArialText dateView;
 	private ArialText timeView;
-	private LinearLayout dateLayout;
-	private LinearLayout timeLayout;
 	private EditText editTitle;
 	private EditText editNotes;
 	private static final int GALLERY = 0;
@@ -54,14 +52,15 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		setFinishOnTouchOutside(false);
 
 		setContentView(R.layout.activity_add_task);
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels * 0.90);
+        getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT); //set below the setContentview
+		
 		mDate = DateUtil.calendarDay();
 		mTime = DateUtil.calendarTime();
 
-		dateLayout = (LinearLayout) findViewById(R.id.add_task_date_group);
-		dateLayout.setOnClickListener(this);
-
-		timeLayout = (LinearLayout) findViewById(R.id.add_task_time_group);
-		timeLayout.setOnClickListener(this);
+		findViewById(R.id.add_task_date_group).setOnClickListener(this);;
+		findViewById(R.id.add_task_time_group).setOnClickListener(this);;
 
 		dateView = (ArialText) findViewById(R.id.add_task_date);
 		dateView.setText(mDate);

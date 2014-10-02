@@ -1,37 +1,47 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.NoActionBar">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo.NoActionBar">
+        <item name="android:dialogTheme">@style/CustomDialogTheme</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:windowBackground">@color/grey_200</item>
     </style>
 
     <style name="FontBlackNormal">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/grey_700</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
     <style name="FontBlackTiny">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/grey_700</item>
         <item name="android:textSize">@dimen/text_size_tiny</item>
     </style>
 
     <style name="FontBlackSmall">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/grey_700</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <style name="FontBlackLarge">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="FontWhiteLarge">
+        <item name="android:textColor">@color/grey_200</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
     <style name="FontWhiteHuge">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/grey_200</item>
         <item name="android:textSize">@dimen/text_size_huge</item>
     </style>
 
     <style name="FontWhiteNormal">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/grey_200</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 

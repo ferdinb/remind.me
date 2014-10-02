@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple" >
+        android:background="@color/grey_900" >
 
         <ImageView
             android:id="@+id/ic_icon"
@@ -17,7 +16,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_size_10dp"
             android:layout_marginRight="@dimen/padding_size_10dp"
-			android:background="@drawable/ic_icon"/>
+            android:background="@drawable/ic_icon" />
 
         <LinearLayout
             android:id="@+id/action_bar_add"
@@ -25,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/state_bg_purple"
+            android:background="@drawable/state_bg_square_grey900_grey700"
             android:clickable="true"
-			android:padding="@dimen/padding_size_10dp">
+            android:padding="@dimen/padding_size_10dp" >
 
             <ImageView
                 android:layout_width="@dimen/plus_addtask_size"
@@ -42,9 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/action_bar_add"
-            android:background="@drawable/state_bg_purple"
+            android:background="@drawable/state_bg_square_grey900_grey700"
             android:clickable="true"
-			android:padding="@dimen/padding_size_10dp">
+            android:padding="@dimen/padding_size_10dp" >
 
             <ImageView
                 android:layout_width="@dimen/plus_addtask_size"
@@ -58,6 +57,7 @@
         android:id="@+id/list_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey_300"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp" >

@@ -11,21 +11,16 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f040004;
-        public static final int blue=0x7f040006;
-        public static final int blue_light=0x7f040000;
-        public static final int border_color=0x7f040009;
-        public static final int darker_blue=0x7f040007;
-        public static final int gray=0x7f040008;
-        public static final int green=0x7f04000e;
-        public static final int green_light=0x7f040002;
-        public static final int purple=0x7f04000b;
-        public static final int purple_light=0x7f04000a;
-        public static final int red=0x7f040003;
-        public static final int red_light=0x7f040001;
-        public static final int white=0x7f040005;
-        public static final int white_darker=0x7f04000c;
-        public static final int white_lighter=0x7f04000d;
+        public static final int green_600=0x7f040008;
+        public static final int grey_200=0x7f040004;
+        public static final int grey_300=0x7f040003;
+        public static final int grey_400=0x7f040002;
+        public static final int grey_700=0x7f040001;
+        public static final int grey_900=0x7f040000;
+        public static final int red_800=0x7f040009;
+        public static final int yellow_100=0x7f040007;
+        public static final int yellow_500=0x7f040006;
+        public static final int yellow_900=0x7f040005;
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f050000;
@@ -52,35 +47,28 @@ public final class R {
         public static final int btn_add_reminder=0x7f020000;
         public static final int btn_add_sort=0x7f020001;
         public static final int circle_green=0x7f020002;
-        public static final int circle_recorder_bg=0x7f020003;
-        public static final int circle_red=0x7f020004;
-        public static final int ic_add_off=0x7f020005;
-        public static final int ic_add_on=0x7f020006;
-        public static final int ic_alarm=0x7f020007;
-        public static final int ic_audio=0x7f020008;
-        public static final int ic_camera=0x7f020009;
-        public static final int ic_close=0x7f02000a;
-        public static final int ic_drop_down=0x7f02000b;
-        public static final int ic_filter_off=0x7f02000c;
-        public static final int ic_filter_on=0x7f02000d;
-        public static final int ic_gallery=0x7f02000e;
-        public static final int ic_icon=0x7f02000f;
-        public static final int ic_launcher=0x7f020010;
-        public static final int ic_location=0x7f020011;
-        public static final int ic_sort_off=0x7f020012;
-        public static final int ic_sort_on=0x7f020013;
-        public static final int state_bg_corner_blue=0x7f020014;
-        public static final int state_bg_corner_purple=0x7f020015;
-        public static final int state_bg_corner_red=0x7f020016;
-        public static final int state_bg_purple=0x7f020017;
-        public static final int state_bg_round_blue=0x7f020018;
-        public static final int state_bg_round_gray_white=0x7f020019;
-        public static final int state_bg_round_purple=0x7f02001a;
-        public static final int state_bg_round_red=0x7f02001b;
-        public static final int state_bg_round_white=0x7f02001c;
-        public static final int state_bg_round_white_gray=0x7f02001d;
-        public static final int state_bg_round_whitelight_gray=0x7f02001e;
-        public static final int state_bg_white_gray=0x7f02001f;
+        public static final int circle_red=0x7f020003;
+        public static final int ic_add_off=0x7f020004;
+        public static final int ic_add_on=0x7f020005;
+        public static final int ic_alarm=0x7f020006;
+        public static final int ic_audio=0x7f020007;
+        public static final int ic_camera=0x7f020008;
+        public static final int ic_close=0x7f020009;
+        public static final int ic_drop_down=0x7f02000a;
+        public static final int ic_filter_off=0x7f02000b;
+        public static final int ic_filter_on=0x7f02000c;
+        public static final int ic_gallery=0x7f02000d;
+        public static final int ic_icon=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int ic_location=0x7f020010;
+        public static final int ic_sort_off=0x7f020011;
+        public static final int ic_sort_on=0x7f020012;
+        public static final int state_bg_corner_red=0x7f020013;
+        public static final int state_bg_round_grey100=0x7f020014;
+        public static final int state_bg_round_red=0x7f020015;
+        public static final int state_bg_square_grey200_grey400=0x7f020016;
+        public static final int state_bg_square_grey900_grey700=0x7f020017;
+        public static final int state_bg_yellow_100_lv=0x7f020018;
     }
     public static final class id {
         public static final int action_bar_add=0x7f09001e;
@@ -145,14 +133,15 @@ public final class R {
     }
     public static final class style {
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070000;
-        public static final int FontBlackLarge=0x7f070004;
-        public static final int FontBlackNormal=0x7f070001;
-        public static final int FontBlackSmall=0x7f070003;
-        public static final int FontBlackTiny=0x7f070002;
-        public static final int FontWhiteHuge=0x7f070005;
-        public static final int FontWhiteNormal=0x7f070006;
+        public static final int CustomDialogTheme=0x7f070001;
+        public static final int FontBlackLarge=0x7f070005;
+        public static final int FontBlackNormal=0x7f070002;
+        public static final int FontBlackSmall=0x7f070004;
+        public static final int FontBlackTiny=0x7f070003;
+        public static final int FontWhiteHuge=0x7f070007;
+        public static final int FontWhiteLarge=0x7f070006;
+        public static final int FontWhiteNormal=0x7f070008;
     }
 }
