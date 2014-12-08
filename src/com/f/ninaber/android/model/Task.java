@@ -7,6 +7,7 @@ public class Task {
 	private String notes;
 	private String type;
 	private String repeat;
+	private int status;
 	private String path;
 
 	public String getPath() {
@@ -55,6 +56,14 @@ public class Task {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getRepeat() {

@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.f.ninaber.android.adapter.TaskAdapter;
 import com.f.ninaber.android.db.TableTask;
 import com.f.ninaber.android.util.DateUtil;
+import com.f.ninaber.android.util.TaskManager;
 
 public class HomeFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 	private static final int CURSOR_LOADER_TASK = 100;
@@ -38,7 +39,15 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 		mOrder = TableTask.Column.TIMESTAMP + ASC;
 		getActivity().getSupportLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
 	}
-
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
+		// Start - Update alarm
+		TaskManager.getInstance(getActivity()).startTaskAlarm(getActivity().getContentResolver(), System.currentTimeMillis());
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -48,7 +57,6 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 		mListView = (ListView) root.findViewById(R.id.list_task);
 		mAdapter = new TaskAdapter(getActivity(), null, false);
 		mListView.setAdapter(mAdapter);
-
 		return root;
 	}
 

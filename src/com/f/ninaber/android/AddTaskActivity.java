@@ -101,6 +101,7 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 				task.setTitle(title);
 				task.setNotes(notes);
 				task.setTimestamp(timestamp);
+				task.setStatus(Constants.ON_GOING);
 				task.setType(Type.TEXT.toString());
 				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 				this.finish();

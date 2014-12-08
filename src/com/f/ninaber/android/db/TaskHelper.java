@@ -31,13 +31,27 @@ public class TaskHelper {
 		values.put(TableTask.Column.TIMESTAMP, task.getTimestamp());
 		values.put(TableTask.Column.TYPE, task.getType());
 		values.put(TableTask.Column.REPEAT, task.getRepeat());
-		values.put(TableTask.Column.PATH, task.getPath());
+		values.put(TableTask.Column.STATUS, task.getStatus());
+		values.put(TableTask.Column.PATH, task.getPath());		
 
 		if (isExist(resolver, task.getTid())) {
-			return resolver.update(URI, values, TableTask.Column.TID + " = '" + task.getTid(), null) > 0;
+			return resolver.update(URI, values, TableTask.Column.TID + " = \"" + task.getTid() + "\"", null) > 0;
 		}
 		return resolver.insert(URI, values) != null;
 	}
+	
+	
+	public boolean insertStatus(ContentResolver resolver, String TID, int status) {
+		ContentValues values = new ContentValues();
+		values.put(TableTask.Column.STATUS, status);
+
+		if (isExist(resolver, TID)) {
+			return resolver.update(URI, values, TableTask.Column.TID + " = \"" + TID + "\"", null) > 0;
+		}
+		return resolver.insert(URI, values) != null;
+	}
+	
+	
 
 	public boolean isExist(ContentResolver resolver, String tid) {
 		Task task = queryByTID(resolver, tid);
@@ -48,7 +62,7 @@ public class TaskHelper {
 	}
 
 	public Task queryByTID(ContentResolver resolver, String TID) {
-		Cursor cursor = resolver.query(URI, null, TableTask.Column.TID + " = '" + TID + "'", null, null);
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.TID + " = \"" + TID + "\"", null, null);
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			Task task = cursorToTask(cursor);
@@ -73,7 +87,7 @@ public class TaskHelper {
 	}
 
 	public int deleteByTID(ContentResolver resolver, String TID) {
-		return resolver.delete(URI, TableTask.Column.TID + " = '" + TID + "'", null);
+		return resolver.delete(URI, TableTask.Column.TID + " = \"" + TID + "\"", null);
 	}
 
 	public int deleteAll(ContentResolver resolver) {
@@ -87,6 +101,27 @@ public class TaskHelper {
 			return cursor;
 		}
 		return null;
+	}
+
+	public Task getTaskByTID(ContentResolver resolver, String TID) {
+		Task task = null;
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.TID + " = \"" + TID + "\"", null, null);
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			task = cursorToTask(cursor);
+		}
+		return task;
+	}
+	
+	
+	public Task getFirstTimestamp(ContentResolver resolver, long timestamp) {
+		Task task = null;
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.TIMESTAMP + " > '" + timestamp + "'", null, TableTask.Column.TIMESTAMP + " ASC");
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			task = cursorToTask(cursor);
+		}
+		return task;
 	}
 
 	public List<Task> queryAll(ContentResolver resolver) {
@@ -116,6 +151,7 @@ public class TaskHelper {
 		task.setTimestamp(cursor.getLong(cursor.getColumnIndex(TableTask.Column.TIMESTAMP)));
 		task.setRepeat(cursor.getString(cursor.getColumnIndex(TableTask.Column.REPEAT)));
 		task.setType(cursor.getString(cursor.getColumnIndex(TableTask.Column.TYPE)));
+		task.setStatus(cursor.getInt(cursor.getColumnIndex(TableTask.Column.STATUS)));
 		task.setPath(cursor.getString(cursor.getColumnIndex(TableTask.Column.PATH)));
 		return task;
 	}
