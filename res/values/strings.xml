@@ -15,5 +15,13 @@
     <string name="notes_desc"><u>Notes : </u> %s</string>
     <string name="expired">Expired</string>
     <string name="ongoing">On Going</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_edit">Edit</string>
+
+    <string-array name="left_menu">
+        <item>Task</item>
+        <item>Search</item>
+        <item>Settings</item>
+    </string-array>
 
 </resources>

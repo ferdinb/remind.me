@@ -3,7 +3,7 @@
     android:id="@+id/adapter_task_master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/state_bg_yellow_100_lv"
+    android:background="@drawable/state_bg_grey_700_lv"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/yellow_900"
+            android:background="@color/grey_700"
             android:padding="@dimen/padding_size_10dp" >
 
             <com.f.ninaber.android.widget.ArialText
@@ -71,7 +71,7 @@
         android:layout_marginLeft="@dimen/padding_size_10dp"
         android:layout_marginRight="@dimen/padding_size_10dp"
         android:layout_marginTop="@dimen/padding_size_3dp"
-        android:background="@drawable/state_bg_round_grey100"
+        android:background="@drawable/state_bg_round_grey200"
         android:orientation="horizontal"
         android:padding="@dimen/padding_size_10dp" >
 

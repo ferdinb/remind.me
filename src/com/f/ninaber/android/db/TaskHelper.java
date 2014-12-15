@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.f.ninaber.android.Constants;
 import com.f.ninaber.android.model.Task;
 
 public class TaskHelper {
@@ -25,7 +26,7 @@ public class TaskHelper {
 
 	private boolean insert(ContentResolver resolver, Task task) {
 		ContentValues values = new ContentValues();
-		values.put(TableTask.Column.TID, task.getTid());
+		values.put(TableTask.Column.TID, task.getTID());
 		values.put(TableTask.Column.TITLE, task.getTitle());
 		values.put(TableTask.Column.NOTES, task.getNotes());
 		values.put(TableTask.Column.TIMESTAMP, task.getTimestamp());
@@ -34,8 +35,8 @@ public class TaskHelper {
 		values.put(TableTask.Column.STATUS, task.getStatus());
 		values.put(TableTask.Column.PATH, task.getPath());		
 
-		if (isExist(resolver, task.getTid())) {
-			return resolver.update(URI, values, TableTask.Column.TID + " = \"" + task.getTid() + "\"", null) > 0;
+		if (isExist(resolver, task.getTID())) {
+			return resolver.update(URI, values, TableTask.Column.TID + " = \"" + task.getTID() + "\"", null) > 0;
 		}
 		return resolver.insert(URI, values) != null;
 	}
@@ -55,7 +56,7 @@ public class TaskHelper {
 
 	public boolean isExist(ContentResolver resolver, String tid) {
 		Task task = queryByTID(resolver, tid);
-		if (task != null && !TextUtils.isEmpty(task.getTid())) {
+		if (task != null && !TextUtils.isEmpty(task.getTID())) {
 			return true;
 		}
 		return false;
@@ -116,14 +117,13 @@ public class TaskHelper {
 	
 	public Task getFirstTimestamp(ContentResolver resolver, long timestamp) {
 		Task task = null;
-		Cursor cursor = resolver.query(URI, null, TableTask.Column.TIMESTAMP + " > '" + timestamp + "'", null, TableTask.Column.TIMESTAMP + " ASC");
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.TIMESTAMP + " > \"" + timestamp + "\"" + " AND " + TableTask.Column.STATUS + " = \"" + Constants.ON_GOING + "\"", null, TableTask.Column.TIMESTAMP + " ASC");
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			task = cursorToTask(cursor);
 		}
 		return task;
 	}
-
 	public List<Task> queryAll(ContentResolver resolver) {
 		Cursor cursor = getCursorData(resolver);
 		if (cursor != null && cursor.getCount() > 0) {
@@ -145,7 +145,7 @@ public class TaskHelper {
 
 	public Task cursorToTask(Cursor cursor) {
 		Task task = new Task();
-		task.setTid(cursor.getString(cursor.getColumnIndex(TableTask.Column.TID)));
+		task.setTID(cursor.getString(cursor.getColumnIndex(TableTask.Column.TID)));
 		task.setTitle(cursor.getString(cursor.getColumnIndex(TableTask.Column.TITLE)));
 		task.setNotes(cursor.getString(cursor.getColumnIndex(TableTask.Column.NOTES)));
 		task.setTimestamp(cursor.getLong(cursor.getColumnIndex(TableTask.Column.TIMESTAMP)));

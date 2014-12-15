@@ -1,8 +1,11 @@
 package com.f.ninaber.android.model;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
+	private static final long serialVersionUID = -7480120714326920151L;
 	private long timestamp;
-	private String tid;
+	private String TID;
 	private String title;
 	private String notes;
 	private String type;
@@ -26,12 +29,12 @@ public class Task {
 		this.timestamp = timestamp;
 	}
 
-	public String getTid() {
-		return tid;
+	public String getTID() {
+		return TID;
 	}
 
-	public void setTid(String tid) {
-		this.tid = tid;
+	public void setTID(String tid) {
+		this.TID = tid;
 	}
 
 	public String getTitle() {
@@ -57,7 +60,7 @@ public class Task {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public int getStatus() {
 		return status;
 	}

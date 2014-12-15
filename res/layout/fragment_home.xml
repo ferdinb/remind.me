@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    
+    <!--  
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +54,7 @@
                 android:duplicateParentState="true" />
         </LinearLayout>
     </RelativeLayout>
-
+	-->
     <ListView
         android:id="@+id/list_task"
         android:layout_width="match_parent"

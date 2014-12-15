@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,10 +46,15 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 	private RelativeLayout photoGroup;
 	private ImageView photoAttachment;
 	private Uri cameraUri;
+	private String existTID;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
+	            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
+	            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
+	            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 		setFinishOnTouchOutside(false);
 
 		setContentView(R.layout.activity_add_task);
@@ -72,7 +78,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 
 		findViewById(R.id.activity_add_task_cancel).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_save).setOnClickListener(this);
-
 		findViewById(R.id.activity_add_task_recorder).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_photo).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_gallery).setOnClickListener(this);
@@ -80,9 +85,31 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		findViewById(R.id.add_task_image_remove).setOnClickListener(this);
 
 		addAttachmentGroup = (LinearLayout) findViewById(R.id.add_task_attachments);
-
 		photoGroup = (RelativeLayout) findViewById(R.id.add_task_image_group);
 		photoAttachment = (ImageView) findViewById(R.id.add_task_image);
+		
+		Task task = (Task) getIntent().getSerializableExtra(Constants.TASK);
+		if(task != null){
+			setDataToView(task);
+		}
+	}
+	
+	private void setDataToView(Task task){
+		dateView.setText(DateUtil.dateTimestamp(task.getTimestamp()));
+		timeView.setText(DateUtil.timeTimestamp(task.getTimestamp()));
+		editTitle.setText(task.getTitle());
+		editNotes.setText(task.getNotes());
+		
+		String path = task.getPath();
+		String type = task.getType();
+		if(type.equalsIgnoreCase(Type.PHOTO.toString()) && !TextUtils.isEmpty(path)){
+			Uri uri = Uri.parse(path);			
+			photoAttachment.setImageURI(uri);
+			
+			photoGroup.setVisibility(View.VISIBLE);
+			addAttachmentGroup.setVisibility(View.GONE);
+		}
+		existTID = task.getTID();		
 	}
 
 	@Override
@@ -97,12 +124,22 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 
 			if (!TextUtils.isEmpty(title) && timestamp > 0) {
 				Task task = new Task();
-				task.setTid(String.valueOf(System.currentTimeMillis() / 1000));
+				if(!TextUtils.isEmpty(existTID)){
+					task.setTID(existTID);
+				}else{
+					task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
+				}
 				task.setTitle(title);
 				task.setNotes(notes);
 				task.setTimestamp(timestamp);
 				task.setStatus(Constants.ON_GOING);
-				task.setType(Type.TEXT.toString());
+				
+				if(null != cameraUri){
+					task.setPath(cameraUri.toString());;
+					task.setType(Type.PHOTO.toString());
+				}else{
+					task.setType(Type.TEXT.toString());					
+				}
 				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 				this.finish();
 			}
@@ -137,8 +174,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.activity_add_task_recorder: {
-			
-			
 			break;
 		}
 
@@ -147,6 +182,7 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		}
 
 		case R.id.add_task_image_remove: {
+			cameraUri = null;
 			photoGroup.setVisibility(View.GONE);
 			addAttachmentGroup.setVisibility(View.VISIBLE);
 			photoAttachment.setImageBitmap(null);
@@ -218,6 +254,8 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			} else if(requestCode == CAMERA && null != cameraUri){
 				doResize(cameraUri);
 			}
+		} else {
+			cameraUri = null;
 		}
 	}
 
@@ -229,12 +267,18 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			}
 
 			protected void onPostExecute(Uri result) {
+				cameraUri = result;
+				
 				photoGroup.setVisibility(View.VISIBLE);
 				addAttachmentGroup.setVisibility(View.GONE);
 				photoAttachment.setImageURI(result);
 			};
-
 		}.execute(uri);
 	}
 	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		cameraUri = null;
+	}
 }

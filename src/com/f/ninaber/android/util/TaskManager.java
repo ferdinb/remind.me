@@ -57,7 +57,7 @@ public class TaskManager {
 		}		
 		
 		Log.e("f.ninaber", "Date task : " + DateUtil.getDate(task.getTimestamp()));
-		setAlarm(task.getTid(), task.getTimestamp());
+		setAlarm(task.getTID(), task.getTimestamp());
 		return true;
 	}
 }

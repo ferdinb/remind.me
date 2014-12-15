@@ -13,6 +13,7 @@ import com.f.ninaber.android.Constants;
 import com.f.ninaber.android.db.TaskHelper;
 import com.f.ninaber.android.model.Task;
 import com.f.ninaber.android.util.DateUtil;
+import com.f.ninaber.android.util.TaskManager;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
@@ -24,7 +25,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 				ContentResolver resolver = context.getContentResolver();
 				
 				Task task = TaskHelper.getInstance().getTaskByTID(resolver, TID);
-				Log.e("f.ninaber", "Task ID : " + task.getTid() + " || date : " + DateUtil.dateTimestamp(task.getTimestamp()));				
+				Log.e("f.ninaber", "Task ID : " + task.getTID() + " || date : " + DateUtil.dateTimestamp(task.getTimestamp()));				
 				Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 			    vibrator.vibrate(2000);				
 				
@@ -33,8 +34,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 				Intent i = new Intent(context, AddTaskActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				context.startActivity(i);
+				
+				TaskManager.getInstance(context).startTaskAlarm(resolver, task.getTimestamp());
 			}
 		}
-	}
-
+	}	
 }
