@@ -2,15 +2,15 @@ package com.f.ninaber.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,7 +70,8 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 
 		mSelection = TableTask.Column.TIMESTAMP + " > ?";
 		mOrder = TableTask.Column.TIMESTAMP + ASC;
-		getActivity().getSupportLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
+		mAdapter = new TaskAdapter(activity, null, false);
+		activity.getLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
 	}
 
 	@Override
@@ -86,7 +87,6 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 		root = inflater.inflate(R.layout.fragment_home, container, false);
 
 		mListView = (ListView) root.findViewById(R.id.list_task);
-		mAdapter = new TaskAdapter(activity, null, false);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 		mListView.setOnItemLongClickListener(this);
@@ -99,14 +99,16 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-		if (cursor != null) {
+		if (null != cursor && null != mAdapter) {
 			mAdapter.changeCursor(cursor);
 		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-		mAdapter.swapCursor(null);
+		if(null != mAdapter){
+			mAdapter.swapCursor(null);			
+		}
 	}
 
 	@Override
@@ -180,12 +182,19 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 				mAdapter.notifyDataSetChanged();
 				mListView.invalidate();
 			}
-			activity.getSupportLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
+			activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
 			break;
 		}
 		default:
 			break;
 		}
 		return true;
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		getLoaderManager().destroyLoader(CURSOR_LOADER_TASK);
 	}
 }

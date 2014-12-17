@@ -10,5 +10,4 @@ public interface Constants {
 	public static final int MENU_EDIT = 0;
 	public static final int MENU_DELETE = 1;
 
-	
 }

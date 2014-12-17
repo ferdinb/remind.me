@@ -19,11 +19,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.f.ninaber.android.db.TaskHelper;
@@ -33,7 +38,7 @@ import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.ImageUtil;
 import com.f.ninaber.android.widget.ArialText;
 
-public class AddTaskActivity extends Activity implements OnClickListener {
+public class AddTaskActivity extends Activity implements OnClickListener, OnCheckedChangeListener {
 	private String mDate;
 	private String mTime;
 	private ArialText dateView;
@@ -47,6 +52,15 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 	private ImageView photoAttachment;
 	private Uri cameraUri;
 	private String existTID;
+	private LinearLayout repeatLayout;
+	private Animation fadeIn;
+	private Animation fadeOut;
+	private LinearLayout repeatDay;
+	private LinearLayout repeatMonth;
+	private LinearLayout repeatYear;
+	private final static int REPEAT_DAY = 0;
+	private final static int REPEAT_MONTH = 1;
+	private final static int REPEAT_YEAR = 2;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +76,24 @@ public class AddTaskActivity extends Activity implements OnClickListener {
         int screenWidth = (int) (metrics.widthPixels * 0.90);
         getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT); //set below the setContentview
 		
+        
+        repeatLayout = (LinearLayout) this.findViewById(R.id.action_bar_right);
+        
 		mDate = DateUtil.calendarDay();
 		mTime = DateUtil.calendarTime();
 
-		findViewById(R.id.add_task_date_group).setOnClickListener(this);;
-		findViewById(R.id.add_task_time_group).setOnClickListener(this);;
+		findViewById(R.id.add_task_date_group).setOnClickListener(this);
+		findViewById(R.id.add_task_time_group).setOnClickListener(this);
+		
+		repeatDay = (LinearLayout)findViewById(R.id.action_bar_day);
+		repeatDay.setOnClickListener(this);
+		
+		repeatMonth = (LinearLayout)findViewById(R.id.action_bar_month);
+		repeatMonth.setOnClickListener(this);
+		
+		repeatYear = (LinearLayout)findViewById(R.id.action_bar_year);
+		repeatYear.setOnClickListener(this);
+		((Switch)findViewById(R.id.add_task_repeat_btn)).setOnCheckedChangeListener(this);
 
 		dateView = (ArialText) findViewById(R.id.add_task_date);
 		dateView.setText(mDate);
@@ -76,6 +103,8 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		editTitle = (EditText) findViewById(R.id.add_task_title);
 		editNotes = (EditText) findViewById(R.id.add_task_notes);
 
+		findViewById(R.id.action_bar_left).setOnClickListener(this);
+		findViewById(R.id.action_bar_right).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_cancel).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_save).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_recorder).setOnClickListener(this);
@@ -92,6 +121,7 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 		if(task != null){
 			setDataToView(task);
 		}
+		setRepeatTime(REPEAT_DAY);
 	}
 	
 	private void setDataToView(Task task){
@@ -159,10 +189,11 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			timePicker.show();
 			break;
 		}
-		case R.id.activity_add_task_cancel: {
+		case R.id.action_bar_left:
+		case R.id.activity_add_task_cancel: 
 			this.finish();
 			break;
-		}
+		
 
 		case R.id.activity_add_task_photo: {
 			takePhoto(CAMERA);
@@ -189,6 +220,16 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 			break;
 		}
 
+		case R.id.action_bar_day:
+			setRepeatTime(REPEAT_DAY);
+			break;
+		case R.id.action_bar_month:
+			setRepeatTime(REPEAT_MONTH);
+			break;
+		case R.id.action_bar_year:
+			setRepeatTime(REPEAT_YEAR);
+			break;
+		
 		default:
 			break;
 		}
@@ -268,7 +309,6 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 
 			protected void onPostExecute(Uri result) {
 				cameraUri = result;
-				
 				photoGroup.setVisibility(View.VISIBLE);
 				addAttachmentGroup.setVisibility(View.GONE);
 				photoAttachment.setImageURI(result);
@@ -280,5 +320,51 @@ public class AddTaskActivity extends Activity implements OnClickListener {
 	protected void onDestroy() {
 		super.onDestroy();
 		cameraUri = null;
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if(buttonView.getId() == R.id.add_task_repeat_btn){
+			setUpAnimation();
+			
+			if(repeatLayout.getVisibility() == View.VISIBLE){				
+				repeatLayout.setAnimation(fadeOut);				
+				repeatLayout.setVisibility(View.GONE);
+			}else{
+				repeatLayout.setVisibility(View.VISIBLE);
+				repeatLayout.setAnimation(fadeIn);				
+			}
+		}
+	}
+	
+	private void setUpAnimation(){
+		if(fadeIn == null){
+			fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+		}
+		
+		if(fadeOut == null){
+			fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
+		}		
+	}
+	
+	private void setRepeatTime(int time){
+		repeatDay.setSelected(false);
+		repeatMonth.setSelected(false);
+		repeatYear.setSelected(false);
+		
+		switch (time) {
+		case REPEAT_MONTH:
+			repeatMonth.setSelected(true);
+			break;
+			
+		case REPEAT_YEAR:
+			repeatYear.setSelected(true);
+			break;
+			
+		default:
+			repeatDay.setSelected(true);
+			break;
+		}
+
 	}
 }

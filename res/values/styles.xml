@@ -17,7 +17,7 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Rmindme</item>
     </style>
 
-    <style name="CustomDialogTheme" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
         <item name="android:textColor">@color/grey_700</item>
         <item name="android:windowBackground">@color/grey_200</item>
     </style>
@@ -67,22 +67,27 @@
     </style>
 
     <style name="FontBlackNormal">
-        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textColor">@color/grey_900</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
     <style name="FontBlackTiny">
-        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textColor">@color/grey_900</item>
         <item name="android:textSize">@dimen/text_size_tiny</item>
     </style>
 
     <style name="FontBlackSmall">
-        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textColor">@color/grey_900</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
+    <style name="FontBlackHuge">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+    
     <style name="FontBlackLarge">
-        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textColor">@color/grey_900</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
