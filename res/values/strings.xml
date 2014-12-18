@@ -63,5 +63,11 @@
     <string name="setting_storage_desc">Delete History after %s </string>
     <string name="setting_storage_title">Delete History</string>
     <string name="setting_storage_never_delete">History will never be deleted</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="setting">Setting</string>
+    <string name="calendar">Calendar</string>
+    <string name="num_task">%s Task</string>
 
 </resources>

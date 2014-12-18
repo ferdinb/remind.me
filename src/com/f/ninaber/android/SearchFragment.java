@@ -1,12 +1,11 @@
 package com.f.ninaber.android;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.LoaderManager;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,36 +25,29 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
-import com.f.ninaber.android.adapter.CalendarAdapter;
 import com.f.ninaber.android.adapter.TaskAdapter;
 import com.f.ninaber.android.db.TableTask;
 import com.f.ninaber.android.db.TaskHelper;
-import com.f.ninaber.android.model.Calendar;
 import com.f.ninaber.android.model.Task;
+import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.TaskManager;
 
-public class HomeFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener,
+public class SearchFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener,
 		OnItemLongClickListener {
-	private static final String TAG = HomeFragment.class.getSimpleName();
-	private static final int CURSOR_LOADER_TASK = 100;
+	private static final String TAG = SearchFragment.class.getSimpleName();
+	private static final int CURSOR_LOADER_TASK = 102;
 	private ListView mListView;
-	private GridView mGridView;
 	private TaskAdapter mAdapter;
-	private String mSelection;
-	// private String[] mArgs = { String.valueOf(DateUtil.getBeginningOfday())
-	// };
-	private String[] mArgs = { String.valueOf(System.currentTimeMillis()) };
 	private String mOrder;
 	private static final String ASC = " ASC";
-	private static final String DESC = " DESC";
-	private boolean isDescending;
 	private View root;
 	private FragmentActivity activity;
-	private CalendarAdapter mCalendarAdapter;
-	private int sizeCalendar;
+	private static final String KEY_SELECTION = "selection";
+	public static final String KEY_DAY = "day";
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -68,37 +62,69 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.add, menu);
-	}
-
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setHasOptionsMenu(true);
-		activity.getActionBar().setTitle(activity.getResources().getString(R.string.home));
-
-		mSelection = TableTask.Column.TIMESTAMP + " > ?";
+		activity.getActionBar().setTitle(activity.getResources().getString(R.string.search));
+		
+		// mSelection = null;
 		mOrder = TableTask.Column.TIMESTAMP + ASC;
 		mAdapter = new TaskAdapter(activity, null, false);
 		activity.getLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		// Start - Update alarm
-		TaskManager.getInstance(activity).startTaskAlarm(activity.getContentResolver(), System.currentTimeMillis());
-		List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-		if (val.size() != sizeCalendar) {
-			if (null != mCalendarAdapter) {
-				mCalendarAdapter.resetData(val);
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.search, menu);
+
+		SearchManager manager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+		SearchView search = (SearchView) menu.findItem(R.id.action_search).getActionView();
+		search.setSearchableInfo(manager.getSearchableInfo(activity.getComponentName()));
+		search.setOnQueryTextListener(new OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextChange(String query) {
+				Bundle args = new Bundle();
+				if (!TextUtils.isEmpty(query)) {
+					StringBuilder selection = new StringBuilder();
+					selection.append(TableTask.Column.TITLE + " LIKE " + "\"%" + query + "%\"");
+					selection.append(" OR ");
+					selection.append(TableTask.Column.NOTES + " LIKE " + "\"%" + query + "%\"");
+
+					args.putString(KEY_SELECTION, selection.toString());
+				}
+				activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, SearchFragment.this);
+				return true;
 			}
-		}
-		sizeCalendar = val.size();
+
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				Bundle args = new Bundle();
+				if (!TextUtils.isEmpty(query)) {
+					StringBuilder selection = new StringBuilder();
+					selection.append(TableTask.Column.TITLE + " LIKE " + "\"%" + query + "%\"");
+					selection.append(" OR ");
+					selection.append(TableTask.Column.NOTES + " LIKE " + "\"%" + query + "%\"");
+
+					args.putString(KEY_SELECTION, selection.toString());
+				}
+				activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, SearchFragment.this);
+				return true;
+			}
+		});
+
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// Start - Update alarm
+		TaskManager.getInstance(activity).startTaskAlarm(activity.getContentResolver(), System.currentTimeMillis());
+	}
+
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -107,7 +133,6 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 		mListView.setOnItemLongClickListener(this);
-		mGridView = (GridView) root.findViewById(R.id.grid_task);
 		return root;
 	}
 
@@ -130,13 +155,18 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	}
 
 	@Override
-	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-		return new CursorLoader(activity, TableTask.CONTENT_URI, null, mSelection, mArgs, mOrder);
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
+		String mSelection = null;
+		if (null != bundle) {
+			mSelection = bundle.getString(KEY_SELECTION);
+		}
+
+		return new CursorLoader(activity, TableTask.CONTENT_URI, null, mSelection, null, mOrder);
 	}
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		if (R.id.list_task == parent.getId() && null != mAdapter) {
+		if (null != mAdapter) {
 			final Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
 				@Override
@@ -165,13 +195,11 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (R.id.list_task == parent.getId() && null != mAdapter) {
+		if (null != mAdapter) {
 			Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			Intent i = new Intent(activity, AddTaskActivity.class);
 			i.putExtra(Constants.TASK, task);
 			activity.startActivity(i);
-		} else if (R.id.grid_task == parent.getId() && null != mCalendarAdapter) {
-			
 		}
 	}
 
@@ -185,51 +213,14 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_add: {
-			Intent intent = new Intent(activity, AddTaskActivity.class);
-			startActivity(intent);
+		case R.id.action_calendar: {
+			if(TaskHelper.getInstance().getCursorCount(activity.getContentResolver()) > 0){
+				Intent i = new Intent(activity, CalendarActivity.class);
+				startActivityForResult(i, 0);
+			}
 			break;
 		}
-		case R.id.action_sort: {
-			isDescending = !isDescending;
-			if (isDescending) {
-				mOrder = TableTask.Column.TIMESTAMP + DESC;
-				mAdapter.notifyDataSetChanged();
-				mListView.invalidate();
-
-			} else {
-				mOrder = TableTask.Column.TIMESTAMP + ASC;
-				mAdapter.notifyDataSetChanged();
-				mListView.invalidate();
-			}
-			activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
-
-			if (mGridView.getVisibility() == View.VISIBLE) {
-				if (null != mCalendarAdapter) {
-					List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-					mCalendarAdapter.resetData(val);
-				}
-			}
-
-			break;
-		}
-		case R.id.action_style:
-			if (mListView.getVisibility() == View.VISIBLE) {
-				if (null == mCalendarAdapter) {
-					List<Calendar> value = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-					mCalendarAdapter = new CalendarAdapter(value, activity);
-					mGridView.setAdapter(mCalendarAdapter);
-					mGridView.setOnItemClickListener(this);
-					sizeCalendar = value.size();
-				}
-				mListView.setVisibility(View.GONE);
-				mGridView.setVisibility(View.VISIBLE);
-			} else {
-				mListView.setVisibility(View.VISIBLE);
-				mGridView.setVisibility(View.GONE);
-			}
-
-			break;
+		
 		default:
 			break;
 		}
@@ -239,7 +230,22 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+
 		getLoaderManager().destroyLoader(CURSOR_LOADER_TASK);
 	}
 	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == Activity.RESULT_OK){
+			String day = data.getStringExtra(KEY_DAY);
+			long timestamp = DateUtil.timestampDay(day);
+			long oneDayAfter = timestamp + (24 * 60 * 60 * 1000); // one day
+			
+			Bundle args = new Bundle();
+			String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + timestamp + "\"" + " AND " + TableTask.Column.TIMESTAMP + " < " + "\"" + oneDayAfter + "\"";
+			args.putString(KEY_SELECTION, selection);
+			activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, SearchFragment.this);
+		}		
+	}
 }

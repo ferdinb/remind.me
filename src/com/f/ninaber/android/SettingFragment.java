@@ -16,6 +16,8 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActivity().getActionBar().setTitle(getActivity().getResources().getString(R.string.setting));
+		
 		addPreferencesFromResource(R.xml.preferences_setting);
 	}
 

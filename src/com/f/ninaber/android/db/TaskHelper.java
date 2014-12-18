@@ -9,9 +9,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.f.ninaber.android.Constants;
+import com.f.ninaber.android.model.Calendar;
 import com.f.ninaber.android.model.Task;
+import com.f.ninaber.android.util.DateUtil;
 
 public class TaskHelper {
 	private static Uri URI = TableTask.CONTENT_URI;
@@ -33,15 +36,14 @@ public class TaskHelper {
 		values.put(TableTask.Column.TYPE, task.getType());
 		values.put(TableTask.Column.REPEAT, task.getRepeat());
 		values.put(TableTask.Column.STATUS, task.getStatus());
-		values.put(TableTask.Column.PATH, task.getPath());		
+		values.put(TableTask.Column.PATH, task.getPath());
 
 		if (isExist(resolver, task.getTID())) {
 			return resolver.update(URI, values, TableTask.Column.TID + " = \"" + task.getTID() + "\"", null) > 0;
 		}
 		return resolver.insert(URI, values) != null;
 	}
-	
-	
+
 	public boolean insertStatus(ContentResolver resolver, String TID, int status) {
 		ContentValues values = new ContentValues();
 		values.put(TableTask.Column.STATUS, status);
@@ -51,8 +53,6 @@ public class TaskHelper {
 		}
 		return resolver.insert(URI, values) != null;
 	}
-	
-	
 
 	public boolean isExist(ContentResolver resolver, String tid) {
 		Task task = queryByTID(resolver, tid);
@@ -95,8 +95,17 @@ public class TaskHelper {
 		return resolver.delete(URI, null, null);
 	}
 
-	public Cursor getCursorData(ContentResolver resolver) {
-		Cursor cursor = resolver.query(URI, null, null, null, TableTask.Column.TIMESTAMP + " DESC");
+	public Cursor getCursorDataDesc(ContentResolver resolver, String selection) {
+		Cursor cursor = resolver.query(URI, null, selection, null, TableTask.Column.TIMESTAMP + " DESC");
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			return cursor;
+		}
+		return null;
+	}
+	
+	public Cursor getCursorDataAsc(ContentResolver resolver, String selection) {
+		Cursor cursor = resolver.query(URI, null, selection, null, TableTask.Column.TIMESTAMP + " ASC");
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			return cursor;
@@ -113,19 +122,20 @@ public class TaskHelper {
 		}
 		return task;
 	}
-	
-	
+
 	public Task getFirstTimestamp(ContentResolver resolver, long timestamp) {
 		Task task = null;
-		Cursor cursor = resolver.query(URI, null, TableTask.Column.TIMESTAMP + " > \"" + timestamp + "\"" + " AND " + TableTask.Column.STATUS + " = \"" + Constants.ON_GOING + "\"", null, TableTask.Column.TIMESTAMP + " ASC");
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.TIMESTAMP + " > \"" + timestamp + "\"" + " AND " + TableTask.Column.STATUS
+				+ " = \"" + Constants.ON_GOING + "\"", null, TableTask.Column.TIMESTAMP + " ASC");
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			task = cursorToTask(cursor);
 		}
 		return task;
 	}
+
 	public List<Task> queryAll(ContentResolver resolver) {
-		Cursor cursor = getCursorData(resolver);
+		Cursor cursor = getCursorDataDesc(resolver, null);
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			List<Task> tasks = new ArrayList<Task>();
@@ -143,6 +153,51 @@ public class TaskHelper {
 		return null;
 	}
 
+	private List<Calendar> getAvailableTimestamp(ContentResolver resolver, Cursor cursor) {
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			List<Calendar> timestamps = new ArrayList<Calendar>();
+			List<String> checks = new ArrayList<String>();
+			for (int i = 0; i < cursor.getCount(); i++) {
+				long timestamp = cursor.getLong(cursor.getColumnIndex(TableTask.Column.TIMESTAMP));
+				String day = DateUtil.dateTimestamp(timestamp);
+				String monthYear = day.substring(day.indexOf(" "), day.length());
+				if (!checks.contains(monthYear)) {
+					String d = day.substring(0, day.indexOf(","));
+					Calendar calendar = new Calendar();
+					calendar.setDay(d);
+					calendar.setDateMonthYear(monthYear);
+					calendar.setNumTask("1");
+					timestamps.add(calendar);
+					checks.add(monthYear);					
+				}else{
+					for(int x = 0; x < timestamps.size(); x ++){
+						Calendar cal = timestamps.get(x);
+						String comp = cal.getDateMonthYear();
+						if(comp.equalsIgnoreCase(monthYear)){
+							int numTask = Integer.valueOf(cal.getNumTask());
+							cal.setNumTask(String.valueOf(++numTask));
+							break;
+						}
+					}
+				}
+				cursor.moveToNext();
+			}
+			cursor.close();
+			return timestamps;
+		}
+
+		return null;
+	}
+
+	public List<Calendar> getAvailableTimestamp(ContentResolver resolver, boolean desc){
+		String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + System.currentTimeMillis() + "\"";
+		if(desc){
+			return getAvailableTimestamp(resolver, getCursorDataDesc(resolver, selection));
+		}
+		return getAvailableTimestamp(resolver, getCursorDataAsc(resolver, selection));
+	}
+	
 	public Task cursorToTask(Cursor cursor) {
 		Task task = new Task();
 		task.setTID(cursor.getString(cursor.getColumnIndex(TableTask.Column.TID)));

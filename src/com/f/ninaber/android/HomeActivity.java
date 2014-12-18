@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -19,6 +20,7 @@ import com.f.ninaber.android.adapter.LeftAdapter;
 import com.f.ninaber.android.model.LeftMenu;
 
 public class HomeActivity extends FragmentActivity {
+	private static final String TAG = HomeActivity.class.getSimpleName();
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBar actionBar;
@@ -29,7 +31,7 @@ public class HomeActivity extends FragmentActivity {
 	private static final int FRAGMENT_HISTORY = 3;
 	private static final int FRAGMENT_SETTING = 4;
 	private int currentFragment = FRAGMENT_HOME;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,16 +110,18 @@ public class HomeActivity extends FragmentActivity {
 	}
 
 	private void selectItem(int position) {
-		if(currentFragment != position){
+		if (currentFragment != position) {
 			Fragment fragment = null;
-			
+
 			switch (position) {
 			case FRAGMENT_SEARCH:
+				fragment = new SearchFragment();
 				break;
 			case FRAGMENT_FEEDBACK:
 				break;
 
 			case FRAGMENT_HISTORY:
+				fragment = new HistoryFragment();
 				break;
 			case FRAGMENT_SETTING:
 				fragment = new SettingFragment();
@@ -131,14 +135,14 @@ public class HomeActivity extends FragmentActivity {
 		}
 		closeDrawer(position);
 	}
-	
-	private void doReplaceFragment(Fragment fragment, int position){
+
+	private void doReplaceFragment(Fragment fragment, int position) {
 		getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
 	}
-	
-	private void closeDrawer(int position){
+
+	private void closeDrawer(int position) {
 		mDrawerList.setItemChecked(position, true);
-		mDrawerLayout.closeDrawer(mDrawerList);							
+		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
 }

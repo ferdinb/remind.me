@@ -28,8 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.f.ninaber.android.AddTaskActivity" 
-            android:theme="@style/CustomDialogTheme">
+        <activity
+            android:name="com.f.ninaber.android.AddTaskActivity"
+            android:theme="@style/CustomDialogTheme" >
+        </activity>
+        <activity
+            android:name="com.f.ninaber.android.CalendarActivity"
+            android:theme="@style/CustomDialogTheme" >
         </activity>
 
         <provider

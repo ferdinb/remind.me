@@ -6,6 +6,11 @@
         android:showAsAction="ifRoom"
         android:title="Sort"/>
     <item
+        android:id="@+id/action_style"
+        android:icon="@drawable/ic_action_view_grid"
+        android:showAsAction="ifRoom"
+        android:title="Style"/>
+    <item
         android:id="@+id/action_add"
         android:icon="@drawable/btn_add_reminder"
         android:showAsAction="ifRoom"

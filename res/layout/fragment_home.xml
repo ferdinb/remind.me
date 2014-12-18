@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    
-    <!--  
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +53,8 @@
                 android:duplicateParentState="true" />
         </LinearLayout>
     </RelativeLayout>
-	-->
+    -->
+
     <ListView
         android:id="@+id/list_task"
         android:layout_width="match_parent"
@@ -64,5 +64,15 @@
         android:divider="@null"
         android:dividerHeight="0dp" >
     </ListView>
+
+    <GridView
+        android:id="@+id/grid_task"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="@dimen/padding_size_10dp"
+        android:numColumns="auto_fit"
+        android:padding="@dimen/padding_size_10dp"
+        android:verticalSpacing="@dimen/padding_size_10dp" >
+    </GridView>
 
 </LinearLayout>

@@ -25,6 +25,17 @@ public class DateUtil {
 		}
 		return 0;
 	}
+	
+	public static long timestampDay(String day){		
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
+		try {
+			Date date = sdf.parse(day);
+			return date.getTime();
+		} catch (ParseException e) {
+			Log.e("f.ninaber", "Exception: " + DateUtil.class.getSimpleName() + " | " + e);
+		}
+		return 0;
+	}
 
 	public static String dateTimestamp(long timestamp){
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
