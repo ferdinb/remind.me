@@ -44,12 +44,10 @@ public class TaskAdapter extends CursorAdapter {
 			}else{
 				dayView.setVisibility(View.GONE);
 			}
-			
 		}else{
 			view.findViewById(R.id.adapter_date_group).setVisibility(View.GONE);
 		}
 				
-		
 		ArialText status = (ArialText)view.findViewById(R.id.adapter_task_status);
 		if(thisDate < System.currentTimeMillis()){
 			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_red);

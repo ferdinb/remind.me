@@ -1,8 +1,5 @@
 package com.f.ninaber.android;
 
-import com.f.ninaber.android.adapter.CalendarAdapter;
-import com.f.ninaber.android.db.TaskHelper;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +8,12 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+
+import com.f.ninaber.android.adapter.CalendarAdapter;
+import com.f.ninaber.android.db.TaskHelper;
+import com.f.ninaber.android.model.Calendar;
 
 public class CalendarActivity extends Activity implements OnItemClickListener {
 	private GridView mGridView;
@@ -43,7 +44,8 @@ public class CalendarActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent data = new Intent();
-		data.putExtra(SearchFragment.KEY_DAY, (String) mAdapter.getItem(position));
+		Calendar c = (Calendar) mAdapter.getItem(position);
+		data.putExtra(SearchFragment.KEY_DAY, c.getDay() + ", " + c.getDateMonthYear());
 		setResult(RESULT_OK, data);
 		this.finish();
 	}

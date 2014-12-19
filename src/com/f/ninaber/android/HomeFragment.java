@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -54,7 +53,9 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	private FragmentActivity activity;
 	private CalendarAdapter mCalendarAdapter;
 	private int sizeCalendar;
-
+	private MenuItem menuItem;
+	private boolean isGridView;
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -68,10 +69,22 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.add, menu);
+	public void onPrepareOptionsMenu(Menu menu) {
+		MenuItem item = menu.findItem(R.id.action_style);
+		if(isGridView){
+			item.setIcon(R.drawable.ic_action_view_list);
+		}else{
+			item.setIcon(R.drawable.ic_action_view_grid);
+		}		
+		super.onPrepareOptionsMenu(menu);
 	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.add, menu);
+		menuItem = menu.findItem(R.id.action_style);
+		super.onCreateOptionsMenu(menu, inflater);
+	}	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -87,16 +100,18 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 
 	@Override
 	public void onResume() {
-		super.onResume();
+		super.onResume();		
 		// Start - Update alarm
 		TaskManager.getInstance(activity).startTaskAlarm(activity.getContentResolver(), System.currentTimeMillis());
 		List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-		if (val.size() != sizeCalendar) {
+		
+		int count = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());				
+		if (sizeCalendar != count) {
 			if (null != mCalendarAdapter) {
 				mCalendarAdapter.resetData(val);
 			}
 		}
-		sizeCalendar = val.size();
+		sizeCalendar = count;
 	}
 
 	@Override
@@ -169,9 +184,14 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 			Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			Intent i = new Intent(activity, AddTaskActivity.class);
 			i.putExtra(Constants.TASK, task);
-			activity.startActivity(i);
+			startActivity(i);
 		} else if (R.id.grid_task == parent.getId() && null != mCalendarAdapter) {
+			Intent i = new Intent(activity, DetailGridActivity.class);
 			
+			String day = ((Calendar) mCalendarAdapter.getItem(position)).getDay();
+			String dateMonthYear = ((Calendar) mCalendarAdapter.getItem(position)).getDateMonthYear();
+			i.putExtra(SearchFragment.KEY_DAY, day + ", " + dateMonthYear);
+			startActivity(i);
 		}
 	}
 
@@ -220,16 +240,20 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 					mCalendarAdapter = new CalendarAdapter(value, activity);
 					mGridView.setAdapter(mCalendarAdapter);
 					mGridView.setOnItemClickListener(this);
-					sizeCalendar = value.size();
+					
+					sizeCalendar = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());
 				}
 				mListView.setVisibility(View.GONE);
 				mGridView.setVisibility(View.VISIBLE);
+				isGridView = true;
 			} else {
 				mListView.setVisibility(View.VISIBLE);
 				mGridView.setVisibility(View.GONE);
+				isGridView = false;
 			}
-
+			activity.invalidateOptionsMenu();
 			break;
+			
 		default:
 			break;
 		}

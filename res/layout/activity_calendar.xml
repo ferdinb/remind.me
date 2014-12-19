@@ -3,6 +3,9 @@
     android:id="@+id/calendar_gridview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:numColumns="auto_fit" >
+    android:layout_margin="@dimen/padding_size_10dp"
+    android:horizontalSpacing="@dimen/padding_size_10dp"
+    android:numColumns="auto_fit"
+    android:verticalSpacing="@dimen/padding_size_10dp" >
 
 </GridView>

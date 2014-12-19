@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_700"
+            android:background="@color/grey_900"
             android:padding="@dimen/padding_size_10dp" >
 
             <com.f.ninaber.android.widget.ArialText
