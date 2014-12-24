@@ -27,12 +27,13 @@ public class TaskHelper {
 		return mInstance;
 	}
 
-	private boolean insert(ContentResolver resolver, Task task) {
+	public boolean insert(ContentResolver resolver, Task task) {
 		ContentValues values = new ContentValues();
 		values.put(TableTask.Column.TID, task.getTID());
 		values.put(TableTask.Column.TITLE, task.getTitle());
 		values.put(TableTask.Column.NOTES, task.getNotes());
 		values.put(TableTask.Column.TIMESTAMP, task.getTimestamp());
+		values.put(TableTask.Column.SNOOZE, task.getTimestamp());
 		values.put(TableTask.Column.TYPE, task.getType());
 		values.put(TableTask.Column.REPEAT, task.getRepeat());
 		values.put(TableTask.Column.STATUS, task.getStatus());
@@ -133,6 +134,16 @@ public class TaskHelper {
 		}
 		return task;
 	}
+	
+	public Task getFirstSnooze(ContentResolver resolver, long timestamp) {
+		Task task = null;
+		Cursor cursor = resolver.query(URI, null, TableTask.Column.SNOOZE + " > \"" + timestamp + "\"", null, TableTask.Column.SNOOZE + " ASC");
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			task = cursorToTask(cursor);
+		}
+		return task;
+	}
 
 	public List<Task> queryAll(ContentResolver resolver) {
 		Cursor cursor = getCursorDataDesc(resolver, null);
@@ -204,7 +215,8 @@ public class TaskHelper {
 		task.setTitle(cursor.getString(cursor.getColumnIndex(TableTask.Column.TITLE)));
 		task.setNotes(cursor.getString(cursor.getColumnIndex(TableTask.Column.NOTES)));
 		task.setTimestamp(cursor.getLong(cursor.getColumnIndex(TableTask.Column.TIMESTAMP)));
-		task.setRepeat(cursor.getString(cursor.getColumnIndex(TableTask.Column.REPEAT)));
+		task.setSnooze(cursor.getLong(cursor.getColumnIndex(TableTask.Column.SNOOZE)));
+		task.setRepeat(cursor.getInt(cursor.getColumnIndex(TableTask.Column.REPEAT)));
 		task.setType(cursor.getString(cursor.getColumnIndex(TableTask.Column.TYPE)));
 		task.setStatus(cursor.getInt(cursor.getColumnIndex(TableTask.Column.STATUS)));
 		task.setPath(cursor.getString(cursor.getColumnIndex(TableTask.Column.PATH)));

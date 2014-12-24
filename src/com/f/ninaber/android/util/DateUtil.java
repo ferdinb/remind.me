@@ -121,7 +121,7 @@ public class DateUtil {
 		if (sMonth.length() < 2) {
 			builder.append("0" + month);
 		} else {
-			builder.append(day);
+			builder.append(month);
 		}
 
 		builder.append("/");

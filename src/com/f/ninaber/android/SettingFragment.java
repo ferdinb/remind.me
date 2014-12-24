@@ -12,7 +12,6 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
 	public static final int DELETE_MONTH = 2;
 	public static final int DELETE_YEAR = 3;
 	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

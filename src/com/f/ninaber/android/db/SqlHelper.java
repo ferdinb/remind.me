@@ -36,10 +36,11 @@ public class SqlHelper extends SQLiteOpenHelper {
 				+ TableTask.Column.TITLE + " TEXT NOT NULL, "
 				+ TableTask.Column.NOTES + " TEXT NULL, "
 				+ TableTask.Column.TIMESTAMP + " INT NOT NULL, "
+				+ TableTask.Column.SNOOZE + " INT NULL, "
 				+ TableTask.Column.TYPE + " TEXT NOT NULL, "
-				+ TableTask.Column.REPEAT + " TEXT NULL, "
+				+ TableTask.Column.REPEAT + " INT NULL, "
 				+ TableTask.Column.STATUS + " INT NULL, "
-				+ TableTask.Column.PATH + " TEXT NULL "
+				+ TableTask.Column.PATH + " TEXT NULL "				
 				+ " ); ");
 	}
 }

@@ -199,14 +199,16 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f080002;
         public static final int add_task=0x7f080012;
+        public static final int alarm=0x7f08002f;
         public static final int app_name=0x7f080000;
         public static final int calendar=0x7f08002b;
         public static final int cancel=0x7f080009;
         public static final int desc_home=0x7f080010;
         public static final int desc_menu=0x7f080011;
+        public static final int dismiss=0x7f08002d;
         public static final int expired=0x7f08000c;
         public static final int hello_world=0x7f080001;
-        public static final int history=0x7f080029;
+        public static final int history=0x7f080027;
         public static final int home=0x7f080028;
         public static final int menu_delete=0x7f08000e;
         public static final int menu_edit=0x7f08000f;
@@ -221,8 +223,8 @@ public final class R {
         public static final int repeat_month=0x7f080014;
         public static final int repeat_year=0x7f080015;
         public static final int save=0x7f080008;
-        public static final int search=0x7f080027;
-        public static final int setting=0x7f08002a;
+        public static final int search=0x7f08002a;
+        public static final int setting=0x7f080029;
         public static final int setting_notification_bar=0x7f080019;
         public static final int setting_notification_bar_desc=0x7f08001a;
         public static final int setting_notification_bar_key=0x7f080018;
@@ -240,6 +242,7 @@ public final class R {
         public static final int setting_style=0x7f080017;
         public static final int setting_vibrate=0x7f08001f;
         public static final int setting_vibrate_key=0x7f08001e;
+        public static final int snooze=0x7f08002e;
         public static final int title=0x7f080003;
         public static final int today=0x7f08000a;
     }

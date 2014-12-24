@@ -101,8 +101,6 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	@Override
 	public void onResume() {
 		super.onResume();		
-		// Start - Update alarm
-		TaskManager.getInstance(activity).startTaskAlarm(activity.getContentResolver(), System.currentTimeMillis());
 		List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
 		
 		int count = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());				
@@ -184,13 +182,13 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 			Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			Intent i = new Intent(activity, AddTaskActivity.class);
 			i.putExtra(Constants.TASK, task);
+			i.putExtra(Constants.VIEW, true);
 			startActivity(i);
 		} else if (R.id.grid_task == parent.getId() && null != mCalendarAdapter) {
 			Intent i = new Intent(activity, DetailGridActivity.class);
-			
 			String day = ((Calendar) mCalendarAdapter.getItem(position)).getDay();
 			String dateMonthYear = ((Calendar) mCalendarAdapter.getItem(position)).getDateMonthYear();
-			i.putExtra(SearchFragment.KEY_DAY, day + ", " + dateMonthYear);
+			i.putExtra(HistoryFragment.KEY_DAY, day + ", " + dateMonthYear);
 			startActivity(i);
 		}
 	}

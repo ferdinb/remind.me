@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -26,10 +26,10 @@ public class HomeActivity extends FragmentActivity {
 	private ActionBar actionBar;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private static final int FRAGMENT_HOME = 0;
-	private static final int FRAGMENT_SEARCH = 1;
+	private static final int FRAGMENT_HISTORY = 1;
 	private static final int FRAGMENT_FEEDBACK = 2;
-	private static final int FRAGMENT_HISTORY = 3;
-	private static final int FRAGMENT_SETTING = 4;
+	private static final int FRAGMENT_SETTING = 3;
+
 	private int currentFragment = FRAGMENT_HOME;
 
 	@Override
@@ -91,8 +91,7 @@ public class HomeActivity extends FragmentActivity {
 	private List<LeftMenu> setupLeftMenu() {
 		List<LeftMenu> list = new ArrayList<LeftMenu>();
 		String[] str = getResources().getStringArray(R.array.left_menu);
-		int[] ic = { R.drawable.ic_action_home, R.drawable.ic_action_search, R.drawable.ic_action_gmail, R.drawable.ic_action_clock,
-				R.drawable.ic_action_settings };
+		int[] ic = { R.drawable.ic_action_home, R.drawable.ic_action_clock, R.drawable.ic_action_gmail, R.drawable.ic_action_settings };
 		for (int i = 0; i < str.length; i++) {
 			LeftMenu menu = new LeftMenu();
 			menu.setTitle(str[i]);
@@ -112,17 +111,13 @@ public class HomeActivity extends FragmentActivity {
 	private void selectItem(int position) {
 		if (currentFragment != position) {
 			Fragment fragment = null;
-
 			switch (position) {
-			case FRAGMENT_SEARCH:
-				fragment = new SearchFragment();
-				break;
-			case FRAGMENT_FEEDBACK:
-				break;
-
 			case FRAGMENT_HISTORY:
 				fragment = new HistoryFragment();
 				break;
+			case FRAGMENT_FEEDBACK:
+				sendEmail();
+				return;
 			case FRAGMENT_SETTING:
 				fragment = new SettingFragment();
 				break;
@@ -145,4 +140,12 @@ public class HomeActivity extends FragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
+	private void sendEmail() {
+		Intent mEmail = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+		String to = Constants.EMAIL;
+		mEmail.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
+		mEmail.putExtra(Intent.EXTRA_SUBJECT, Constants.SUBJECT);
+		mEmail.setType("message/rfc822");
+		startActivity(Intent.createChooser(mEmail, "Choose an email client to send your feedback"));
+	}
 }

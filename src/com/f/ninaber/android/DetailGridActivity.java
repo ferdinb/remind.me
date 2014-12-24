@@ -47,7 +47,7 @@ public class DetailGridActivity extends Activity implements OnItemClickListener,
         int screenWidth = (int) (metrics.widthPixels * 0.90);
         getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT);
 
-		String day = getIntent().getStringExtra(SearchFragment.KEY_DAY);
+		String day = getIntent().getStringExtra(HistoryFragment.KEY_DAY);
 		if(TextUtils.isEmpty(day)){
 			this.finish();
 		}
@@ -74,6 +74,7 @@ public class DetailGridActivity extends Activity implements OnItemClickListener,
 			Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			Intent i = new Intent(DetailGridActivity.this, AddTaskActivity.class);
 			i.putExtra(Constants.TASK, task);
+			i.putExtra(Constants.VIEW, true);
 			startActivity(i);
 		}
 	}

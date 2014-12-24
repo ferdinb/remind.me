@@ -9,9 +9,18 @@ public class Task implements Serializable {
 	private String title;
 	private String notes;
 	private String type;
-	private String repeat;
+	private int repeat;
 	private int status;
 	private String path;
+	private long snooze;
+	
+	public long getSnooze() {
+		return snooze;
+	}
+
+	public void setSnooze(long snooze) {
+		this.snooze = snooze;
+	}
 
 	public String getPath() {
 		return path;
@@ -69,11 +78,11 @@ public class Task implements Serializable {
 		this.status = status;
 	}
 
-	public String getRepeat() {
+	public int getRepeat() {
 		return repeat;
 	}
 
-	public void setRepeat(String repeat) {
+	public void setRepeat(int repeat) {
 		this.repeat = repeat;
 	}
 

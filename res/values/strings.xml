@@ -20,9 +20,8 @@
 
     <string-array name="left_menu">
         <item>Home</item>
-        <item>Search</item>
-        <item>Feedback</item>
         <item>History</item>
+        <item>Feedback</item>
         <item>Settings</item>
     </string-array>
 
@@ -63,11 +62,14 @@
     <string name="setting_storage_desc">Delete History after %s </string>
     <string name="setting_storage_title">Delete History</string>
     <string name="setting_storage_never_delete">History will never be deleted</string>
-    <string name="search">Search</string>
-    <string name="home">Home</string>
     <string name="history">History</string>
+    <string name="home">Home</string>
     <string name="setting">Setting</string>
+    <string name="search">Search</string>
     <string name="calendar">Calendar</string>
     <string name="num_task">%s Task</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snooze">Snooze</string>
+    <string name="alarm">Alarm</string>
 
 </resources>

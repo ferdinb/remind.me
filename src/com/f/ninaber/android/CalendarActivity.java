@@ -45,7 +45,7 @@ public class CalendarActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent data = new Intent();
 		Calendar c = (Calendar) mAdapter.getItem(position);
-		data.putExtra(SearchFragment.KEY_DAY, c.getDay() + ", " + c.getDateMonthYear());
+		data.putExtra(HistoryFragment.KEY_DAY, c.getDay() + ", " + c.getDateMonthYear());
 		setResult(RESULT_OK, data);
 		this.finish();
 	}

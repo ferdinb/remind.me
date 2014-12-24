@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +13,12 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,25 +26,28 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.f.ninaber.android.adapter.TaskAdapter;
 import com.f.ninaber.android.db.TableTask;
 import com.f.ninaber.android.db.TaskHelper;
 import com.f.ninaber.android.model.Task;
+import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.TaskManager;
 
 public class HistoryFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener,
 		OnItemLongClickListener {
 	private static final String TAG = HistoryFragment.class.getSimpleName();
-	private static final int CURSOR_LOADER_TASK = 101;
+	private static final int CURSOR_LOADER_TASK = 102;
 	private ListView mListView;
 	private TaskAdapter mAdapter;
-	private String mSelection;
-	private String[] mArgs = { String.valueOf(System.currentTimeMillis()) };
 	private String mOrder;
 	private static final String ASC = " ASC";
 	private View root;
 	private FragmentActivity activity;
+	private static final String KEY_SELECTION = "selection";
+	public static final String KEY_DAY = "day";
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -55,12 +65,54 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setHasOptionsMenu(true);
-		activity.getActionBar().setTitle(activity.getResources().getString(R.string.history));
-
-		mSelection = TableTask.Column.TIMESTAMP + " < ?";
+		activity.getActionBar().setTitle(activity.getResources().getString(R.string.search));
+		
+		// mSelection = null;
 		mOrder = TableTask.Column.TIMESTAMP + ASC;
 		mAdapter = new TaskAdapter(activity, null, false);
 		activity.getLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.search, menu);
+
+		SearchManager manager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+		SearchView search = (SearchView) menu.findItem(R.id.action_search).getActionView();
+		search.setSearchableInfo(manager.getSearchableInfo(activity.getComponentName()));
+		search.setOnQueryTextListener(new OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextChange(String query) {
+				Bundle args = new Bundle();
+				if (!TextUtils.isEmpty(query)) {
+					StringBuilder selection = new StringBuilder();
+					selection.append(TableTask.Column.TITLE + " LIKE " + "\"%" + query + "%\"");
+					selection.append(" OR ");
+					selection.append(TableTask.Column.NOTES + " LIKE " + "\"%" + query + "%\"");
+
+					args.putString(KEY_SELECTION, selection.toString());
+				}
+				activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, HistoryFragment.this);
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				Bundle args = new Bundle();
+				if (!TextUtils.isEmpty(query)) {
+					StringBuilder selection = new StringBuilder();
+					selection.append(TableTask.Column.TITLE + " LIKE " + "\"%" + query + "%\"");
+					selection.append(" OR ");
+					selection.append(TableTask.Column.NOTES + " LIKE " + "\"%" + query + "%\"");
+
+					args.putString(KEY_SELECTION, selection.toString());
+				}
+				activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, HistoryFragment.this);
+				return true;
+			}
+		});
+
 	}
 
 	@Override
@@ -71,6 +123,8 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 		TaskManager.getInstance(activity).startTaskAlarm(activity.getContentResolver(), System.currentTimeMillis());
 	}
 
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -95,14 +149,19 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-		if(null != mAdapter){
-			mAdapter.swapCursor(null);			
+		if (null != mAdapter) {
+			mAdapter.swapCursor(null);
 		}
 	}
 
 	@Override
-	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-		return new CursorLoader(activity, TableTask.CONTENT_URI, null, mSelection, mArgs, mOrder);
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
+		String mSelection = null;
+		if (null != bundle) {
+			mSelection = bundle.getString(KEY_SELECTION);
+		}
+
+		return new CursorLoader(activity, TableTask.CONTENT_URI, null, mSelection, null, mOrder);
 	}
 
 	@Override
@@ -140,6 +199,7 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 			Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
 			Intent i = new Intent(activity, AddTaskActivity.class);
 			i.putExtra(Constants.TASK, task);
+			i.putExtra(Constants.VIEW, true);
 			activity.startActivity(i);
 		}
 	}
@@ -152,9 +212,41 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_calendar: {
+			if(TaskHelper.getInstance().getCursorCount(activity.getContentResolver()) > 0){
+				Intent i = new Intent(activity, CalendarActivity.class);
+				startActivityForResult(i, 0);
+			}
+			break;
+		}
+		
+		default:
+			break;
+		}
+		return true;
+	}
+
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
+
 		getLoaderManager().destroyLoader(CURSOR_LOADER_TASK);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == Activity.RESULT_OK){
+			String day = data.getStringExtra(KEY_DAY);
+			long timestamp = DateUtil.timestampDay(day);
+			long oneDayAfter = timestamp + (24 * 60 * 60 * 1000); // one day
+			
+			Bundle args = new Bundle();
+			String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + timestamp + "\"" + " AND " + TableTask.Column.TIMESTAMP + " < " + "\"" + oneDayAfter + "\"";
+			args.putString(KEY_SELECTION, selection);
+			activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, args, HistoryFragment.this);
+		}		
 	}
 }

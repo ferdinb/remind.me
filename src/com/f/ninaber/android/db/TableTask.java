@@ -13,6 +13,7 @@ public class TableTask {
 		public static final String NOTES = "notes";
 		public static final String TYPE = "type";
 		public static final String TIMESTAMP = "timestamp";
+		public static final String SNOOZE = "snooze";
 		public static final String REPEAT = "repeat";
 		public static final String STATUS = "status";
 		public static final String PATH = "path";
