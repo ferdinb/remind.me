@@ -65,7 +65,7 @@ public class HistoryFragment extends Fragment implements OnClickListener, Loader
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setHasOptionsMenu(true);
-		activity.getActionBar().setTitle(activity.getResources().getString(R.string.search));
+		activity.getActionBar().setTitle(activity.getResources().getString(R.string.history));
 		
 		// mSelection = null;
 		mOrder = TableTask.Column.TIMESTAMP + ASC;

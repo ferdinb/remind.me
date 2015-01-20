@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:allowBackup="true"
@@ -44,9 +44,17 @@
 
         <provider
             android:name="com.f.ninaber.android.db.DataProvider"
-            android:authorities="com.f.ninaber.android" />
+            android:authorities="com.f.ninaber.android" 
+            android:exported="false"/>
 
         <receiver android:name="com.f.ninaber.android.service.AlarmReceiver" />
+        <receiver
+            android:name="com.f.ninaber.android.service.BootReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

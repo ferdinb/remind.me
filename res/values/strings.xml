@@ -17,6 +17,8 @@
     <string name="ongoing">On Going</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_edit">Edit</string>
+    <string name="add_title">Please add title</string>
+    <string name="set_time">Please set time larger that present</string>
 
     <string-array name="left_menu">
         <item>Home</item>
@@ -27,30 +29,38 @@
 
     <string name="desc_home">Home</string>
     <string name="desc_menu">Menu</string>
-    <string name="add_task">Add Task</string>
+    <string name="add_task">Task</string>
     <string name="repeat_day">D</string>
+    <string name="repeat_week">W</string>
     <string name="repeat_month">M</string>
     <string name="repeat_year">Y</string>
     <string name="setting_notifications">Notifications</string>
     <string name="setting_style">Style</string>
     <string name="setting_notification_bar_key">notification_bar</string>
     <string name="setting_notification_bar">Show on Notification Bar</string>
-    <string name="setting_notification_bar_desc">Show task detail on the notification bar</string>
+    <string name="setting_notification_bar_desc">Show task on notification bar</string>
     <string name="setting_popup_key">popup</string>
-    <string name="setting_popup">Show Pop Up</string>
-    <string name="setting_popup_desc">Show task as pop up dialog</string>
+    <string name="setting_popup">Show Popup</string>
+    <string name="setting_popup_desc">Show task as Popup Dialog</string>
     <string name="setting_vibrate_key">vibrate</string>
-    <string name="setting_vibrate">Vibrate</string>
+    <string name="setting_vibrate">Enable vibrate</string>
+    <string name="setting_vibrate_summary">Vibrate device when an alarm sets off. It follows the device\'s sound setting</string>
     <string name="setting_sound_key">sound</string>
-    <string name="setting_sound">Sound</string>
+    <string name="setting_sound">Enable sound</string>
+    <string name="setting_sound_summary">Play sound when an alarm sets off. It follows the device\'s sound setting</string>
     <string name="setting_storage">Storage</string>
     <string name="setting_storage_key">storage_key</string>
+    <string name="setting_snooze_key">snooze_key</string>
+    <string name="setting_security">Security</string>
+    <string name="setting_password_key">password</string>
+    <string name="setting_password">Password</string>
+    <string name="setting_password_summary">All task will be secured using password</string>
 
     <string-array name="setting_storage_entries">
         <item>Never</item>
-        <item>one day</item>
-        <item>one month</item>
-        <item>one year</item>
+        <item>One Day</item>
+        <item>One Month</item>
+        <item>One Year</item>
     </string-array>
     <string-array name="setting_storage_values">
         <item>0</item>
@@ -58,9 +68,25 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="setting_snooze_entries">
+        <item>1 Minutes</item>
+        <item>5 Minutes</item>
+        <item>10 Minutes</item>
+        <item>20 Minutes</item>
+        <item>30 Minutes</item>
+    </string-array>
+    <string-array name="setting_snooze_values">
+        <item>60000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>120000</item>
+        <item>180000</item>
+    </string-array>
 
-    <string name="setting_storage_desc">Delete History after %s </string>
+    <string name="setting_snooze_desc">Snooze time for alarm is %s </string>
+    <string name="setting_storage_desc">Delete task on history after %s </string>
     <string name="setting_storage_title">Delete History</string>
+    <string name="setting_snooze_title">Snooze</string>
     <string name="setting_storage_never_delete">History will never be deleted</string>
     <string name="history">History</string>
     <string name="home">Home</string>
@@ -71,5 +97,6 @@
     <string name="dismiss">Dismiss</string>
     <string name="snooze">Snooze</string>
     <string name="alarm">Alarm</string>
-
+    <string name="empty_taks">Add task and start working</string>
+    
 </resources>

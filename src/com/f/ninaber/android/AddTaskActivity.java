@@ -11,15 +11,19 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -36,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.f.ninaber.android.db.TaskHelper;
 import com.f.ninaber.android.model.Task;
@@ -65,11 +70,9 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 	private Animation fadeIn;
 	private Animation fadeOut;
 	private LinearLayout repeatDay;
+	private LinearLayout repeatWeek;
 	private LinearLayout repeatMonth;
 	private LinearLayout repeatYear;
-	private final static int REPEAT_DAY = 0;
-	private final static int REPEAT_MONTH = 1;
-	private final static int REPEAT_YEAR = 2;
 	private Switch switchRepeat;
 	private Button leftButton;
 	private Button rightButton;
@@ -98,6 +101,9 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 
 		repeatDay = (LinearLayout) findViewById(R.id.action_bar_day);
 		repeatDay.setOnClickListener(this);
+		
+		repeatWeek = (LinearLayout) findViewById(R.id.action_bar_week);
+		repeatWeek.setOnClickListener(this);
 
 		repeatMonth = (LinearLayout) findViewById(R.id.action_bar_month);
 		repeatMonth.setOnClickListener(this);
@@ -130,7 +136,7 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		addAttachmentGroup = (LinearLayout) findViewById(R.id.add_task_attachments);
 		photoGroup = (RelativeLayout) findViewById(R.id.add_task_image_group);
 		photoAttachment = (ImageView) findViewById(R.id.add_task_image);
-		setRepeatTime(REPEAT_DAY);
+		setRepeatTime(Constants.REPEAT_DAY);
 
 		Task task = (Task) getIntent().getSerializableExtra(Constants.TASK);
 		if (task != null) {
@@ -138,16 +144,36 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		}
 
 		boolean isView = getIntent().getBooleanExtra(Constants.VIEW, false);
+		isAlarmTime = getIntent().getBooleanExtra(Constants.ALARM, false);
+		
 		if (isView) {
 			editTitle.setFocusable(false);
 			editNotes.setFocusable(false);
+			findViewById(R.id.add_task_date_group).setEnabled(false);
 			findViewById(R.id.add_task_date_group).setOnClickListener(null);
 			findViewById(R.id.add_task_time_group).setOnClickListener(null);
+			findViewById(R.id.add_task_time_group).setEnabled(false);
+			findViewById(R.id.activity_add_task_recorder).setEnabled(false);
+			findViewById(R.id.activity_add_task_photo).setEnabled(false);
+			findViewById(R.id.activity_add_task_gallery).setEnabled(false);
+			findViewById(R.id.activity_add_task_maps).setEnabled(false);
 			switchRepeat.setOnCheckedChangeListener(null);
 			switchRepeat.setFocusable(false);
+			switchRepeat.setEnabled(false);
+			switchRepeat.setClickable(false);
+			repeatDay.setEnabled(false);
+			repeatWeek.setEnabled(false);
+			repeatMonth.setEnabled(false);
+			repeatYear.setEnabled(false);
+			
+			if(!isAlarmTime){
+				setFinishOnTouchOutside(true);							
+				findViewById(R.id.activity_add_button_group).setVisibility(View.GONE);
+				findViewById(R.id.activity_view_dummy).setVisibility(View.VISIBLE);
+			}
 		}
 		
-		isAlarmTime = getIntent().getBooleanExtra(Constants.ALARM, false);
+
 		if(isAlarmTime){
 			title.setText(getResources().getString(R.string.alarm));
 			leftButton.setText(getResources().getString(R.string.dismiss));
@@ -179,7 +205,6 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		String path = task.getPath();
 		String type = task.getType();
 		int repeat = task.getRepeat();
-		Log.e("f.ninaber", "repeat : " + repeat);
 		if (repeat >= 0) {
 			switchRepeat.setChecked(true);
 			repeatLayout.setVisibility(View.VISIBLE);
@@ -207,7 +232,14 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 			long timestamp = DateUtil.timestampDay(day, time);
 			boolean isRepeat = switchRepeat.isChecked();
 
+			Log.e("f.ninaber", "Title : " + title + "|| Timestamp : " + timestamp);
+			
 			if (!TextUtils.isEmpty(title) && timestamp > 0) {
+				if(timestamp < System.currentTimeMillis() && DateUtil.getDate(System.currentTimeMillis()).contentEquals(DateUtil.getDate(timestamp))){
+					Toast.makeText(this, getResources().getString(R.string.set_time), Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
 				Task task = new Task();
 				if (!TextUtils.isEmpty(existTID)) {
 					task.setTID(existTID);
@@ -221,11 +253,13 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 
 				if (isRepeat) {
 					if (repeatDay.isSelected()) {
-						task.setRepeat(REPEAT_DAY);
-					} else if (repeatMonth.isSelected()) {
-						task.setRepeat(REPEAT_MONTH);
+						task.setRepeat(Constants.REPEAT_DAY);
+					}else if (repeatWeek.isSelected()) {
+						task.setRepeat(Constants.REPEAT_WEEK);
+					}else if (repeatMonth.isSelected()) {
+						task.setRepeat(Constants.REPEAT_MONTH);
 					} else {
-						task.setRepeat(REPEAT_YEAR);
+						task.setRepeat(Constants.REPEAT_YEAR);
 					}
 				} else {
 					task.setRepeat(-1);
@@ -239,16 +273,18 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 				}
 				
 				if(!isAlarmTime){
+					task.setSnooze(-1);
 					TaskHelper.getInstance().insertAsync(getContentResolver(), task);					
 				}else{
-					task.setSnooze(System.currentTimeMillis() + Constants.SNOOZE_DURATION);
-					
+					task.setSnooze(System.currentTimeMillis() + snoozeVal());					
 					Log.e("f.ninaber", "task.getTimestamp() : " + DateUtil.timeTimestamp(task.getTimestamp()));
 					Log.e("f.ninaber", "task.getSnooze() : " + DateUtil.timeTimestamp(task.getSnooze()));
 					TaskHelper.getInstance().insert(getContentResolver(), task);		
-					TaskManager.getInstance(this).startTaskAlarm(getContentResolver(), task.getTimestamp());
 				}
 				this.finish();
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
+				
 			}
 			break;
 
@@ -268,8 +304,8 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		}
 		case R.id.action_bar_left:
 		case R.id.activity_add_task_cancel:
-			if(isAlarmTime){
-				NotificationsUtil.getInstance(this).stopVibrate();
+			if(isAlarmTime && null != existTID){
+				TaskHelper.getInstance().setSnoozeToDefault(getContentResolver(), existTID);		
 			}
 			this.finish();
 			break;
@@ -301,13 +337,16 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		}
 
 		case R.id.action_bar_day:
-			setRepeatTime(REPEAT_DAY);
+			setRepeatTime(Constants.REPEAT_DAY);
+			break;
+		case R.id.action_bar_week:
+			setRepeatTime(Constants.REPEAT_WEEK);
 			break;
 		case R.id.action_bar_month:
-			setRepeatTime(REPEAT_MONTH);
+			setRepeatTime(Constants.REPEAT_MONTH);
 			break;
 		case R.id.action_bar_year:
-			setRepeatTime(REPEAT_YEAR);
+			setRepeatTime(Constants.REPEAT_YEAR);
 			break;
 
 		default:
@@ -437,16 +476,21 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 
 	private void setRepeatTime(int time) {
 		repeatDay.setSelected(false);
+		repeatWeek.setSelected(false);
 		repeatMonth.setSelected(false);
 		repeatYear.setSelected(false);
 
 		switch (time) {
-		case REPEAT_MONTH:
+		case Constants.REPEAT_YEAR:
+			repeatYear.setSelected(true);
+			break;
+		
+		case Constants.REPEAT_MONTH:
 			repeatMonth.setSelected(true);
 			break;
 
-		case REPEAT_YEAR:
-			repeatYear.setSelected(true);
+		case Constants.REPEAT_WEEK:
+			repeatWeek.setSelected(true);
 			break;
 
 		default:
@@ -455,4 +499,20 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		}
 
 	}
+	
+	private long snoozeVal(){		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String snoozeVal = prefs.getString(getResources().getString(R.string.setting_snooze_key), "300000");
+		return Long.valueOf(snoozeVal);
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if(isAlarmTime){
+			NotificationsUtil.getInstance(this).stopVibrate();
+			NotificationsUtil.getInstance(this).stopRingtone();
+		}
+		return super.onTouchEvent(event);
+	}
+
 }

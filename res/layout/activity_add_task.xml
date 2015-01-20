@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_300"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -18,31 +19,26 @@
             android:layout_alignParentStart="true"
             android:background="@drawable/state_bg_square_grey400_yellow900"
             android:clickable="true"
-            android:minHeight="@dimen/action_bar_size" >
+            android:minHeight="@dimen/action_bar_size"
+            android:orientation="horizontal" >
 
             <ImageView
                 android:id="@+id/action_bar_img_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/padding_size_5dp"
-                android:layout_marginLeft="@dimen/padding_size_5dp"
-                android:layout_marginRight="@dimen/padding_size_5dp"
-                android:layout_marginStart="@dimen/padding_size_5dp"
                 android:background="@drawable/ic_action_previous_item" />
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/action_bar_tittle"
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/action_bar_left"
-            android:layout_toRightOf="@id/action_bar_left"
-            android:paddingLeft="@dimen/padding_size_3dp"
-            android:paddingRight="@dimen/padding_size_3dp"
-            android:text="@string/add_task" />
+            <TextView
+                android:id="@+id/action_bar_tittle"
+                style="@style/FontBlackLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/padding_size_3dp"
+                android:gravity="center_vertical"
+                android:text="@string/add_task" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/action_bar_right"
@@ -70,6 +66,27 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/repeat_day"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_bar_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/state_bg_square_grey400_yellow900"
+                android:clickable="true"
+                android:minHeight="@dimen/action_bar_size"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_size_15dp"
+                android:paddingRight="@dimen/padding_size_15dp" >
+
+                <TextView
+                    style="@style/FontBlackHuge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/repeat_week"
                     android:textStyle="bold"
                     android:typeface="serif" />
             </LinearLayout>
@@ -125,7 +142,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_200"
+            android:background="@color/grey_300"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -195,7 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/add_task_repeat_btn"
-                    android:background="@drawable/state_bg_square_grey200_grey400"
+                    android:background="@drawable/state_bg_square_grey300_grey400"
                     android:clickable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -351,7 +368,15 @@
                 android:layout_height="1dp"
                 android:background="@color/grey_700" />
 
+            <View
+                android:id="@+id/activity_view_dummy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_size_25dp"
+                android:background="@color/grey_300"
+                android:visibility="gone" />
+
             <LinearLayout
+                android:id="@+id/activity_add_button_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

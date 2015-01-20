@@ -52,9 +52,9 @@
                 android:background="@drawable/btn_add_sort"
                 android:duplicateParentState="true" />
         </LinearLayout>
-    </RelativeLayout>
+    </RelativeLayout>
     -->
-
+    
     <ListView
         android:id="@+id/list_task"
         android:layout_width="match_parent"
@@ -69,6 +69,9 @@
         android:id="@+id/grid_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey_300"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
         android:horizontalSpacing="@dimen/padding_size_10dp"
         android:numColumns="auto_fit"
         android:padding="@dimen/padding_size_10dp"

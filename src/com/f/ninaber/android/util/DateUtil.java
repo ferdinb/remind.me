@@ -9,13 +9,13 @@ import java.util.Locale;
 import android.util.Log;
 
 public class DateUtil {
-	
-	public static long timestampDay(String day, String time){
+
+	public static long timestampDay(String day, String time) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(day);
 		builder.append("/");
 		builder.append(time);
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy/HH:mm", Locale.getDefault());
 		try {
 			Date date = sdf.parse(builder.toString());
@@ -25,8 +25,8 @@ public class DateUtil {
 		}
 		return 0;
 	}
-	
-	public static long timestampDay(String day){		
+
+	public static long timestampDay(String day) {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
 		try {
 			Date date = sdf.parse(day);
@@ -37,18 +37,18 @@ public class DateUtil {
 		return 0;
 	}
 
-	public static String dateTimestamp(long timestamp){
+	public static String dateTimestamp(long timestamp) {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
 		Date date = new Date(timestamp);
 		return sdf.format(date);
 	}
-	
-	public static String timeTimestamp(long timestamp){
+
+	public static String timeTimestamp(long timestamp) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
 		Date time = new Date(timestamp);
 		return sdf.format(time);
 	}
-	
+
 	public static String calendarDay() {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
 		Calendar calendar = Calendar.getInstance();
@@ -157,20 +157,69 @@ public class DateUtil {
 		}
 		return builder.toString();
 	}
-	
-	public static String getDate(long timestamp){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yyyy", Locale.getDefault()); 
+
+	public static String getDate(long timestamp) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yyyy", Locale.getDefault());
 		return sdf.format(timestamp);
 	}
-	
-	public static long getBeginningOfday(){
+
+	public static long getBeginningOfday() {
 		Calendar calendar = Calendar.getInstance(Locale.getDefault());
 		Date date = new Date(System.currentTimeMillis());
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);		
+		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar.getTimeInMillis();
+	}
+
+	public static long getWeekAhead(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.WEEK_OF_MONTH, 1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getMonthAhead(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.MONTH, 1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getYearAhead(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.YEAR, 1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getDayAhead(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.DAY_OF_WEEK, 1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getDayBefore(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.DAY_OF_WEEK, -1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getMonthBefore(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.MONTH, -1);
+		return cal.getTimeInMillis();
+	}
+
+	public static long getWeekBefore(long timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+		cal.add(Calendar.WEEK_OF_YEAR, -1);
+		return cal.getTimeInMillis();
 	}
 }

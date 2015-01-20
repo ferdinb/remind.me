@@ -15,5 +15,10 @@ public interface Constants {
 	
 	public static final String VIEW = "view_task";
 	public static final String ALARM = "alarm";
-	public static final int SNOOZE_DURATION = 300000;
+	public static int SNOOZE_DURATION = -1;
+	
+	public final static int REPEAT_DAY = 0;
+	public final static int REPEAT_WEEK = 1;
+	public final static int REPEAT_MONTH = 2;
+	public final static int REPEAT_YEAR = 3;
 }

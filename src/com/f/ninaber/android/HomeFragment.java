@@ -32,7 +32,7 @@ import com.f.ninaber.android.db.TableTask;
 import com.f.ninaber.android.db.TaskHelper;
 import com.f.ninaber.android.model.Calendar;
 import com.f.ninaber.android.model.Task;
-import com.f.ninaber.android.util.TaskManager;
+import com.f.ninaber.android.util.DateUtil;
 
 public class HomeFragment extends Fragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener,
 		OnItemLongClickListener {
@@ -42,9 +42,8 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	private GridView mGridView;
 	private TaskAdapter mAdapter;
 	private String mSelection;
-	// private String[] mArgs = { String.valueOf(DateUtil.getBeginningOfday())
-	// };
-	private String[] mArgs = { String.valueOf(System.currentTimeMillis()) };
+	private String[] mArgs = { String.valueOf(DateUtil.getBeginningOfday())};
+//	private String[] mArgs = { String.valueOf(System.currentTimeMillis()) };
 	private String mOrder;
 	private static final String ASC = " ASC";
 	private static final String DESC = " DESC";

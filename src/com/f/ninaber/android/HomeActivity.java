@@ -6,8 +6,10 @@ import java.util.List;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 
 import com.f.ninaber.android.adapter.LeftAdapter;
 import com.f.ninaber.android.model.LeftMenu;
+import com.f.ninaber.android.util.TaskManager;
 
 public class HomeActivity extends FragmentActivity {
 	private static final String TAG = HomeActivity.class.getSimpleName();
@@ -57,6 +60,8 @@ public class HomeActivity extends FragmentActivity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+		TaskManager.getInstance(this).validityTask();
 	}
 
 	@Override
@@ -148,4 +153,6 @@ public class HomeActivity extends FragmentActivity {
 		mEmail.setType("message/rfc822");
 		startActivity(Intent.createChooser(mEmail, "Choose an email client to send your feedback"));
 	}
+	
+	
 }
