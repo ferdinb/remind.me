@@ -30,10 +30,10 @@
     <string name="desc_home">Home</string>
     <string name="desc_menu">Menu</string>
     <string name="add_task">Task</string>
-    <string name="repeat_day">D</string>
-    <string name="repeat_week">W</string>
-    <string name="repeat_month">M</string>
-    <string name="repeat_year">Y</string>
+    <string name="repeat_day">Day</string>
+    <string name="repeat_week">Week</string>
+    <string name="repeat_month">Month</string>
+    <string name="repeat_year">Year</string>
     <string name="setting_notifications">Notifications</string>
     <string name="setting_style">Style</string>
     <string name="setting_notification_bar_key">notification_bar</string>
@@ -98,5 +98,6 @@
     <string name="snooze">Snooze</string>
     <string name="alarm">Alarm</string>
     <string name="empty_taks">Add task and start working</string>
-    
+    <string name="text_empty_view">Set a Reminder for the time of the appointment and you won\'t miss a thing !</string>
+
 </resources>

@@ -38,8 +38,9 @@ public class HomeActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setupActionBar();
 		setContentView(R.layout.activity_home);
+		setupActionBar();
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();

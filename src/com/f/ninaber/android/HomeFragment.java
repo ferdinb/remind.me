@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	private FragmentActivity activity;
 	private CalendarAdapter mCalendarAdapter;
 	private int sizeCalendar;
-	private MenuItem menuItem;
+
 	private boolean isGridView;
 	
 	@Override
@@ -80,8 +81,7 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.add, menu);
-		menuItem = menu.findItem(R.id.action_style);
+		inflater.inflate(R.menu.home_menu, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}	
 
@@ -100,8 +100,7 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 	@Override
 	public void onResume() {
 		super.onResume();		
-		List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-		
+		List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);		
 		int count = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());				
 		if (sizeCalendar != count) {
 			if (null != mCalendarAdapter) {
@@ -109,6 +108,7 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 			}
 		}
 		sizeCalendar = count;
+
 	}
 
 	@Override
@@ -120,6 +120,9 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 		mListView.setOnItemClickListener(this);
 		mListView.setOnItemLongClickListener(this);
 		mGridView = (GridView) root.findViewById(R.id.grid_task);
+		
+		mListView.setEmptyView(root.findViewById(R.id.empty_view));
+		mGridView.setEmptyView(root.findViewById(R.id.empty_view));
 		return root;
 	}
 

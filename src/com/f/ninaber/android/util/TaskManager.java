@@ -109,13 +109,13 @@ public class TaskManager {
 		long timestamp = System.currentTimeMillis();
 		switch (Integer.valueOf(deleteVal)) {
 		case DAY:
-			DateUtil.getDayBefore(timestamp);
+			timestamp = DateUtil.getDayBefore(timestamp);
 			break;
 		case WEEK:
-			DateUtil.getWeekBefore(timestamp);
+			timestamp = DateUtil.getWeekBefore(timestamp);
 			break;
 		case MONTH:
-			DateUtil.getMonthBefore(timestamp);
+			timestamp = DateUtil.getMonthBefore(timestamp);
 			break;
 		default:
 			return;

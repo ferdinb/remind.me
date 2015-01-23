@@ -1,68 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/adapter_task_master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/state_bg_grey_700_lv"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/adapter_date_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:background="@color/grey_900"
+        android:padding="@dimen/padding_size_10dp" >
 
-        <RelativeLayout
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/adapter_task_day"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <com.f.ninaber.android.widget.ArialText
+            android:id="@+id/adapter_task_date"
+            style="@style/FontWhiteNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_900"
-            android:padding="@dimen/padding_size_10dp" >
+            android:gravity="right"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-            <com.f.ninaber.android.widget.ArialText
-                android:id="@+id/adapter_task_day"
-                style="@style/FontWhiteNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:visibility="gone" />
-
-            <com.f.ninaber.android.widget.ArialText
-                android:id="@+id/adapter_task_date"
-                style="@style/FontWhiteNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/adapter_task_status_group"
+    <com.f.ninaber.android.widget.ArialText
+        android:id="@+id/adapter_task_status"
+        style="@style/FontBlackTiny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginLeft="@dimen/padding_size_10dp"
         android:layout_marginRight="@dimen/padding_size_10dp"
         android:layout_marginTop="@dimen/padding_size_10dp"
+        android:drawableLeft="@drawable/circle_red"
+        android:drawablePadding="@dimen/padding_size_5dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <View
-            android:id="@+id/adapter_task_circle"
-            android:layout_width="@dimen/circle_status_size"
-            android:layout_height="@dimen/circle_status_size"
-            android:layout_marginLeft="@dimen/padding_size_5dp"
-            android:layout_marginRight="@dimen/padding_size_5dp" />
-
-        <com.f.ninaber.android.widget.ArialText
-            android:id="@+id/adapter_task_status"
-            style="@style/FontBlackTiny"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"

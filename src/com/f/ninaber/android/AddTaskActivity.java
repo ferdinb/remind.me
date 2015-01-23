@@ -2,7 +2,11 @@ package com.f.ninaber.android;
 
 import java.io.File;
 
-import android.app.Activity;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.KeyguardManager;
@@ -12,23 +16,27 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -48,10 +56,12 @@ import com.f.ninaber.android.model.Type;
 import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.ImageUtil;
 import com.f.ninaber.android.util.NotificationsUtil;
+import com.f.ninaber.android.util.RoundedTransform;
 import com.f.ninaber.android.util.TaskManager;
 import com.f.ninaber.android.widget.ArialText;
+import com.squareup.picasso.Picasso;
 
-public class AddTaskActivity extends Activity implements OnClickListener, OnCheckedChangeListener {
+public class AddTaskActivity extends FragmentActivity implements OnClickListener, OnCheckedChangeListener {
 	private static final String TAG = AddTaskActivity.class.getSimpleName();
 	private String mDate;
 	private String mTime;
@@ -62,53 +72,63 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 	private static final int GALLERY = 0;
 	private static final int CAMERA = 1;
 	private LinearLayout addAttachmentGroup;
-	private RelativeLayout photoGroup;
+	private LinearLayout photoGroup;
 	private ImageView photoAttachment;
 	private Uri cameraUri;
 	private String existTID;
 	private LinearLayout repeatLayout;
 	private Animation fadeIn;
 	private Animation fadeOut;
-	private LinearLayout repeatDay;
-	private LinearLayout repeatWeek;
-	private LinearLayout repeatMonth;
-	private LinearLayout repeatYear;
+	private View repeatDay;
+	private View repeatWeek;
+	private View repeatMonth;
+	private View repeatYear;
 	private Switch switchRepeat;
 	private Button leftButton;
 	private Button rightButton;
 	private boolean isAlarmTime;
 	private TextView title;
 	private KeyguardLock keyguardLock;
+	private Animator mCurrentAnimator;
+	private int mShortAnimationDuration;
+	private boolean isView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFinishOnTouchOutside(false);
-
 		setContentView(R.layout.activity_add_task);
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		int screenWidth = (int) (metrics.widthPixels * 0.90);
-		getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT);
+		// DisplayMetrics metrics = getResources().getDisplayMetrics();
+		// int screenWidth = (int) (metrics.widthPixels * 0.90);
+		// getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT);
 
-		repeatLayout = (LinearLayout) this.findViewById(R.id.action_bar_right);
-		title = (TextView) this.findViewById(R.id.action_bar_tittle);
-		
+		ActionBar actionBar = getActionBar();
+		if (null != actionBar) {
+			actionBar.setTitle(getResources().getString(R.string.add_task));
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setHomeButtonEnabled(true);
+		}
+
+		mShortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
+
+		repeatLayout = (LinearLayout) this.findViewById(R.id.repeat_group);
+		// title = (TextView) this.findViewById(R.id.action_bar_title);
+		// title.setOnClickListener(this);
+
 		mDate = DateUtil.calendarDay();
 		mTime = DateUtil.calendarTime();
-
 		findViewById(R.id.add_task_date_group).setOnClickListener(this);
-		findViewById(R.id.add_task_time_group).setOnClickListener(this);
 
-		repeatDay = (LinearLayout) findViewById(R.id.action_bar_day);
+		repeatDay = (View) findViewById(R.id.action_bar_day);
 		repeatDay.setOnClickListener(this);
-		
-		repeatWeek = (LinearLayout) findViewById(R.id.action_bar_week);
+
+		repeatWeek = (View) findViewById(R.id.action_bar_week);
 		repeatWeek.setOnClickListener(this);
 
-		repeatMonth = (LinearLayout) findViewById(R.id.action_bar_month);
+		repeatMonth = (View) findViewById(R.id.action_bar_month);
 		repeatMonth.setOnClickListener(this);
 
-		repeatYear = (LinearLayout) findViewById(R.id.action_bar_year);
+		repeatYear = (View) findViewById(R.id.action_bar_year);
 		repeatYear.setOnClickListener(this);
 		switchRepeat = ((Switch) findViewById(R.id.add_task_repeat_btn));
 		switchRepeat.setOnCheckedChangeListener(this);
@@ -116,26 +136,27 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		dateView = (ArialText) findViewById(R.id.add_task_date);
 		dateView.setText(mDate);
 		timeView = (ArialText) findViewById(R.id.add_task_time);
+		timeView.setOnClickListener(this);
 		timeView.setText(mTime);
 
 		editTitle = (EditText) findViewById(R.id.add_task_title);
 		editNotes = (EditText) findViewById(R.id.add_task_notes);
 
-		findViewById(R.id.action_bar_left).setOnClickListener(this);
-		findViewById(R.id.action_bar_right).setOnClickListener(this);
+		// findViewById(R.id.action_bar_right).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_recorder).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_photo).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_gallery).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_maps).setOnClickListener(this);
 		findViewById(R.id.add_task_image_remove).setOnClickListener(this);
-		leftButton = (Button) findViewById(R.id.activity_add_task_cancel);
-		leftButton.setOnClickListener(this);
-		rightButton = (Button) findViewById(R.id.activity_add_task_save);
-		rightButton.setOnClickListener(this);
+		// leftButton = (Button) findViewById(R.id.activity_add_task_cancel);
+		// leftButton.setOnClickListener(this);
+		// rightButton = (Button) findViewById(R.id.activity_add_task_save);
+		// rightButton.setOnClickListener(this);
 
 		addAttachmentGroup = (LinearLayout) findViewById(R.id.add_task_attachments);
-		photoGroup = (RelativeLayout) findViewById(R.id.add_task_image_group);
+		photoGroup = (LinearLayout) findViewById(R.id.add_task_image_group);
 		photoAttachment = (ImageView) findViewById(R.id.add_task_image);
+		photoAttachment.setOnClickListener(this);
 		setRepeatTime(Constants.REPEAT_DAY);
 
 		Task task = (Task) getIntent().getSerializableExtra(Constants.TASK);
@@ -143,16 +164,14 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 			setDataToView(task);
 		}
 
-		boolean isView = getIntent().getBooleanExtra(Constants.VIEW, false);
+		isView = getIntent().getBooleanExtra(Constants.VIEW, false);
 		isAlarmTime = getIntent().getBooleanExtra(Constants.ALARM, false);
-		
+
 		if (isView) {
 			editTitle.setFocusable(false);
 			editNotes.setFocusable(false);
 			findViewById(R.id.add_task_date_group).setEnabled(false);
 			findViewById(R.id.add_task_date_group).setOnClickListener(null);
-			findViewById(R.id.add_task_time_group).setOnClickListener(null);
-			findViewById(R.id.add_task_time_group).setEnabled(false);
 			findViewById(R.id.activity_add_task_recorder).setEnabled(false);
 			findViewById(R.id.activity_add_task_photo).setEnabled(false);
 			findViewById(R.id.activity_add_task_gallery).setEnabled(false);
@@ -165,16 +184,16 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 			repeatWeek.setEnabled(false);
 			repeatMonth.setEnabled(false);
 			repeatYear.setEnabled(false);
-			
-			if(!isAlarmTime){
-				setFinishOnTouchOutside(true);							
-				findViewById(R.id.activity_add_button_group).setVisibility(View.GONE);
-				findViewById(R.id.activity_view_dummy).setVisibility(View.VISIBLE);
-			}
-		}
-		
+			timeView.setSelected(false);
+			timeView.setOnClickListener(null);
 
-		if(isAlarmTime){
+			// if (!isAlarmTime) {
+			// setFinishOnTouchOutside(true);
+			// findViewById(R.id.activity_add_button_group).setVisibility(View.GONE);
+			// }
+		}
+
+		if (isAlarmTime) {
 			title.setText(getResources().getString(R.string.alarm));
 			leftButton.setText(getResources().getString(R.string.dismiss));
 			rightButton.setText(getResources().getString(R.string.snooze));
@@ -189,6 +208,27 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 		keyguardLock = keyguardManager.newKeyguardLock(TAG);
 		keyguardLock.disableKeyguard();
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if(isView){
+			menu.findItem(R.id.action_edit).setVisible(true);
+			menu.findItem(R.id.action_save).setVisible(false);
+		}else{
+			menu.findItem(R.id.action_edit).setVisible(false);
+			menu.findItem(R.id.action_save).setVisible(true);
+		}
+		return super.onPrepareOptionsMenu(menu);
+		
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.add_task_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -224,69 +264,6 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.activity_add_task_save:
-			String title = editTitle.getText().toString();
-			String notes = editNotes.getText().toString();
-			String day = dateView.getText().toString();
-			String time = timeView.getText().toString();
-			long timestamp = DateUtil.timestampDay(day, time);
-			boolean isRepeat = switchRepeat.isChecked();
-
-			Log.e("f.ninaber", "Title : " + title + "|| Timestamp : " + timestamp);
-			
-			if (!TextUtils.isEmpty(title) && timestamp > 0) {
-				if(timestamp < System.currentTimeMillis() && DateUtil.getDate(System.currentTimeMillis()).contentEquals(DateUtil.getDate(timestamp))){
-					Toast.makeText(this, getResources().getString(R.string.set_time), Toast.LENGTH_SHORT).show();
-					return;
-				}
-				
-				Task task = new Task();
-				if (!TextUtils.isEmpty(existTID)) {
-					task.setTID(existTID);
-				} else {
-					task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
-				}
-				task.setTitle(title);
-				task.setNotes(notes);
-				task.setTimestamp(timestamp);
-				task.setStatus(Constants.ON_GOING);
-
-				if (isRepeat) {
-					if (repeatDay.isSelected()) {
-						task.setRepeat(Constants.REPEAT_DAY);
-					}else if (repeatWeek.isSelected()) {
-						task.setRepeat(Constants.REPEAT_WEEK);
-					}else if (repeatMonth.isSelected()) {
-						task.setRepeat(Constants.REPEAT_MONTH);
-					} else {
-						task.setRepeat(Constants.REPEAT_YEAR);
-					}
-				} else {
-					task.setRepeat(-1);
-				}
-
-				if (null != cameraUri) {
-					task.setPath(cameraUri.toString());
-					task.setType(Type.PHOTO.toString());
-				} else {
-					task.setType(Type.TEXT.toString());
-				}
-				
-				if(!isAlarmTime){
-					task.setSnooze(-1);
-					TaskHelper.getInstance().insertAsync(getContentResolver(), task);					
-				}else{
-					task.setSnooze(System.currentTimeMillis() + snoozeVal());					
-					Log.e("f.ninaber", "task.getTimestamp() : " + DateUtil.timeTimestamp(task.getTimestamp()));
-					Log.e("f.ninaber", "task.getSnooze() : " + DateUtil.timeTimestamp(task.getSnooze()));
-					TaskHelper.getInstance().insert(getContentResolver(), task);		
-				}
-				this.finish();
-			} else {
-				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
-				
-			}
-			break;
 
 		case R.id.add_task_date_group: {
 			int[] val = DateUtil.dayParseDate(mDate);
@@ -296,25 +273,16 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 			datePicker.show();
 			break;
 		}
-		case R.id.add_task_time_group: {
+		case R.id.add_task_time: {
 			String[] val = DateUtil.timeParseHour(mTime);
 			TimePickerDialog timePicker = new TimePickerDialog(this, timeListener, Integer.valueOf(val[0]), Integer.valueOf(val[1]), true);
 			timePicker.show();
 			break;
 		}
-		case R.id.action_bar_left:
-		case R.id.activity_add_task_cancel:
-			if(isAlarmTime && null != existTID){
-				TaskHelper.getInstance().setSnoozeToDefault(getContentResolver(), existTID);		
-			}
-			this.finish();
-			break;
-
 		case R.id.activity_add_task_photo: {
 			takePhoto(CAMERA);
 			break;
 		}
-		
 
 		case R.id.activity_add_task_gallery: {
 			takePhoto(GALLERY);
@@ -348,7 +316,13 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		case R.id.action_bar_year:
 			setRepeatTime(Constants.REPEAT_YEAR);
 			break;
+		case R.id.add_task_image:
+			zoomImageFromThumb(photoAttachment, cameraUri);
 
+			// findViewById(R.id.add_task_container).setVisibility(View.GONE);
+			// ((ImageView)findViewById(R.id.expanded_image)).setImageURI(cameraUri);
+			// ((ImageView)findViewById(R.id.expanded_image)).setVisibility(View.VISIBLE);;
+			break;
 		default:
 			break;
 		}
@@ -427,10 +401,21 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 			}
 
 			protected void onPostExecute(Uri result) {
-				cameraUri = result;
-				photoGroup.setVisibility(View.VISIBLE);
-				addAttachmentGroup.setVisibility(View.GONE);
-				photoAttachment.setImageURI(result);
+				if (null != result) {
+					cameraUri = result;
+					photoGroup.setVisibility(View.VISIBLE);
+					addAttachmentGroup.setVisibility(View.GONE);
+					// photoAttachment.setImageURI(result);
+
+					int sizePhoto = (int) getResources().getDimension(R.dimen.attachment_photo_size);
+					int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
+					Picasso.with(AddTaskActivity.this).load(result).skipMemoryCache().resize(sizePhoto, sizePhoto).centerCrop().transform(new RoundedTransform(corner, (int) getResources().getDimension(R.dimen.padding_size_3dp)))
+							.into(photoAttachment);
+				} else {
+					cameraUri = null;
+					Toast.makeText(AddTaskActivity.this, "Something wrong with image", Toast.LENGTH_SHORT).show();
+				}
+
 			};
 		}.execute(uri);
 	}
@@ -438,12 +423,12 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(isAlarmTime){
+		if (isAlarmTime) {
 			NotificationsUtil.getInstance(this).stopVibrate();
-			NotificationsUtil.getInstance(this).stopRingtone();			
+			NotificationsUtil.getInstance(this).stopRingtone();
 			keyguardLock.reenableKeyguard();
 		}
-		
+
 		// Start - Update alarm
 		TaskManager.getInstance(this).startTaskAlarm(this.getContentResolver(), System.currentTimeMillis());
 		cameraUri = null;
@@ -484,7 +469,7 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		case Constants.REPEAT_YEAR:
 			repeatYear.setSelected(true);
 			break;
-		
+
 		case Constants.REPEAT_MONTH:
 			repeatMonth.setSelected(true);
 			break;
@@ -499,20 +484,225 @@ public class AddTaskActivity extends Activity implements OnClickListener, OnChec
 		}
 
 	}
-	
-	private long snoozeVal(){		
+
+	private long snoozeVal() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String snoozeVal = prefs.getString(getResources().getString(R.string.setting_snooze_key), "300000");
 		return Long.valueOf(snoozeVal);
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if(isAlarmTime){
+		if (isAlarmTime) {
 			NotificationsUtil.getInstance(this).stopVibrate();
 			NotificationsUtil.getInstance(this).stopRingtone();
 		}
 		return super.onTouchEvent(event);
 	}
 
+	private void zoomImageFromThumb(final View thumbView, Uri cameraUri) {
+		// If there's an animation in progress, cancel it immediately and
+		// proceed with this one.
+		if (mCurrentAnimator != null) {
+			mCurrentAnimator.cancel();
+		}
+
+		// Load the high-resolution "zoomed-in" image.
+		final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image);
+		expandedImageView.setImageURI(cameraUri);
+
+		// Calculate the starting and ending bounds for the zoomed-in image.
+		// This step
+		// involves lots of math. Yay, math.
+		final Rect startBounds = new Rect();
+		final Rect finalBounds = new Rect();
+		final Point globalOffset = new Point();
+
+		// The start bounds are the global visible rectangle of the thumbnail,
+		// and the
+		// final bounds are the global visible rectangle of the container view.
+		// Also
+		// set the container view's offset as the origin for the bounds, since
+		// that's
+		// the origin for the positioning animation properties (X, Y).
+		thumbView.getGlobalVisibleRect(startBounds);
+		findViewById(R.id.container_fragment).getGlobalVisibleRect(finalBounds, globalOffset);
+		startBounds.offset(-globalOffset.x, -globalOffset.y);
+		finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+		// Adjust the start bounds to be the same aspect ratio as the final
+		// bounds using the
+		// "center crop" technique. This prevents undesirable stretching during
+		// the animation.
+		// Also calculate the start scaling factor (the end scaling factor is
+		// always 1.0).
+		float startScale;
+		if ((float) finalBounds.width() / finalBounds.height() > (float) startBounds.width() / startBounds.height()) {
+			// Extend start bounds horizontally
+			startScale = (float) startBounds.height() / finalBounds.height();
+			float startWidth = startScale * finalBounds.width();
+			float deltaWidth = (startWidth - startBounds.width()) / 2;
+			startBounds.left -= deltaWidth;
+			startBounds.right += deltaWidth;
+		} else {
+			// Extend start bounds vertically
+			startScale = (float) startBounds.width() / finalBounds.width();
+			float startHeight = startScale * finalBounds.height();
+			float deltaHeight = (startHeight - startBounds.height()) / 2;
+			startBounds.top -= deltaHeight;
+			startBounds.bottom += deltaHeight;
+		}
+
+		// Hide the thumbnail and show the zoomed-in view. When the animation
+		// begins,
+		// it will position the zoomed-in view in the place of the thumbnail.
+		thumbView.setAlpha(0f);
+		expandedImageView.setVisibility(View.VISIBLE);
+
+		// Set the pivot point for SCALE_X and SCALE_Y transformations to the
+		// top-left corner of
+		// the zoomed-in view (the default is the center of the view).
+		expandedImageView.setPivotX(0f);
+		expandedImageView.setPivotY(0f);
+
+		// Construct and run the parallel animation of the four translation and
+		// scale properties
+		// (X, Y, SCALE_X, and SCALE_Y).
+		AnimatorSet set = new AnimatorSet();
+		set.play(ObjectAnimator.ofFloat(expandedImageView, View.X, startBounds.left, finalBounds.left)).with(ObjectAnimator.ofFloat(expandedImageView, View.Y, startBounds.top, finalBounds.top))
+				.with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X, startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_Y, startScale, 1f));
+		set.setDuration(mShortAnimationDuration);
+		set.setInterpolator(new DecelerateInterpolator());
+		set.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				mCurrentAnimator = null;
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+				mCurrentAnimator = null;
+			}
+		});
+		set.start();
+		mCurrentAnimator = set;
+
+		// Upon clicking the zoomed-in image, it should zoom back down to the
+		// original bounds
+		// and show the thumbnail instead of the expanded image.
+		final float startScaleFinal = startScale;
+		expandedImageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (mCurrentAnimator != null) {
+					mCurrentAnimator.cancel();
+				}
+
+				// Animate the four positioning/sizing properties in parallel,
+				// back to their
+				// original values.
+				AnimatorSet set = new AnimatorSet();
+				set.play(ObjectAnimator.ofFloat(expandedImageView, View.X, startBounds.left)).with(ObjectAnimator.ofFloat(expandedImageView, View.Y, startBounds.top))
+						.with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X, startScaleFinal)).with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_Y, startScaleFinal));
+				set.setDuration(mShortAnimationDuration);
+				set.setInterpolator(new DecelerateInterpolator());
+				set.addListener(new AnimatorListenerAdapter() {
+					@Override
+					public void onAnimationEnd(Animator animation) {
+						thumbView.setAlpha(1f);
+						expandedImageView.setVisibility(View.GONE);
+						mCurrentAnimator = null;
+					}
+
+					@Override
+					public void onAnimationCancel(Animator animation) {
+						thumbView.setAlpha(1f);
+						expandedImageView.setVisibility(View.GONE);
+						mCurrentAnimator = null;
+					}
+				});
+				set.start();
+				mCurrentAnimator = set;
+			}
+		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			if (isAlarmTime && null != existTID) {
+				TaskHelper.getInstance().setSnoozeToDefault(getContentResolver(), existTID);
+			}
+			this.finish();
+			break;
+
+		case R.id.action_save:
+			String title = editTitle.getText().toString();
+			String notes = editNotes.getText().toString();
+			String day = dateView.getText().toString();
+			String time = timeView.getText().toString();
+			long timestamp = DateUtil.timestampDay(day, time);
+			boolean isRepeat = switchRepeat.isChecked();
+
+			Log.e("f.ninaber", "Title : " + title + "|| Timestamp : " + timestamp);
+
+			if (!TextUtils.isEmpty(title) && timestamp > 0) {
+				if (timestamp < System.currentTimeMillis() && DateUtil.getDate(System.currentTimeMillis()).contentEquals(DateUtil.getDate(timestamp))) {
+					Toast.makeText(this, getResources().getString(R.string.set_time), Toast.LENGTH_SHORT).show();
+					return false;
+				}
+
+				Task task = new Task();
+				if (!TextUtils.isEmpty(existTID)) {
+					task.setTID(existTID);
+				} else {
+					task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
+				}
+				task.setTitle(title);
+				task.setNotes(notes);
+				task.setTimestamp(timestamp);
+				task.setStatus(Constants.ON_GOING);
+
+				if (isRepeat) {
+					if (repeatDay.isSelected()) {
+						task.setRepeat(Constants.REPEAT_DAY);
+					} else if (repeatWeek.isSelected()) {
+						task.setRepeat(Constants.REPEAT_WEEK);
+					} else if (repeatMonth.isSelected()) {
+						task.setRepeat(Constants.REPEAT_MONTH);
+					} else {
+						task.setRepeat(Constants.REPEAT_YEAR);
+					}
+				} else {
+					task.setRepeat(-1);
+				}
+
+				if (null != cameraUri) {
+					task.setPath(cameraUri.toString());
+					task.setType(Type.PHOTO.toString());
+				} else {
+					task.setType(Type.TEXT.toString());
+				}
+
+				if (!isAlarmTime) {
+					task.setSnooze(-1);
+					TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+				} else {
+					task.setSnooze(System.currentTimeMillis() + snoozeVal());
+					Log.e("f.ninaber", "task.getTimestamp() : " + DateUtil.timeTimestamp(task.getTimestamp()));
+					Log.e("f.ninaber", "task.getSnooze() : " + DateUtil.timeTimestamp(task.getSnooze()));
+					TaskHelper.getInstance().insert(getContentResolver(), task);
+				}
+				this.finish();
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
+
+			}
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

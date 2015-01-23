@@ -29,9 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.f.ninaber.android.AddTaskActivity"
-            android:theme="@style/CustomDialogTheme" >
+        <activity android:name="com.f.ninaber.android.AddTaskActivity" >
         </activity>
         <activity
             android:name="com.f.ninaber.android.CalendarActivity"
@@ -44,8 +42,8 @@
 
         <provider
             android:name="com.f.ninaber.android.db.DataProvider"
-            android:authorities="com.f.ninaber.android" 
-            android:exported="false"/>
+            android:authorities="com.f.ninaber.android"
+            android:exported="false" />
 
         <receiver android:name="com.f.ninaber.android.service.AlarmReceiver" />
         <receiver

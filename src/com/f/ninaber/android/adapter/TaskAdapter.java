@@ -50,13 +50,15 @@ public class TaskAdapter extends CursorAdapter {
 				
 		ArialText status = (ArialText)view.findViewById(R.id.adapter_task_status);
 		if(thisDate < System.currentTimeMillis()){
-			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_red);
+//			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_red);
 			status.setText(context.getResources().getString(R.string.expired));
 			status.setTextColor(context.getResources().getColor(R.color.red_800));
+			status.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.circle_red), null, null, null);
 		}else{
-			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_green);
+//			view.findViewById(R.id.adapter_task_circle).setBackgroundResource(R.drawable.circle_green);
 			status.setText(context.getResources().getString(R.string.ongoing));
 			status.setTextColor(context.getResources().getColor(R.color.green_600));
+			status.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.circle_green), null, null, null);
 		}
 		
 		ArialText timeView = (ArialText) view.findViewById(R.id.adapter_task_time);

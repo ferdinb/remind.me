@@ -4,62 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey_900" >
-
-        <ImageView
-            android:id="@+id/ic_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/padding_size_10dp"
-            android:layout_marginRight="@dimen/padding_size_10dp"
-            android:background="@drawable/ic_icon" />
-
-        <LinearLayout
-            android:id="@+id/action_bar_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/state_bg_square_grey900_grey700"
-            android:clickable="true"
-            android:padding="@dimen/padding_size_10dp" >
-
-            <ImageView
-                android:layout_width="@dimen/plus_addtask_size"
-                android:layout_height="@dimen/plus_addtask_size"
-                android:background="@drawable/btn_add_reminder"
-                android:duplicateParentState="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/action_bar_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/action_bar_add"
-            android:background="@drawable/state_bg_square_grey900_grey700"
-            android:clickable="true"
-            android:padding="@dimen/padding_size_10dp" >
-
-            <ImageView
-                android:layout_width="@dimen/plus_addtask_size"
-                android:layout_height="@dimen/plus_addtask_size"
-                android:background="@drawable/btn_add_sort"
-                android:duplicateParentState="true" />
-        </LinearLayout>
-    </RelativeLayout>
-    -->
-    
     <ListView
         android:id="@+id/list_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_300"
+        android:animateLayoutChanges="true"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp" >
@@ -69,13 +18,23 @@
         android:id="@+id/grid_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_300"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:horizontalSpacing="@dimen/padding_size_10dp"
         android:numColumns="auto_fit"
         android:padding="@dimen/padding_size_10dp"
-        android:verticalSpacing="@dimen/padding_size_10dp" >
+        android:verticalSpacing="@dimen/padding_size_10dp"
+        android:visibility="gone" >
     </GridView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        style="@style/FontGreyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_size_25dp"
+        android:drawableTop="@drawable/ic_action_document"
+        android:text="@string/text_empty_view" />
 
 </LinearLayout>

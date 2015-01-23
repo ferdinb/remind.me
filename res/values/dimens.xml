@@ -17,7 +17,7 @@
     <dimen name="circle_status_size">12dp</dimen>
     <dimen name="timer_size">30dp</dimen>
     <dimen name="plus_addtask_size">35dp</dimen>
-    <dimen name="attachment_size">40dp</dimen>
+    <dimen name="attachment_size">45dp</dimen>
     <dimen name="attachment_height_layout">200dp</dimen>
-
+    <dimen name="attachment_photo_size">200dp</dimen>
 </resources>

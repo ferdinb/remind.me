@@ -28,12 +28,17 @@ public class ImageUtil {
 		Bitmap bmp = null;
 		try {
 			bmp = uriToScreenSize(act, source, size);
+			if(null == bmp){
+				return null;
+			}
+			
 			Log.e("f.ninaber", "Width : " + bmp.getWidth() + " | Height : " + bmp.getHeight());
 			Matrix matrix = new Matrix();
 			matrix.postRotate(setImageOrientation(source.getPath()));
 			bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, false);
 		} catch (FileNotFoundException e) {
 			Log.e("f.ninaber", "exception : " + e.getMessage());
+			return null;
 		}
 
 		File cacheDir = act.getCacheDir();
