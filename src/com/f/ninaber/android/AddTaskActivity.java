@@ -9,11 +9,8 @@ import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.KeyguardManager;
-import android.app.KeyguardManager.KeyguardLock;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -21,8 +18,6 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
@@ -31,13 +26,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
@@ -46,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -55,7 +47,6 @@ import com.f.ninaber.android.model.Task;
 import com.f.ninaber.android.model.Type;
 import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.util.ImageUtil;
-import com.f.ninaber.android.util.NotificationsUtil;
 import com.f.ninaber.android.util.RoundedTransform;
 import com.f.ninaber.android.util.TaskManager;
 import com.f.ninaber.android.widget.ArialText;
@@ -72,7 +63,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private static final int GALLERY = 0;
 	private static final int CAMERA = 1;
 	private LinearLayout addAttachmentGroup;
-	private LinearLayout photoGroup;
+	private RelativeLayout photoGroup;
 	private ImageView photoAttachment;
 	private Uri cameraUri;
 	private String existTID;
@@ -84,23 +75,14 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private View repeatMonth;
 	private View repeatYear;
 	private Switch switchRepeat;
-	private Button leftButton;
-	private Button rightButton;
-	private boolean isAlarmTime;
-	private TextView title;
-	private KeyguardLock keyguardLock;
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private boolean isView;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setFinishOnTouchOutside(false);
 		setContentView(R.layout.activity_add_task);
-		// DisplayMetrics metrics = getResources().getDisplayMetrics();
-		// int screenWidth = (int) (metrics.widthPixels * 0.90);
-		// getWindow().setLayout(screenWidth, LayoutParams.WRAP_CONTENT);
 
 		ActionBar actionBar = getActionBar();
 		if (null != actionBar) {
@@ -108,8 +90,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setHomeButtonEnabled(true);
 		}
-
-		mShortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
 
 		repeatLayout = (LinearLayout) this.findViewById(R.id.repeat_group);
 		// title = (TextView) this.findViewById(R.id.action_bar_title);
@@ -154,74 +134,64 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		// rightButton.setOnClickListener(this);
 
 		addAttachmentGroup = (LinearLayout) findViewById(R.id.add_task_attachments);
-		photoGroup = (LinearLayout) findViewById(R.id.add_task_image_group);
+		photoGroup = (RelativeLayout) findViewById(R.id.add_task_image_group);
 		photoAttachment = (ImageView) findViewById(R.id.add_task_image);
 		photoAttachment.setOnClickListener(this);
 		setRepeatTime(Constants.REPEAT_DAY);
-
 		Task task = (Task) getIntent().getSerializableExtra(Constants.TASK);
 		if (task != null) {
 			setDataToView(task);
 		}
-
 		isView = getIntent().getBooleanExtra(Constants.VIEW, false);
-		isAlarmTime = getIntent().getBooleanExtra(Constants.ALARM, false);
-
 		if (isView) {
-			editTitle.setFocusable(false);
-			editNotes.setFocusable(false);
-			findViewById(R.id.add_task_date_group).setEnabled(false);
-			findViewById(R.id.add_task_date_group).setOnClickListener(null);
-			findViewById(R.id.activity_add_task_recorder).setEnabled(false);
-			findViewById(R.id.activity_add_task_photo).setEnabled(false);
-			findViewById(R.id.activity_add_task_gallery).setEnabled(false);
-			findViewById(R.id.activity_add_task_maps).setEnabled(false);
-			switchRepeat.setOnCheckedChangeListener(null);
-			switchRepeat.setFocusable(false);
-			switchRepeat.setEnabled(false);
-			switchRepeat.setClickable(false);
-			repeatDay.setEnabled(false);
-			repeatWeek.setEnabled(false);
-			repeatMonth.setEnabled(false);
-			repeatYear.setEnabled(false);
-			timeView.setSelected(false);
-			timeView.setOnClickListener(null);
-
-			// if (!isAlarmTime) {
-			// setFinishOnTouchOutside(true);
-			// findViewById(R.id.activity_add_button_group).setVisibility(View.GONE);
-			// }
+			setViewEnableDisable(false);
 		}
+		mShortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
+	}
 
-		if (isAlarmTime) {
-			title.setText(getResources().getString(R.string.alarm));
-			leftButton.setText(getResources().getString(R.string.dismiss));
-			rightButton.setText(getResources().getString(R.string.snooze));
-			wakeDevice();
+	private void setViewEnableDisable(boolean isEnable) {
+		editTitle.setFocusable(isEnable);
+		editNotes.setFocusable(isEnable);
+		editTitle.setFocusableInTouchMode(isEnable);
+		editNotes.setFocusableInTouchMode(isEnable);
+		findViewById(R.id.add_task_date_group).setEnabled(isEnable);
+		findViewById(R.id.add_task_date_group).setOnClickListener(null);
+		findViewById(R.id.activity_add_task_recorder).setEnabled(isEnable);
+		findViewById(R.id.activity_add_task_photo).setEnabled(isEnable);
+		findViewById(R.id.activity_add_task_gallery).setEnabled(isEnable);
+		findViewById(R.id.activity_add_task_maps).setEnabled(isEnable);
+		findViewById(R.id.add_task_image_remove).setOnClickListener(null);
+		switchRepeat.setOnCheckedChangeListener(null);
+		switchRepeat.setFocusable(isEnable);
+		switchRepeat.setEnabled(isEnable);
+		switchRepeat.setClickable(isEnable);
+		repeatDay.setEnabled(isEnable);
+		repeatWeek.setEnabled(isEnable);
+		repeatMonth.setEnabled(isEnable);
+		repeatYear.setEnabled(isEnable);
+		timeView.setClickable(isEnable);;
+		timeView.setSelected(isEnable);
+		timeView.setOnClickListener(null);
+
+		if (isEnable) {
+			timeView.setOnClickListener(this);
+			switchRepeat.setOnCheckedChangeListener(this);
+			findViewById(R.id.add_task_date_group).setOnClickListener(this);
+			findViewById(R.id.add_task_image_remove).setOnClickListener(this);
 		}
 	}
 
-	public void wakeDevice() {
-		PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		WakeLock wakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), TAG);
-		wakeLock.acquire(1000);
-		KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-		keyguardLock = keyguardManager.newKeyguardLock(TAG);
-		keyguardLock.disableKeyguard();
-	}
-	
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if(isView){
+		if (isView) {
 			menu.findItem(R.id.action_edit).setVisible(true);
 			menu.findItem(R.id.action_save).setVisible(false);
-		}else{
+		} else {
 			menu.findItem(R.id.action_edit).setVisible(false);
 			menu.findItem(R.id.action_save).setVisible(true);
 		}
 		return super.onPrepareOptionsMenu(menu);
-		
-		
+
 	}
 
 	@Override
@@ -253,7 +223,9 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 
 		if (type.equalsIgnoreCase(Type.PHOTO.toString()) && !TextUtils.isEmpty(path)) {
 			Uri uri = Uri.parse(path);
-			photoAttachment.setImageURI(uri);
+
+			int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
+			Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedTransform(corner, 0)).into(photoAttachment);
 
 			photoGroup.setVisibility(View.VISIBLE);
 			addAttachmentGroup.setVisibility(View.GONE);
@@ -382,8 +354,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		if (resultCode == RESULT_OK) {
 			if (requestCode == GALLERY && null != data) {
 				Uri uri = data.getData();
-				photoAttachment.setImageURI(uri);
-
 				doResize(uri);
 			} else if (requestCode == CAMERA && null != cameraUri) {
 				doResize(cameraUri);
@@ -401,16 +371,14 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			}
 
 			protected void onPostExecute(Uri result) {
-				if (null != result) {
+				if (null != result) {					
 					cameraUri = result;
 					photoGroup.setVisibility(View.VISIBLE);
 					addAttachmentGroup.setVisibility(View.GONE);
 					// photoAttachment.setImageURI(result);
 
-					int sizePhoto = (int) getResources().getDimension(R.dimen.attachment_photo_size);
 					int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
-					Picasso.with(AddTaskActivity.this).load(result).skipMemoryCache().resize(sizePhoto, sizePhoto).centerCrop().transform(new RoundedTransform(corner, (int) getResources().getDimension(R.dimen.padding_size_3dp)))
-							.into(photoAttachment);
+					Picasso.with(AddTaskActivity.this).load(result).skipMemoryCache().transform(new RoundedTransform(corner, 0)).into(photoAttachment);
 				} else {
 					cameraUri = null;
 					Toast.makeText(AddTaskActivity.this, "Something wrong with image", Toast.LENGTH_SHORT).show();
@@ -423,11 +391,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (isAlarmTime) {
-			NotificationsUtil.getInstance(this).stopVibrate();
-			NotificationsUtil.getInstance(this).stopRingtone();
-			keyguardLock.reenableKeyguard();
-		}
 
 		// Start - Update alarm
 		TaskManager.getInstance(this).startTaskAlarm(this.getContentResolver(), System.currentTimeMillis());
@@ -485,21 +448,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 
 	}
 
-	private long snoozeVal() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String snoozeVal = prefs.getString(getResources().getString(R.string.setting_snooze_key), "300000");
-		return Long.valueOf(snoozeVal);
-	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		if (isAlarmTime) {
-			NotificationsUtil.getInstance(this).stopVibrate();
-			NotificationsUtil.getInstance(this).stopRingtone();
-		}
-		return super.onTouchEvent(event);
-	}
-
 	private void zoomImageFromThumb(final View thumbView, Uri cameraUri) {
 		// If there's an animation in progress, cancel it immediately and
 		// proceed with this one.
@@ -508,6 +456,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		}
 
 		// Load the high-resolution "zoomed-in" image.
+		
+		// ferdi
 		final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image);
 		expandedImageView.setImageURI(cameraUri);
 
@@ -631,10 +581,13 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if (isAlarmTime && null != existTID) {
-				TaskHelper.getInstance().setSnoozeToDefault(getContentResolver(), existTID);
-			}
 			this.finish();
+			break;
+
+		case R.id.action_edit:
+			isView = false;
+			setViewEnableDisable(true);
+			invalidateOptionsMenu();
 			break;
 
 		case R.id.action_save:
@@ -685,15 +638,9 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 					task.setType(Type.TEXT.toString());
 				}
 
-				if (!isAlarmTime) {
-					task.setSnooze(-1);
-					TaskHelper.getInstance().insertAsync(getContentResolver(), task);
-				} else {
-					task.setSnooze(System.currentTimeMillis() + snoozeVal());
-					Log.e("f.ninaber", "task.getTimestamp() : " + DateUtil.timeTimestamp(task.getTimestamp()));
-					Log.e("f.ninaber", "task.getSnooze() : " + DateUtil.timeTimestamp(task.getSnooze()));
-					TaskHelper.getInstance().insert(getContentResolver(), task);
-				}
+				task.setSnooze(-1);
+				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+
 				this.finish();
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();

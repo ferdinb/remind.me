@@ -39,6 +39,10 @@
             android:name="com.f.ninaber.android.DetailGridActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
+        <activity
+            android:name="com.f.ninaber.android.AlarmActivity"
+            android:theme="@style/CustomDialogTheme" >
+        </activity>
 
         <provider
             android:name="com.f.ninaber.android.db.DataProvider"

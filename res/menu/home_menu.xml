@@ -3,17 +3,17 @@
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/btn_add_sort"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:title="Sort"/>
     <item
         android:id="@+id/action_style"
         android:icon="@drawable/ic_action_view_grid"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:title="Style"/>
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/btn_add_reminder"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:title="Add"/>
 
 </menu>

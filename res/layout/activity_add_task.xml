@@ -10,93 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <!--
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/action_bar_size"
-            android:background="@color/yellow_900" >
-
-            <TextView
-                android:id="@+id/action_bar_title"
-                style="@style/FontBlackLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/state_bg_square_grey400_yellow900"
-                android:drawableLeft="@drawable/ic_action_previous_item"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/padding_size_1dp"
-                android:paddingRight="@dimen/padding_size_5dp"
-                android:text="@string/add_task" />
-
-            <LinearLayout
-                android:id="@+id/action_bar_right"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/action_bar_title"
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:visibility="gone" >
-
-                <TextView
-                    android:id="@+id/action_bar_day"
-                    style="@style/FontBlackHuge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/state_bg_square_grey400_yellow900"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/padding_size_15dp"
-                    android:paddingRight="@dimen/padding_size_15dp"
-                    android:text="@string/repeat_day"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/action_bar_week"
-                    style="@style/FontBlackHuge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/state_bg_square_grey400_yellow900"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/padding_size_15dp"
-                    android:paddingRight="@dimen/padding_size_15dp"
-                    android:text="@string/repeat_week"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/action_bar_month"
-                    style="@style/FontBlackHuge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/state_bg_square_grey400_yellow900"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/padding_size_15dp"
-                    android:paddingRight="@dimen/padding_size_15dp"
-                    android:text="@string/repeat_month"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/action_bar_year"
-                    style="@style/FontBlackHuge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/state_bg_square_grey400_yellow900"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/padding_size_15dp"
-                    android:paddingRight="@dimen/padding_size_15dp"
-                    android:text="@string/repeat_year"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
-            </LinearLayout>
-        </RelativeLayout>
-        -->
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -114,8 +27,8 @@
                     android:clickable="true"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/padding_size_5dp"
-                    android:paddingLeft="@dimen/padding_size_10dp"
-                    android:paddingRight="@dimen/padding_size_10dp"
+                    android:paddingLeft="@dimen/padding_size_15dp"
+                    android:paddingRight="@dimen/padding_size_15dp"
                     android:paddingTop="@dimen/padding_size_5dp" >
 
                     <com.f.ninaber.android.widget.ArialText
@@ -163,6 +76,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:paddingBottom="@dimen/padding_size_5dp"
                             android:paddingLeft="@dimen/padding_size_15dp"
                             android:paddingRight="@dimen/padding_size_15dp"
@@ -184,6 +98,7 @@
                             android:background="@drawable/state_bg_square_grey300_grey400"
                             android:drawableLeft="@drawable/ic_alarm"
                             android:drawablePadding="@dimen/padding_size_5dp"
+                            android:gravity="center_vertical"
                             android:hint="@string/title"
                             android:paddingBottom="@dimen/padding_size_5dp"
                             android:paddingLeft="@dimen/padding_size_15dp"
@@ -201,58 +116,54 @@
                         android:orientation="horizontal"
                         android:visibility="gone" >
 
-                        <TextView
+                        <com.f.ninaber.android.widget.ArialText
                             android:id="@+id/action_bar_day"
-                            style="@style/FontBlackLarge"
+                            style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/state_bg_square_grey400_yellow900"
                             android:clickable="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/padding_size_15dp"
-                            android:paddingRight="@dimen/padding_size_15dp"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_size_10dp"
                             android:text="@string/repeat_day"
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <TextView
+                        <com.f.ninaber.android.widget.ArialText
                             android:id="@+id/action_bar_week"
-                            style="@style/FontBlackLarge"
+                            style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/state_bg_square_grey400_yellow900"
                             android:clickable="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/padding_size_15dp"
-                            android:paddingRight="@dimen/padding_size_15dp"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_size_10dp"
                             android:text="@string/repeat_week"
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <TextView
+                        <com.f.ninaber.android.widget.ArialText
                             android:id="@+id/action_bar_month"
-                            style="@style/FontBlackLarge"
+                            style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/state_bg_square_grey400_yellow900"
                             android:clickable="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/padding_size_15dp"
-                            android:paddingRight="@dimen/padding_size_15dp"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_size_10dp"
                             android:text="@string/repeat_month"
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <TextView
+                        <com.f.ninaber.android.widget.ArialText
                             android:id="@+id/action_bar_year"
-                            style="@style/FontBlackLarge"
+                            style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/state_bg_square_grey400_yellow900"
                             android:clickable="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/padding_size_15dp"
-                            android:paddingRight="@dimen/padding_size_15dp"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_size_10dp"
                             android:text="@string/repeat_year"
                             android:textStyle="bold"
                             android:typeface="serif" />
@@ -285,7 +196,7 @@
                         style="@style/FontBlackNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/padding_size_15dp"
                         android:layout_marginLeft="@dimen/padding_size_15dp"
                         android:layout_marginRight="@dimen/padding_size_15dp"
@@ -293,31 +204,32 @@
                         android:hint="@string/notes" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/add_task_image_group"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/padding_size_15dp"
-					android:orientation="horizontal"
-                    android:padding="@dimen/padding_size_3dp"
+                    android:layout_marginLeft="@dimen/padding_size_10dp"
+                    android:layout_marginRight="@dimen/padding_size_10dp"
                     android:visibility="gone" >
 
                     <ImageView
                         android:id="@+id/add_task_image"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/state_bg_round_grey200"
+                        android:adjustViewBounds="true"
                         android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/add_task_image_remove"
                         android:layout_width="@dimen/attachment_size"
                         android:layout_height="@dimen/attachment_size"
-						android:layout_margin="@dimen/padding_size_10dp"
+                        android:layout_alignRight="@id/add_task_image"
+                        android:layout_marginRight="@dimen/padding_size_25dp"
+                        android:layout_marginTop="@dimen/padding_size_5dp"
                         android:background="@drawable/ic_close"
                         android:clickable="true" />
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/add_task_attachments"
@@ -391,39 +303,6 @@
                             android:background="@drawable/ic_location" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <!--
-                <LinearLayout
-                    android:id="@+id/activity_add_button_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding_size_15dp" >
-
-                    <Button
-                        android:id="@+id/activity_add_task_cancel"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_size_15dp"
-                        android:layout_marginRight="@dimen/padding_size_15dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/state_bg_corner_grey"
-                        android:text="@string/cancel" />
-
-                    <Button
-                        android:id="@+id/activity_add_task_save"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding_size_15dp"
-                        android:layout_marginStart="@dimen/padding_size_15dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/state_bg_round_grey700"
-                        android:text="@string/save" />
-                </LinearLayout>
-                -->
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -433,6 +312,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        android:background="@color/grey_700"
         android:visibility="invisible" />
 
 </FrameLayout>

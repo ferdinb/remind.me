@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.f.ninaber.android.AddTaskActivity;
+import com.f.ninaber.android.AlarmActivity;
 import com.f.ninaber.android.Constants;
 import com.f.ninaber.android.HomeActivity;
 import com.f.ninaber.android.R;
@@ -92,7 +93,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 	}
 
 	private void startActivity(Context context, Task task) {
-		Intent i = new Intent(context, AddTaskActivity.class);
+		Intent i = new Intent(context, AlarmActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		i.putExtra(Constants.TASK, task);
 		i.putExtra(Constants.VIEW, true);
