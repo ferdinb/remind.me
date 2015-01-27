@@ -84,10 +84,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 		}
 
 		if (isShowNotifBar) {
-			NotificationsUtil.getInstance(context).showNotifBar(context, DateUtil.dateTimestamp(task.getTimestamp()), task.getTitle(), task.getNotes(), isSound);
+			NotificationsUtil.getInstance(context).showNotifBar(context, task, isSound);
 		}
 
-		if (isSound && !isShowNotifBar) {
+		if (isSound && !isShowNotifBar && isShowPopup) {
 			NotificationsUtil.getInstance(context).playRingtone(context);
 		}
 	}

@@ -209,8 +209,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="@dimen/padding_size_10dp"
-                    android:layout_marginRight="@dimen/padding_size_10dp"
+                    android:layout_marginBottom="@dimen/padding_size_10dp"
+                    android:layout_marginLeft="@dimen/padding_size_15dp"
+                    android:layout_marginRight="@dimen/padding_size_15dp"
                     android:visibility="gone" >
 
                     <ImageView
@@ -310,9 +311,8 @@
     <ImageView
         android:id="@+id/expanded_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:background="@color/grey_700"
         android:visibility="invisible" />
 
 </FrameLayout>

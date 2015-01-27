@@ -108,7 +108,6 @@ public class HomeFragment extends Fragment implements OnClickListener, LoaderMan
 			}
 		}
 		sizeCalendar = count;
-
 	}
 
 	@Override

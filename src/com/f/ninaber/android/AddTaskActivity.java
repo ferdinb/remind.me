@@ -169,7 +169,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		repeatWeek.setEnabled(isEnable);
 		repeatMonth.setEnabled(isEnable);
 		repeatYear.setEnabled(isEnable);
-		timeView.setClickable(isEnable);;
+		timeView.setClickable(isEnable);
+		;
 		timeView.setSelected(isEnable);
 		timeView.setOnClickListener(null);
 
@@ -185,8 +186,10 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		if (isView) {
 			menu.findItem(R.id.action_edit).setVisible(true);
+			menu.findItem(R.id.action_delete).setVisible(true);
 			menu.findItem(R.id.action_save).setVisible(false);
 		} else {
+			menu.findItem(R.id.action_delete).setVisible(false);
 			menu.findItem(R.id.action_edit).setVisible(false);
 			menu.findItem(R.id.action_save).setVisible(true);
 		}
@@ -371,7 +374,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			}
 
 			protected void onPostExecute(Uri result) {
-				if (null != result) {					
+				if (null != result) {
 					cameraUri = result;
 					photoGroup.setVisibility(View.VISIBLE);
 					addAttachmentGroup.setVisibility(View.GONE);
@@ -456,7 +459,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		}
 
 		// Load the high-resolution "zoomed-in" image.
-		
+
 		// ferdi
 		final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image);
 		expandedImageView.setImageURI(cameraUri);
@@ -582,6 +585,13 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			this.finish();
+			break;
+
+		case R.id.action_delete:
+			if (!TextUtils.isEmpty(existTID)) {
+				TaskHelper.getInstance().deleteByTID(getContentResolver(), existTID);
+				this.finish();
+			}
 			break;
 
 		case R.id.action_edit:

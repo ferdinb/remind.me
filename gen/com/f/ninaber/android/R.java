@@ -137,17 +137,18 @@ public final class R {
         public static final int tab_unselected_rmindme=0x7f02004d;
     }
     public static final class id {
-        public static final int action_add=0x7f0c0038;
+        public static final int action_add=0x7f0c0039;
         public static final int action_bar_day=0x7f0c0007;
         public static final int action_bar_month=0x7f0c0009;
         public static final int action_bar_week=0x7f0c0008;
         public static final int action_bar_year=0x7f0c000a;
-        public static final int action_calendar=0x7f0c003a;
+        public static final int action_calendar=0x7f0c003b;
+        public static final int action_delete=0x7f0c0036;
         public static final int action_edit=0x7f0c0035;
         public static final int action_save=0x7f0c0034;
-        public static final int action_search=0x7f0c0039;
-        public static final int action_sort=0x7f0c0036;
-        public static final int action_style=0x7f0c0037;
+        public static final int action_search=0x7f0c003a;
+        public static final int action_sort=0x7f0c0037;
+        public static final int action_style=0x7f0c0038;
         public static final int activity_add_task_gallery=0x7f0c0012;
         public static final int activity_add_task_maps=0x7f0c0014;
         public static final int activity_add_task_photo=0x7f0c0013;
