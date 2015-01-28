@@ -7,13 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
@@ -21,17 +21,19 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
+import com.f.ninaber.android.Constants;
+
 public class ImageUtil {
 
-	public static Uri getReziedImageUri(Activity act, Uri source) {
+	public static Uri resizeWriteUrI(Activity act, Uri source, boolean temp) {
 		int size = ScreenUtil.width(act);
 		Bitmap bmp = null;
 		try {
 			bmp = uriToScreenSize(act, source, size);
-			if(null == bmp){
+			if (null == bmp) {
 				return null;
 			}
-			
+
 			Log.e("f.ninaber", "Width : " + bmp.getWidth() + " | Height : " + bmp.getHeight());
 			Matrix matrix = new Matrix();
 			matrix.postRotate(setImageOrientation(source.getPath()));
@@ -41,6 +43,54 @@ public class ImageUtil {
 			return null;
 		}
 
+		if (temp) {
+			return writeTempBitmap(act, bmp);
+		} else {
+			return writeBitmap(bmp, act);
+		}
+	}
+
+	public static Uri writeBitmap(Uri uri, Activity act) {
+		Bitmap bitmap = null;
+		try {
+			bitmap = MediaStore.Images.Media.getBitmap(act.getContentResolver(), uri);
+		} catch (Exception e) {
+			Log.e("f.ninaber", "Write Bitmap e : " + e);
+		}
+
+		if (null != bitmap) {
+			return writeBitmap(bitmap, act);
+		} else {
+			return null;
+		}
+	}
+
+	public static Uri writeBitmap(Bitmap bmp, Activity act) {
+		File f = new File(Environment.getExternalStorageDirectory() + Constants.IMAGE_FOLDER);
+		if (!f.exists()) {
+			f.mkdirs();
+		}
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+		String imageFileName = "JPEG_" + timeStamp + ".jpg";
+		File file = new File(f, imageFileName);
+		try {
+			FileOutputStream out = new FileOutputStream(file);
+			bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+			out.flush();
+			out.close();
+
+		} catch (Exception e) {
+			Log.e("f.ninaber", "Error write bitmap : " + e);
+		} finally {
+			if (bmp != null) {
+				bmp.recycle();
+				bmp = null;
+			}
+		}
+		return Uri.fromFile(file);
+	}
+
+	public static Uri writeTempBitmap(Activity act, Bitmap bmp) {
 		File cacheDir = act.getCacheDir();
 		File f = new File(cacheDir, "shout");
 		if (f.exists()) {
@@ -49,21 +99,17 @@ public class ImageUtil {
 		try {
 			FileOutputStream out = new FileOutputStream(f);
 			bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
-			Log.e("f.ninaber", "Width 2 : " + bmp.getWidth() + " | Height 2 : " + bmp.getHeight());
 			out.flush();
 			out.close();
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("f.ninaber", "Error write bitmap : " + e);
 		} finally {
 			if (bmp != null) {
 				bmp.recycle();
 				bmp = null;
 			}
 		}
-
 		return Uri.fromFile(f);
 	}
 
@@ -89,7 +135,7 @@ public class ImageUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		Log.e("f.ninaber", "Rotate : " + rotate);
 		return rotate;
 	}
@@ -100,7 +146,7 @@ public class ImageUtil {
 		BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
 		float width_tmp = o.outWidth, height_tmp = o.outHeight;
 		Log.e("f.ninaber", "Width tmp : " + width_tmp + " | Height tmp : " + height_tmp);
-		
+
 		float scale = 1;
 		while (true) {
 			width_tmp /= 2;
@@ -168,12 +214,11 @@ public class ImageUtil {
 		return null;
 	}
 
-	public static File createImageFile() throws IOException {
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	public static File createTempImageFile() throws IOException {
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
 		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		File file = File.createTempFile(imageFileName, ".jpg", storageDir);
 		return file;
 	}
-
 }

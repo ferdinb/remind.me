@@ -6,15 +6,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/yellow_900"
         android:orientation="vertical" >
 
         <com.f.ninaber.android.widget.ArialText
             android:id="@+id/alarm_date"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_900"
+            android:background="@color/yellow_900"
             android:ellipsize="end"
             android:padding="@dimen/padding_size_10dp"
             android:singleLine="true" />

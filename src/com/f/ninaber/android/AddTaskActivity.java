@@ -50,6 +50,7 @@ import com.f.ninaber.android.util.ImageUtil;
 import com.f.ninaber.android.util.RoundedTransform;
 import com.f.ninaber.android.util.TaskManager;
 import com.f.ninaber.android.widget.ArialText;
+import com.f.ninaber.android.widget.TransparentProgressDialog;
 import com.squareup.picasso.Picasso;
 
 public class AddTaskActivity extends FragmentActivity implements OnClickListener, OnCheckedChangeListener {
@@ -78,6 +79,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private boolean isView;
+	private TransparentProgressDialog dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -335,7 +337,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			if (intent.resolveActivity(getPackageManager()) != null) {
 				File photoFile = null;
 				try {
-					photoFile = ImageUtil.createImageFile();
+					photoFile = ImageUtil.createTempImageFile();
 				} catch (Exception e) {
 					Log.e("f.ninaber", "Error : " + e.getMessage());
 				}
@@ -370,7 +372,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		new AsyncTask<Uri, Void, Uri>() {
 			@Override
 			protected Uri doInBackground(Uri... params) {
-				return ImageUtil.getReziedImageUri(AddTaskActivity.this, params[0]);
+				return ImageUtil.resizeWriteUrI(AddTaskActivity.this, params[0], true);
 			}
 
 			protected void onPostExecute(Uri result) {
@@ -649,17 +651,50 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 				}
 
 				task.setSnooze(-1);
-				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 
-				this.finish();
+				saveTaskWriteImage(task, task.getPath() == null ? null : Uri.parse(task.getPath()));
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
-
 			}
 			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void saveTaskWriteImage(final Task task, Uri uri) {
+		if (null == uri) {
+			TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+			finish();
+		} else {
+			new AsyncTask<Uri, Void, Uri>() {
+				protected void onPreExecute() {
+					if (null == dialog) {
+						dialog = new TransparentProgressDialog(AddTaskActivity.this);
+						dialog.show();
+					}
+				};
+
+				@Override
+				protected Uri doInBackground(Uri... params) {
+					return ImageUtil.writeBitmap(params[0], AddTaskActivity.this);
+				}
+
+				protected void onPostExecute(Uri result) {
+					if (null != dialog && dialog.isShowing()) {
+						dialog.dismiss();
+					}
+
+					if (null != result) {
+						task.setPath(result.toString());
+						TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+						finish();
+					} else {
+						Toast.makeText(AddTaskActivity.this, getApplicationContext().getResources().getString(R.string.ups_something_wrong), Toast.LENGTH_SHORT).show();
+					}
+				};
+			}.execute(uri);
+		}
 	}
 }

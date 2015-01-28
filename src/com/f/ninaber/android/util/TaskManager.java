@@ -1,5 +1,8 @@
 package com.f.ninaber.android.util;
 
+import java.io.File;
+import java.util.List;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -8,7 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.f.ninaber.android.Constants;
@@ -73,6 +80,14 @@ public class TaskManager {
 			return false;
 		}
 
+		if (null != task && null != snoozeTask) {
+			if (task.getTID().equalsIgnoreCase(snoozeTask.getTID())) {
+				setAlarm(snoozeTask.getTID(), snoozeTask.getSnooze());
+				enableBootReceiver();
+				return true;
+			}
+		}
+
 		long time = -1;
 		String taskID = null;
 
@@ -85,6 +100,7 @@ public class TaskManager {
 			time = snoozeTask.getSnooze();
 			taskID = snoozeTask.getTID();
 		}
+
 		Log.e("f.ninaber", "startTaskAlarm ==> " + DateUtil.timeTimestamp(time));
 		setAlarm(taskID, time);
 		enableBootReceiver();
@@ -120,6 +136,27 @@ public class TaskManager {
 		default:
 			return;
 		}
-		TaskHelper.getInstance().deleteByTime(context.getContentResolver(), String.valueOf(timestamp));
+
+		List<String> deletedImages = TaskHelper.getInstance().deleteByTime(context.getContentResolver(), String.valueOf(timestamp));
+		if (deletedImages.size() > 0) {
+			deleteExpiredImage(deletedImages);
+		}
+	}
+
+	public void deleteExpiredImage(final List<String> deletedImages) {
+		new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				for (int i = 0; i < deletedImages.size(); i++) {
+					String path = deletedImages.get(i);
+					Uri uri = Uri.parse(path);
+					File file = new File(uri.getPath());
+					if (file.exists()) {
+						file.delete();
+					}
+				}
+				return null;
+			}
+		}.execute();
 	}
 }

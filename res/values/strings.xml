@@ -99,5 +99,5 @@
     <string name="alarm">Alarm</string>
     <string name="empty_taks">Add task and start working</string>
     <string name="text_empty_view">Set a Reminder for the time of the appointment\n and you won\'t miss a thing !</string>
-
+	<string name="ups_something_wrong">Ups something wrong...</string>
 </resources>

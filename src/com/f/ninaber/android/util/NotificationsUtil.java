@@ -1,8 +1,5 @@
 package com.f.ninaber.android.util;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
@@ -86,19 +84,37 @@ public class NotificationsUtil {
 		}
 	}
 
-	public void showNotifBar(Context context, Task task, boolean isSound) {
+	public void prepareNotification(Context context, Task task, boolean isSound, boolean isPopupShow) {
+		if (null != task.getType() && task.getType().equalsIgnoreCase(Type.PHOTO.toString())) {
+			prepareNotificationBitmap(context, Uri.parse(task.getPath()), task, isSound, isPopupShow);
+		} else {
+			displayNotification(context, task, null, isSound, isPopupShow);
+		}
+	}
+
+	private void prepareNotificationBitmap(final Context context, final Uri uri, final Task task, final boolean isSound, final boolean isPopupShow) {
+		new AsyncTask<Uri, Void, Bitmap>() {
+			@Override
+			protected Bitmap doInBackground(Uri... params) {
+				Bitmap bitmap = null;
+				try {
+					bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), params[0]);
+				} catch (Exception e) {
+					Log.e("f.ninaber", "Bitmap notification e : " + e);
+				}
+				return bitmap;
+			}
+
+			protected void onPostExecute(Bitmap result) {
+				displayNotification(context, task, result, isSound, isPopupShow);
+			};
+		}.execute(uri);
+	}
+
+	private void displayNotification(Context context, Task task, Bitmap bitmap, boolean isSound, boolean isPopupShow) {
 		String day = DateUtil.dateTimestamp(task.getTimestamp());
 		String title = task.getTitle();
 		String notes = task.getNotes();
-
-		Bitmap bitmap = null;
-		if (null != task.getType() && task.getType().equalsIgnoreCase(Type.PHOTO.toString())) {
-			try {
-				bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(task.getPath()));
-			} catch (Exception e) {
-				Log.e("f.ninaber", "Notif exception : " + e);
-			}
-		}
 
 		Intent intent = new Intent(context, HomeActivity.class);
 		PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -117,7 +133,7 @@ public class NotificationsUtil {
 		}
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		if (isSound) {
+		if (isSound && !isPopupShow) {
 			noti.defaults |= Notification.DEFAULT_SOUND;
 		}
 		noti.defaults |= Notification.DEFAULT_LIGHTS;

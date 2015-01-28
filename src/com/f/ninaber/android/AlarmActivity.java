@@ -90,11 +90,13 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		String path = task.getPath();
 		String type = task.getType();
 		int repeat = task.getRepeat();
-		if (repeat >= 0 && null != repeatLayout) {
+		if (repeat >= 0 ) {
 			switchRepeat.setChecked(true);
 			switchRepeat.setSelected(false);
 			switchRepeat.setClickable(false);
-			repeatLayout.setVisibility(View.VISIBLE);
+			if(null != repeatLayout){
+				repeatLayout.setVisibility(View.VISIBLE);				
+			}
 			setRepeatTime(repeat);
 		}
 
@@ -151,7 +153,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.alarm_snooze:
-			task.setSnooze(task.getTimestamp() + snoozeVal());
+			task.setSnooze(System.currentTimeMillis() + snoozeVal());
 			Log.e("f.ninaber", "task.getTimestamp() : " + DateUtil.timeTimestamp(task.getTimestamp()));
 			Log.e("f.ninaber", "task.getSnooze() : " + DateUtil.timeTimestamp(task.getSnooze()));
 			TaskHelper.getInstance().insert(getContentResolver(), task);

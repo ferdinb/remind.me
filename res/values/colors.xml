@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="grey_bg_200">#eeeeee</color>
     <color name="grey_900">#212121</color>
     <color name="grey_700">#616161</color>
     <color name="grey_400">#bdbdbd</color>
@@ -12,4 +13,5 @@
     <color name="green_600">#0a8f08</color>
     <color name="red_800">#c41411</color>
     <color name="blue">#550000ff</color>
+    <color name="transparant">#00000000</color>
 </resources>

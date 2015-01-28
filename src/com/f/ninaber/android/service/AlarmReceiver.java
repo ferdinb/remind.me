@@ -52,9 +52,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 		long timestamp = task.getTimestamp();
 		if (repeatType == Constants.REPEAT_DAY) {
 			timestamp = DateUtil.getDayAhead(timestamp);
-		}else if (repeatType == Constants.REPEAT_WEEK) {
+		} else if (repeatType == Constants.REPEAT_WEEK) {
 			timestamp = DateUtil.getWeekAhead(timestamp);
-		}else if (repeatType == Constants.REPEAT_MONTH) {
+		} else if (repeatType == Constants.REPEAT_MONTH) {
 			timestamp = DateUtil.getMonthAhead(timestamp);
 		} else if (repeatType == Constants.REPEAT_YEAR) {
 			timestamp = DateUtil.getYearAhead(timestamp);
@@ -84,10 +84,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 		}
 
 		if (isShowNotifBar) {
-			NotificationsUtil.getInstance(context).showNotifBar(context, task, isSound);
+			NotificationsUtil.getInstance(context).prepareNotification(context, task, isSound, isShowPopup);
 		}
 
-		if (isSound && !isShowNotifBar && isShowPopup) {
+		if (isSound && isShowNotifBar && isShowPopup) {
 			NotificationsUtil.getInstance(context).playRingtone(context);
 		}
 	}

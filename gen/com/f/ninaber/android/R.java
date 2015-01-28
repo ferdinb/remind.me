@@ -22,17 +22,19 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int blue=0x7f06000a;
-        public static final int green_600=0x7f060008;
-        public static final int grey_200=0x7f060004;
-        public static final int grey_300=0x7f060003;
-        public static final int grey_400=0x7f060002;
-        public static final int grey_700=0x7f060001;
-        public static final int grey_900=0x7f060000;
-        public static final int red_800=0x7f060009;
-        public static final int yellow_100=0x7f060007;
-        public static final int yellow_500=0x7f060006;
-        public static final int yellow_900=0x7f060005;
+        public static final int blue=0x7f06000b;
+        public static final int green_600=0x7f060009;
+        public static final int grey_200=0x7f060005;
+        public static final int grey_300=0x7f060004;
+        public static final int grey_400=0x7f060003;
+        public static final int grey_700=0x7f060002;
+        public static final int grey_900=0x7f060001;
+        public static final int grey_bg_200=0x7f060000;
+        public static final int red_800=0x7f06000a;
+        public static final int transparant=0x7f06000c;
+        public static final int yellow_100=0x7f060008;
+        public static final int yellow_500=0x7f060007;
+        public static final int yellow_900=0x7f060006;
     }
     public static final class dimen {
         public static final int action_bar_size=0x7f070000;
@@ -277,6 +279,7 @@ public final class R {
         public static final int text_empty_view=0x7f08003d;
         public static final int title=0x7f080003;
         public static final int today=0x7f08000a;
+        public static final int ups_something_wrong=0x7f08003e;
     }
     public static final class style {
         public static final int ActionBar_Solid_Rmindme=0x7f0a0002;
@@ -304,12 +307,15 @@ public final class R {
 
 
 
+
+
     
          */
         public static final int Theme_Rmindme=0x7f0a0000;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
         public static final int Theme_Rmindme_Widget=0x7f0a000a;
+        public static final int transparentDialog=0x7f0a0014;
     }
     public static final class xml {
         public static final int preferences_setting=0x7f050000;

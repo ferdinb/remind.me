@@ -21,4 +21,6 @@ public interface Constants {
 	public final static int REPEAT_WEEK = 1;
 	public final static int REPEAT_MONTH = 2;
 	public final static int REPEAT_YEAR = 3;
+	
+	public final static String IMAGE_FOLDER = "/fmind/image/";
 }

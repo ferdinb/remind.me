@@ -48,8 +48,8 @@ public class TaskHelper {
 		}
 		return resolver.insert(URI, values) != null;
 	}
-	
-	public boolean setSnoozeToDefault(ContentResolver resolver, String TID){
+
+	public boolean setSnoozeToDefault(ContentResolver resolver, String TID) {
 		ContentValues values = new ContentValues();
 		values.put(TableTask.Column.SNOOZE, -1);
 		if (isExist(resolver, TID)) {
@@ -70,7 +70,7 @@ public class TaskHelper {
 		}
 		return resolver.insert(URI, values) != null;
 	}
-	
+
 	public boolean updateTimestamp(ContentResolver resolver, String TID, long timestamp) {
 		ContentValues values = new ContentValues();
 		values.put(TableTask.Column.TIMESTAMP, timestamp);
@@ -122,12 +122,26 @@ public class TaskHelper {
 		String[] args = { TID };
 		return resolver.delete(URI, selection, args);
 	}
-	
-	
-	public int deleteByTime(ContentResolver resolver, String timestamp) {
+
+	public List<String> deleteByTime(ContentResolver resolver, String timestamp) {
+		List<String> paths = new ArrayList<String>();
 		String selection = TableTask.Column.TIMESTAMP + " <= ?";
 		String[] args = { timestamp };
-		return resolver.delete(URI, selection, args);
+
+		Cursor cursor = resolver.query(URI, null, selection, null, TableTask.Column.TIMESTAMP + " DESC");
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			for (int i = 0; i < cursor.getCount(); i++) {
+				Task task = cursorToTask(cursor);
+				String path = task.getPath();
+				if (!TextUtils.isEmpty(path)) {
+					paths.add(path);
+				}
+				cursor.moveToNext();
+			}
+		}
+		resolver.delete(URI, selection, args);
+		return paths;
 	}
 
 	public int deleteAll(ContentResolver resolver) {
@@ -166,10 +180,12 @@ public class TaskHelper {
 
 	public Task getFirstTimestamp(ContentResolver resolver, long timestamp) {
 		Task task = null;
-//		String selection = TableTask.Column.TIMESTAMP + " > ?" + " AND " + TableTask.Column.STATUS + " = ?";
-//		String[] args = {String.valueOf(timestamp), String.valueOf(Constants.ON_GOING)};
+		// String selection = TableTask.Column.TIMESTAMP + " > ?" + " AND " +
+		// TableTask.Column.STATUS + " = ?";
+		// String[] args = {String.valueOf(timestamp),
+		// String.valueOf(Constants.ON_GOING)};
 		String selection = TableTask.Column.STATUS + " = ?";
-		String[] args = {String.valueOf(Constants.ON_GOING)};
+		String[] args = { String.valueOf(Constants.ON_GOING) };
 		Cursor cursor = resolver.query(URI, null, selection, args, TableTask.Column.TIMESTAMP + " ASC");
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
@@ -181,7 +197,7 @@ public class TaskHelper {
 	public Task getFirstSnooze(ContentResolver resolver, long timestamp) {
 		Task task = null;
 		String selection = TableTask.Column.SNOOZE + " > ?";
-		String[] args = {String.valueOf(timestamp)};
+		String[] args = { String.valueOf(timestamp) };
 		Cursor cursor = resolver.query(URI, null, selection, args, TableTask.Column.SNOOZE + " ASC");
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
@@ -247,8 +263,9 @@ public class TaskHelper {
 	}
 
 	public List<Calendar> getAvailableTimestamp(ContentResolver resolver, boolean desc) {
-//		String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + System.currentTimeMillis() + "\"";
-		String selection = 	 TableTask.Column.TIMESTAMP + " > " + "\"" + String.valueOf(DateUtil.getBeginningOfday()) + "\""; 
+		// String selection = TableTask.Column.TIMESTAMP + " > " + "\"" +
+		// System.currentTimeMillis() + "\"";
+		String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + String.valueOf(DateUtil.getBeginningOfday()) + "\"";
 		if (desc) {
 			return getAvailableTimestamp(resolver, getCursorDataDesc(resolver, selection));
 		}
