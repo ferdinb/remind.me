@@ -80,7 +80,8 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		setDataToView(task);
 		wakeDevice();
 	}
-
+	
+	
 	private void setDataToView(Task task) {
 		dateView.setText(DateUtil.dateTimestamp(task.getTimestamp()));
 		timeView.setText(DateUtil.timeTimestamp(task.getTimestamp()));

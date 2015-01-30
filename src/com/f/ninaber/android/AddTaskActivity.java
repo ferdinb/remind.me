@@ -91,6 +91,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			actionBar.setTitle(getResources().getString(R.string.add_task));
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setHomeButtonEnabled(true);
+			actionBar.setIcon(getResources().getDrawable(R.drawable.ic_actionbar));
 		}
 
 		repeatLayout = (LinearLayout) this.findViewById(R.id.repeat_group);
@@ -172,7 +173,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		repeatMonth.setEnabled(isEnable);
 		repeatYear.setEnabled(isEnable);
 		timeView.setClickable(isEnable);
-		;
 		timeView.setSelected(isEnable);
 		timeView.setOnClickListener(null);
 
@@ -228,6 +228,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 
 		if (type.equalsIgnoreCase(Type.PHOTO.toString()) && !TextUtils.isEmpty(path)) {
 			Uri uri = Uri.parse(path);
+			cameraUri = uri;
 
 			int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
 			Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedTransform(corner, 0)).into(photoAttachment);
@@ -266,10 +267,12 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			break;
 		}
 		case R.id.activity_add_task_recorder: {
+			Toast.makeText(this, getResources().getString(R.string.available_on_next_update), Toast.LENGTH_SHORT).show();
 			break;
 		}
 
 		case R.id.activity_add_task_maps: {
+			Toast.makeText(this, getResources().getString(R.string.available_on_next_update), Toast.LENGTH_SHORT).show();
 			break;
 		}
 

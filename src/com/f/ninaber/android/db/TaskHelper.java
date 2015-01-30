@@ -128,12 +128,16 @@ public class TaskHelper {
 		String selection = TableTask.Column.TIMESTAMP + " <= ?";
 		String[] args = { timestamp };
 
-		Cursor cursor = resolver.query(URI, null, selection, null, TableTask.Column.TIMESTAMP + " DESC");
+		Cursor cursor = resolver.query(URI, null, selection, args, TableTask.Column.TIMESTAMP + " DESC");
+		Log.e("f.ninaber", "Cursor.getCount : " + cursor.getCount());
+		
 		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			for (int i = 0; i < cursor.getCount(); i++) {
 				Task task = cursorToTask(cursor);
 				String path = task.getPath();
+				Log.e("f.ninaber", "Cursor.path : " + path);
+				
 				if (!TextUtils.isEmpty(path)) {
 					paths.add(path);
 				}
@@ -265,7 +269,8 @@ public class TaskHelper {
 	public List<Calendar> getAvailableTimestamp(ContentResolver resolver, boolean desc) {
 		// String selection = TableTask.Column.TIMESTAMP + " > " + "\"" +
 		// System.currentTimeMillis() + "\"";
-		String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + String.valueOf(DateUtil.getBeginningOfday()) + "\"";
+//		String selection = TableTask.Column.TIMESTAMP + " > " + "\"" + String.valueOf(DateUtil.getBeginningOfday()) + "\"";
+		String selection = null;
 		if (desc) {
 			return getAvailableTimestamp(resolver, getCursorDataDesc(resolver, selection));
 		}

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.f.ninaber.android"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -37,6 +37,10 @@
         </activity>
         <activity
             android:name="com.f.ninaber.android.DetailGridActivity"
+            android:theme="@style/CustomDialogTheme" >
+        </activity>
+        <activity
+            android:name="com.f.ninaber.android.PasswordActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
         <activity

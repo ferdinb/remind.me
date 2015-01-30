@@ -11,12 +11,14 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.f.ninaber.android.R;
 import com.f.ninaber.android.db.TableTask;
 import com.f.ninaber.android.db.TaskHelper;
 import com.f.ninaber.android.model.Task;
+import com.f.ninaber.android.model.Type;
 import com.f.ninaber.android.util.DateUtil;
 import com.f.ninaber.android.widget.ArialText;
 
@@ -65,13 +67,15 @@ public class TaskAdapter extends CursorAdapter {
 		ArialText titleView = (ArialText) view.findViewById(R.id.adapter_task_title);
 		ArialText notesView = (ArialText) view.findViewById(R.id.adapter_task_notes);
 		ArialText dateView = (ArialText) view.findViewById(R.id.adapter_task_date);
-
+		ImageView typeView = (ImageView) view.findViewById(R.id.adapter_task_type);
+		
 		Task task = TaskHelper.getInstance().cursorToTask(cursor);
 		long timestamp = task.getTimestamp();
 		
 		dateView.setText(DateUtil.dateTimestamp(timestamp));
 		timeView.setText(DateUtil.timeTimestamp(timestamp));
 		titleView.setText(task.getTitle());
+		typeView.setVisibility(task.getType().equalsIgnoreCase(Type.PHOTO.toString()) ? View.VISIBLE : View.GONE);
 		
 		String sNotes = task.getNotes();
 		if(!TextUtils.isEmpty(sNotes)){

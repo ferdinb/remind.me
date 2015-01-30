@@ -22,6 +22,8 @@ import com.f.ninaber.android.adapter.LeftAdapter;
 import com.f.ninaber.android.model.LeftMenu;
 import com.f.ninaber.android.util.TaskManager;
 
+//
+
 public class HomeActivity extends FragmentActivity {
 	private static final String TAG = HomeActivity.class.getSimpleName();
 	private DrawerLayout mDrawerLayout;
@@ -32,7 +34,6 @@ public class HomeActivity extends FragmentActivity {
 	private static final int FRAGMENT_HISTORY = 1;
 	private static final int FRAGMENT_FEEDBACK = 2;
 	private static final int FRAGMENT_SETTING = 3;
-
 	private int currentFragment = FRAGMENT_HOME;
 
 	@Override
@@ -40,7 +41,7 @@ public class HomeActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		setupActionBar();
-		
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();
@@ -61,7 +62,7 @@ public class HomeActivity extends FragmentActivity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
+
 		TaskManager.getInstance(this).validityTask();
 	}
 
@@ -92,6 +93,7 @@ public class HomeActivity extends FragmentActivity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
+		actionBar.setIcon(getResources().getDrawable(R.drawable.ic_actionbar));
 	}
 
 	private List<LeftMenu> setupLeftMenu() {
@@ -154,6 +156,5 @@ public class HomeActivity extends FragmentActivity {
 		mEmail.setType("message/rfc822");
 		startActivity(Intent.createChooser(mEmail, "Choose an email client to send your feedback"));
 	}
-	
-	
+
 }

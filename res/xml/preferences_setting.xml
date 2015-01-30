@@ -40,12 +40,14 @@
             android:summary="@string/setting_storage_desc"
             android:title="@string/setting_storage_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_security" >
+    
+    <!-- for next release -->
+	<!--    <PreferenceCategory android:title="@string/setting_security" >
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/setting_password_key"
-            android:summary="@string/setting_password_summary"
-            android:title="@string/setting_password" />
-    </PreferenceCategory>
+            android:key="@string/setting_pin_key"
+            android:summary="@string/setting_pin_summary"
+            android:title="@string/setting_pin" />
+    </PreferenceCategory> !-->
 
 </PreferenceScreen>

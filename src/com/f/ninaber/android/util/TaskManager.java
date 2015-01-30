@@ -136,8 +136,8 @@ public class TaskManager {
 		default:
 			return;
 		}
-
 		List<String> deletedImages = TaskHelper.getInstance().deleteByTime(context.getContentResolver(), String.valueOf(timestamp));
+		Log.e("f.ninaber", "DeletedImages : " + deletedImages.size());
 		if (deletedImages.size() > 0) {
 			deleteExpiredImage(deletedImages);
 		}
