@@ -30,6 +30,11 @@
             android:key="@string/setting_sound_key"
             android:summary="@string/setting_sound_summary"
             android:title="@string/setting_sound" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/setting_touch_screen_key"
+            android:summary="@string/setting_touch_screen_summary"
+            android:title="@string/setting_touch_screen" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_storage" >
         <ListPreference
@@ -40,14 +45,12 @@
             android:summary="@string/setting_storage_desc"
             android:title="@string/setting_storage_title" />
     </PreferenceCategory>
-    
-    <!-- for next release -->
-	<!--    <PreferenceCategory android:title="@string/setting_security" >
-        <CheckBoxPreference
-            android:defaultValue="false"
+    <PreferenceCategory android:title="@string/setting_security" >
+        <Preference
+            android:defaultValue="null"
             android:key="@string/setting_pin_key"
             android:summary="@string/setting_pin_summary"
-            android:title="@string/setting_pin" />
-    </PreferenceCategory> !-->
+            android:title="@string/pin_off" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

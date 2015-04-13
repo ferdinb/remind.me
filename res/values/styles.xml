@@ -3,7 +3,7 @@
     <!--
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:dialogTheme">@style/CustomDialogTheme</item>
-    </style>
+    </style>
     -->
     <style name="Theme.Rmindme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_rmindme</item>

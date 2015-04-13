@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">fmind</string>
+    <string name="app_name">Remind.me</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title">Title</string>
@@ -55,6 +55,9 @@
     <string name="setting_pin_key">pin_key</string>
     <string name="setting_pin">PIN</string>
     <string name="setting_pin_summary">All task will be secured using PIN</string>
+    <string name="setting_touch_screen">Touch Mode</string>
+    <string name="setting_touch_screen_key">touch_snooze</string>
+    <string name="setting_touch_screen_summary">When popup task is shown, touching the screen will stop vibrating / ringing </string>
 
     <string-array name="setting_storage_entries">
         <item>Never</item>
@@ -101,5 +104,12 @@
     <string name="text_empty_view">Set a Reminder for the time of the appointment\n and you won\'t miss a thing !</string>
     <string name="ups_something_wrong">Ups something wrong..</string>
     <string name="available_on_next_update">Available on next update. Stay tuned..</string>
-    <string name="password">Password</string>
-</resources>
+    <string name="pin">PIN (6 Digits)</string>
+    <string name="confirm_pin">Confirm PIN (6 Digits)</string>
+    <string name="pin_dont_match">PIN Don\'t match</string>
+    <string name="pin_saved">PIN Saved</string>
+    <string name="pin_on">PIN On</string>
+    <string name="pin_off">PIN Off</string>
+    <string name="pin_set_off">PIN set off</string>
+    <string name="press_again_to_exit">Press again to exit</string>
+</resources>

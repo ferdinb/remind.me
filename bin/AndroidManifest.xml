@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.f.ninaber.android"
+    package="com.remind.me.fninaber"
     android:versionCode="1"
     android:versionName="1.0.0" >
 
@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Rmindme" >
         <activity
-            android:name="com.f.ninaber.android.HomeActivity"
+            android:name="com.remind.me.fninaber.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,33 +29,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.f.ninaber.android.AddTaskActivity" >
+        <activity android:name="com.remind.me.fninaber.AddTaskActivity" >
         </activity>
         <activity
-            android:name="com.f.ninaber.android.CalendarActivity"
+            android:name="com.remind.me.fninaber.CalendarActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
         <activity
-            android:name="com.f.ninaber.android.DetailGridActivity"
+            android:name="com.remind.me.fninaber.DetailGridActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
         <activity
-            android:name="com.f.ninaber.android.PasswordActivity"
+            android:name="com.remind.me.fninaber.PINActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
         <activity
-            android:name="com.f.ninaber.android.AlarmActivity"
+            android:name="com.remind.me.fninaber.AlarmActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
 
         <provider
-            android:name="com.f.ninaber.android.db.DataProvider"
-            android:authorities="com.f.ninaber.android"
+            android:name="com.remind.me.fninaber.db.DataProvider"
+            android:authorities="com.remind.me.fninaber"
             android:exported="false" />
 
-        <receiver android:name="com.f.ninaber.android.service.AlarmReceiver" />
+        <receiver android:name="com.remind.me.fninaber.service.AlarmReceiver" />
         <receiver
-            android:name="com.f.ninaber.android.service.BootReceiver"
+            android:name="com.remind.me.fninaber.service.BootReceiver"
             android:enabled="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

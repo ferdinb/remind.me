@@ -31,7 +31,7 @@
                     android:paddingRight="@dimen/padding_size_15dp"
                     android:paddingTop="@dimen/padding_size_5dp" >
 
-                    <com.f.ninaber.android.widget.ArialText
+                    <com.remind.me.fninaber.widget.ArialText
                         android:id="@+id/add_task_date"
                         style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                             android:textSize="@dimen/text_size_normal" >
                         </Switch>
 
-                        <com.f.ninaber.android.widget.ArialText
+                        <com.remind.me.fninaber.widget.ArialText
                             android:id="@+id/add_task_time"
                             style="@style/FontBlackLarge"
                             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                         android:orientation="horizontal"
                         android:visibility="gone" >
 
-                        <com.f.ninaber.android.widget.ArialText
+                        <com.remind.me.fninaber.widget.ArialText
                             android:id="@+id/action_bar_day"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.f.ninaber.android.widget.ArialText
+                        <com.remind.me.fninaber.widget.ArialText
                             android:id="@+id/action_bar_week"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.f.ninaber.android.widget.ArialText
+                        <com.remind.me.fninaber.widget.ArialText
                             android:id="@+id/action_bar_month"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.f.ninaber.android.widget.ArialText
+                        <com.remind.me.fninaber.widget.ArialText
                             android:id="@+id/action_bar_year"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"

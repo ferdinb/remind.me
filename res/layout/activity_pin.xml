@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/pin_header_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/grey_900"
+        android:paddingBottom="@dimen/padding_size_10dp"
+        android:paddingLeft="@dimen/padding_size_5dp"
+        android:paddingRight="@dimen/padding_size_5dp"
+        android:paddingTop="@dimen/padding_size_10dp" >
+
+        <TextView
+            android:id="@+id/pin_title"
+            style="@style/FontWhiteLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_size_15dp"
+            android:text="@string/pin" />
+
+        <TextView
+            android:id="@+id/pin_value_xxx"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_size_15dp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/pin_setup_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pin_header_group"
+        android:horizontalSpacing="@dimen/padding_size_10dp"
+        android:numColumns="3"
+        android:padding="@dimen/padding_size_15dp"
+        android:verticalSpacing="@dimen/padding_size_10dp" >
+    </GridView>
+
+</RelativeLayout>

@@ -11,14 +11,14 @@
         android:background="@color/grey_900"
         android:padding="@dimen/padding_size_10dp" >
 
-        <com.f.ninaber.android.widget.ArialText
+        <com.remind.me.fninaber.widget.ArialText
             android:id="@+id/adapter_task_day"
             style="@style/FontWhiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
-        <com.f.ninaber.android.widget.ArialText
+        <com.remind.me.fninaber.widget.ArialText
             android:id="@+id/adapter_task_date"
             style="@style/FontWhiteNormal"
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/ic_camera" />
 
-        <com.f.ninaber.android.widget.ArialText
+        <com.remind.me.fninaber.widget.ArialText
             android:id="@+id/adapter_task_status"
             style="@style/FontBlackTiny"
             android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding_size_10dp" >
 
-        <com.f.ninaber.android.widget.ArialText
+        <com.remind.me.fninaber.widget.ArialText
             android:id="@+id/adapter_task_time"
             style="@style/FontBlackLarge"
             android:layout_width="wrap_content"
@@ -85,13 +85,13 @@
             android:layout_marginLeft="@dimen/padding_size_10dp"
             android:orientation="vertical" >
 
-            <com.f.ninaber.android.widget.ArialText
+            <com.remind.me.fninaber.widget.ArialText
                 android:id="@+id/adapter_task_title"
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.f.ninaber.android.widget.ArialText
+            <com.remind.me.fninaber.widget.ArialText
                 android:id="@+id/adapter_task_notes"
                 style="@style/FontBlackSmall"
                 android:layout_width="match_parent"
