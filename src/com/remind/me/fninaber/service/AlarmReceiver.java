@@ -65,11 +65,11 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
 		if (isVibrate) {
 			if (isShowPopup && !isShowNotifBar) {
-				NotificationsUtil.getInstance(context).vibratePattern();
+				NotificationsUtil.getInstance(context).vibratePattern(context);
 			} else if (isShowNotifBar && !isShowPopup) {
 				NotificationsUtil.getInstance(context).vibrate();
 			} else if (isShowPopup && isShowNotifBar) {
-				NotificationsUtil.getInstance(context).vibratePattern();
+				NotificationsUtil.getInstance(context).vibratePattern(context);
 			}
 		}
 
@@ -81,7 +81,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 			NotificationsUtil.getInstance(context).prepareNotification(context, task, isSound, isShowPopup);
 		}
 
-		if (isSound && isShowNotifBar && isShowPopup) {
+		if (isSound && isShowPopup) {
 			NotificationsUtil.getInstance(context).playRingtone(context);
 		}
 	}

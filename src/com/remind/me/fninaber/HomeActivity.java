@@ -8,12 +8,14 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 
 import com.remind.me.fninaber.adapter.LeftAdapter;
 import com.remind.me.fninaber.model.LeftMenu;
+import com.remind.me.fninaber.util.NotificationsUtil;
 import com.remind.me.fninaber.util.TaskManager;
 
 public class HomeActivity extends FragmentActivity {
@@ -43,7 +46,7 @@ public class HomeActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		setupActionBar();
-
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerList.setAdapter(new LeftAdapter(setupLeftMenu(), this));

@@ -25,11 +25,29 @@
             android:key="@string/setting_vibrate_key"
             android:summary="@string/setting_vibrate_summary"
             android:title="@string/setting_vibrate" />
+        
+         <ListPreference
+            android:key="@string/setting_vibrate_pattern_key"
+            android:dependency="@string/setting_vibrate_key"
+            android:title="@string/setting_vibrate_pattern"
+            android:entries="@array/setting_pattern_entries"
+            android:entryValues="@array/setting_pattern_values"
+            android:summary="@string/setting_vibrate_pattern_summary"
+            android:defaultValue="1000" />
+        
+        
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/setting_sound_key"
             android:summary="@string/setting_sound_summary"
             android:title="@string/setting_sound" />
+        
+        <Preference
+            android:key="@string/setting_sound_alarm_key"
+            android:dependency="@string/setting_sound_key"
+            android:title="@string/settings_sound_alarm_title"
+            android:summary="@string/setting_sound_alarm_summary" />
+        
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/setting_touch_screen_key"

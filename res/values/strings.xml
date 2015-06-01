@@ -45,6 +45,14 @@
     <string name="setting_vibrate_key">vibrate</string>
     <string name="setting_vibrate">Enable vibrate</string>
     <string name="setting_vibrate_summary">Vibrate device when an alarm sets off. It follows the device\'s sound setting</string>
+    
+    <string name="setting_vibrate_pattern_key">vibrate_pattern</string>
+    <string name="setting_vibrate_pattern">Vibrate Pattern</string>
+    <string name="setting_vibrate_pattern_summary">Vibrate every %s</string>
+    
+    <string name="setting_sound_alarm_key">sound_alarm</string>
+    <string name="setting_sound_alarm_summary">Select sound for the alarm</string>
+    <string name="settings_sound_alarm_title">Alarm Sounds</string>
     <string name="setting_sound_key">sound</string>
     <string name="setting_sound">Enable sound</string>
     <string name="setting_sound_summary">Play sound when an alarm sets off. It follows the device\'s sound setting</string>
@@ -59,6 +67,23 @@
     <string name="setting_touch_screen_key">touch_snooze</string>
     <string name="setting_touch_screen_summary">When popup task is shown, touching the screen will stop vibrating / ringing </string>
 
+    <string-array name="setting_pattern_entries">
+        <item>1 Second</item>
+        <item>10 Seconds</item>
+        <item>30 Seconds</item>
+        <item>60 Seconds</item>
+        <item>5 Minutes</item>
+    </string-array>
+    
+    <string-array name="setting_pattern_values">
+        <item>1000</item>
+        <item>10000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>300000</item>
+    </string-array>
+    
+    
     <string-array name="setting_storage_entries">
         <item>Never</item>
         <item>One Day</item>
@@ -112,4 +137,5 @@
     <string name="pin_off">PIN Off</string>
     <string name="pin_set_off">PIN set off</string>
     <string name="press_again_to_exit">Press again to exit</string>
-</resources>
+    <string name="ringtone">Ringtone</string>
+    <string name="music">Music</string></resources>

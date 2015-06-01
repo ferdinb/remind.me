@@ -1,10 +1,15 @@
 package com.remind.me.fninaber.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,7 +17,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +33,9 @@ public class NotificationsUtil {
 	private static NotificationsUtil instance;
 	private static final int NOTIF_ID_LIMITER = 4;
 	private Vibrator vibrator;
-	private long[] pattern = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 };
+	private long[] normalPattern = { 0, 1000, 1000 };
+	private static final String normalOffPattern = "1000";
+	private static final int positionPattern = 2;
 	private MediaPlayer mediaPlayer;
 
 	public static NotificationsUtil getInstance(Context context) {
@@ -41,15 +50,18 @@ public class NotificationsUtil {
 		mediaPlayer = new MediaPlayer();
 	}
 
-	public void vibratePattern() {
+	public void vibratePattern(Context context) {
 		if (null != vibrator) {
-			vibrator.vibrate(pattern, 0);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			String patternOff = prefs.getString(context.getResources().getString(R.string.setting_vibrate_pattern_key), normalOffPattern);
+			normalPattern[positionPattern] = Integer.valueOf(patternOff);
+			vibrator.vibrate(normalPattern, 0);
 		}
 	}
 
 	public void vibrate() {
 		if (null != vibrator) {
-			vibrator.vibrate(pattern, -1);
+			vibrator.vibrate(normalPattern, -1);
 		}
 	}
 
@@ -63,7 +75,10 @@ public class NotificationsUtil {
 		stopRingtone();
 
 		if (null != mediaPlayer && !mediaPlayer.isPlaying()) {
-			Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			String uriString = prefs.getString(context.getResources().getString(R.string.setting_sound_alarm_key), null);
+			Uri alert = uriString == null ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM) : Uri.parse(uriString);
+
 			final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 			if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
 				try {
@@ -79,6 +94,22 @@ public class NotificationsUtil {
 		}
 	}
 
+	public Map<String, String> avalaibleRingtoneList(Context context, int type) {
+		// RingtoneManager.TYPE_RINGTONE
+		RingtoneManager manager = new RingtoneManager(context);
+		manager.setType(type);
+		Cursor cursor = manager.getCursor();
+		Map<String, String> list = new HashMap<String, String>();
+		while (cursor.moveToNext()) {
+			String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+			String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+
+			list.put(notificationTitle, notificationUri);
+		}
+
+		return list;
+	}
+
 	public void stopRingtone() {
 		if (null != mediaPlayer && mediaPlayer.isPlaying()) {
 			mediaPlayer.stop();
@@ -92,9 +123,8 @@ public class NotificationsUtil {
 			displayNotification(context, task, null, isSound, isPopupShow);
 		}
 	}
-	
-	public void clearNotificaion(Context context, String TID){
-		Log.e("f.ninaber", "Clear Notifications : " + calculateNotifID(TID));
+
+	public void clearNotificaion(Context context, String TID) {
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(calculateNotifID(TID));
 	}
@@ -145,12 +175,12 @@ public class NotificationsUtil {
 		}
 		noti.defaults |= Notification.DEFAULT_LIGHTS;
 		noti.flags |= Notification.FLAG_AUTO_CANCEL;
-		
+
 		notificationManager.notify(calculateNotifID(task.getTID()), noti);
 	}
 
-	private int calculateNotifID(String TID){
-		return Integer.valueOf(TID.substring(TID.length() > NOTIF_ID_LIMITER ? TID.length() - NOTIF_ID_LIMITER : 0, TID.length()));		
+	private int calculateNotifID(String TID) {
+		return Integer.valueOf(TID.substring(TID.length() > NOTIF_ID_LIMITER ? TID.length() - NOTIF_ID_LIMITER : 0, TID.length()));
 	}
-	
+
 }

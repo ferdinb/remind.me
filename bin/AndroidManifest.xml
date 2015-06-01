@@ -39,6 +39,7 @@
             android:name="com.remind.me.fninaber.DetailGridActivity"
             android:theme="@style/CustomDialogTheme" >
         </activity>
+       
         <activity
             android:name="com.remind.me.fninaber.PINActivity"
             android:theme="@style/CustomDialogTheme" >
