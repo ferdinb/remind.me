@@ -24,6 +24,7 @@ import com.remind.me.fninaber.model.Type;
 
 public class NotificationsUtil {
 	private static NotificationsUtil instance;
+	private static final int NOTIF_ID_LIMITER = 4;
 	private Vibrator vibrator;
 	private long[] pattern = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 };
 	private MediaPlayer mediaPlayer;
@@ -91,6 +92,12 @@ public class NotificationsUtil {
 			displayNotification(context, task, null, isSound, isPopupShow);
 		}
 	}
+	
+	public void clearNotificaion(Context context, String TID){
+		Log.e("f.ninaber", "Clear Notifications : " + calculateNotifID(TID));
+		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.cancel(calculateNotifID(TID));
+	}
 
 	private void prepareNotificationBitmap(final Context context, final Uri uri, final Task task, final boolean isSound, final boolean isPopupShow) {
 		new AsyncTask<Uri, Void, Bitmap>() {
@@ -122,7 +129,7 @@ public class NotificationsUtil {
 
 		if (null != bitmap) {
 			noti = new NotificationCompat.Builder(context).setContentTitle(title).setContentText(notes).setSmallIcon(R.drawable.ic_launcher)
-					.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap)).setContentIntent(pIntent).build();
+					.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).setBigContentTitle(title).setSummaryText(notes)).setContentIntent(pIntent).build();
 		} else {
 			if (!TextUtils.isEmpty(notes)) {
 				noti = new NotificationCompat.Builder(context).setContentTitle(title).setContentText(notes).setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent).build();
@@ -138,6 +145,12 @@ public class NotificationsUtil {
 		}
 		noti.defaults |= Notification.DEFAULT_LIGHTS;
 		noti.flags |= Notification.FLAG_AUTO_CANCEL;
-		notificationManager.notify(0, noti);
+		
+		notificationManager.notify(calculateNotifID(task.getTID()), noti);
 	}
+
+	private int calculateNotifID(String TID){
+		return Integer.valueOf(TID.substring(TID.length() > NOTIF_ID_LIMITER ? TID.length() - NOTIF_ID_LIMITER : 0, TID.length()));		
+	}
+	
 }

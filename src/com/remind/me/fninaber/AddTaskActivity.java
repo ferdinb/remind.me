@@ -611,8 +611,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			long timestamp = DateUtil.timestampDay(day, time);
 			boolean isRepeat = switchRepeat.isChecked();
 
-			Log.e("f.ninaber", "Title : " + title + "|| Timestamp : " + timestamp);
-
 			if (!TextUtils.isEmpty(title) && timestamp > 0) {
 				if (timestamp < System.currentTimeMillis() && DateUtil.getDate(System.currentTimeMillis()).contentEquals(DateUtil.getDate(timestamp))) {
 					Toast.makeText(this, getResources().getString(R.string.set_time), Toast.LENGTH_SHORT).show();
@@ -652,7 +650,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 				}
 
 				task.setSnooze(-1);
-
 				saveTaskWriteImage(task, task.getPath() == null ? null : Uri.parse(task.getPath()));
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
