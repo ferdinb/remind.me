@@ -67,17 +67,20 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
 			int val = Integer.valueOf(sharedPreferences.getString(key, "1000"));
 			String[] s = getResources().getStringArray(R.array.setting_pattern_entries);			
 			switch (val) {
-			case 10000:
+			case 3000:
 				val = 1;
 				break;
-			case 30000:
+			case 7000:
 				val = 2;
 				break;
-			case 60000:
+			case 10000:
 				val = 3;
 				break;
-			case 300000:
+			case 30000:
 				val = 4;
+				break;
+			case 60000:
+				val = 5;
 				break;
 
 			default:
@@ -85,11 +88,16 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
 				break;
 			}			
 			patternPref.setSummary(getResources().getString(R.string.setting_vibrate_pattern_summary, s[val]));
+		} else if (key.equals(getResources().getString(R.string.setting_sound_pattern_key))){
+			Preference patternPref = findPreference(key);
+			boolean val = Boolean.valueOf(sharedPreferences.getString(key, "true"));
+			String[] entries = getResources().getStringArray(R.array.setting_sound_pattern_entries);
+			if(val){
+				patternPref.setSummary(getResources().getString(R.string.setting_sound_summary_pattern, entries[1]));
+			}else{
+				patternPref.setSummary(getResources().getString(R.string.setting_sound_summary_pattern, entries[0]));
+			}
 		}
-		
-		
-		
-		
 	}
 
 	@Override

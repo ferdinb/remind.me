@@ -65,7 +65,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private RelativeLayout photoGroup;
 	private ImageView photoAttachment;
 	private Uri cameraUri;
-	private String existTID;
+	// private String existTID;
 	private LinearLayout repeatLayout;
 	private Animation fadeIn;
 	private Animation fadeOut;
@@ -78,6 +78,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private int mShortAnimationDuration;
 	private boolean isView;
 	private TransparentProgressDialog dialog;
+	private Task existTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -179,6 +180,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			switchRepeat.setOnCheckedChangeListener(this);
 			findViewById(R.id.add_task_date_group).setOnClickListener(this);
 			findViewById(R.id.add_task_image_remove).setOnClickListener(this);
+			findViewById(R.id.add_task_container).setBackgroundColor(getResources().getColor(R.color.yellow_100));
 		}
 	}
 
@@ -234,7 +236,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			photoGroup.setVisibility(View.VISIBLE);
 			addAttachmentGroup.setVisibility(View.GONE);
 		}
-		existTID = task.getTID();
+		// existTID = task.getTID();
+		existTask = task;
 	}
 
 	@Override
@@ -295,7 +298,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			setRepeatTime(Constants.REPEAT_YEAR);
 			break;
 		case R.id.add_task_image:
-//			zoomImageFromThumb(photoAttachment, cameraUri);
+			// zoomImageFromThumb(photoAttachment, cameraUri);
 
 			// findViewById(R.id.add_task_container).setVisibility(View.GONE);
 			// ((ImageView)findViewById(R.id.expanded_image)).setImageURI(cameraUri);
@@ -591,8 +594,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			break;
 
 		case R.id.action_delete:
-			if (!TextUtils.isEmpty(existTID)) {
-				TaskHelper.getInstance().deleteByTID(getContentResolver(), existTID);
+			if (null != existTask && !TextUtils.isEmpty(existTask.getTID())) {
+				TaskHelper.getInstance().deleteByTID(getContentResolver(), existTask.getTID());
 				this.finish();
 			}
 			break;
@@ -618,8 +621,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 				}
 
 				Task task = new Task();
-				if (!TextUtils.isEmpty(existTID)) {
-					task.setTID(existTID);
+				if (null != existTask && !TextUtils.isEmpty(existTask.getTID())) {
+					task.setTID(existTask.getTID());
 				} else {
 					task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
 				}
@@ -666,33 +669,38 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 			finish();
 		} else {
-			new AsyncTask<Uri, Void, Uri>() {
-				protected void onPreExecute() {
-					if (null == dialog) {
-						dialog = new TransparentProgressDialog(AddTaskActivity.this);
-						dialog.show();
-					}
-				};
+			if (existTask != null && existTask.getPath().equalsIgnoreCase(task.getPath())) {
+				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+				finish();
+			} else {
+				new AsyncTask<Uri, Void, Uri>() {
+					protected void onPreExecute() {
+						if (null == dialog) {
+							dialog = new TransparentProgressDialog(AddTaskActivity.this);
+							dialog.show();
+						}
+					};
 
-				@Override
-				protected Uri doInBackground(Uri... params) {
-					return ImageUtil.writeBitmap(params[0], AddTaskActivity.this);
-				}
-
-				protected void onPostExecute(Uri result) {
-					if (null != dialog && dialog.isShowing()) {
-						dialog.dismiss();
+					@Override
+					protected Uri doInBackground(Uri... params) {
+						return ImageUtil.writeBitmap(params[0], AddTaskActivity.this);
 					}
 
-					if (null != result) {
-						task.setPath(result.toString());
-						TaskHelper.getInstance().insertAsync(getContentResolver(), task);
-						finish();
-					} else {
-						Toast.makeText(AddTaskActivity.this, getApplicationContext().getResources().getString(R.string.ups_something_wrong), Toast.LENGTH_SHORT).show();
-					}
-				};
-			}.execute(uri);
+					protected void onPostExecute(Uri result) {
+						if (null != dialog && dialog.isShowing()) {
+							dialog.dismiss();
+						}
+
+						if (null != result) {
+							task.setPath(result.toString());
+							TaskHelper.getInstance().insertAsync(getContentResolver(), task);
+							finish();
+						} else {
+							Toast.makeText(AddTaskActivity.this, getApplicationContext().getResources().getString(R.string.ups_something_wrong), Toast.LENGTH_SHORT).show();
+						}
+					};
+				}.execute(uri);
+			}
 		}
 	}
 }

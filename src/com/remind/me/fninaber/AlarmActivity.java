@@ -157,12 +157,6 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		case R.id.alarm_dismiss:
 			if (isAlarmTime && null != task.getTID()) {
 				TaskHelper.getInstance().setSnoozeToDefault(getContentResolver(), task.getTID());				
-				
-//				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AlarmActivity.this);
-//				if(prefs.getBoolean(AlarmActivity.this.getResources().getString(R.string.setting_notification_bar_key), false)){
-//					NotificationsUtil.getInstance(AlarmActivity.this).clearNotificaion(AlarmActivity.this, task.getTID());					
-//				}
-				
 			}
 			NotificationsUtil.getInstance(AlarmActivity.this).clearNotificaion(AlarmActivity.this, task.getTID());					
 			

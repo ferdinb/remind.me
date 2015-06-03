@@ -13,13 +13,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -47,7 +48,6 @@ public class NotificationsUtil {
 
 	private NotificationsUtil(Context context) {
 		vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		mediaPlayer = new MediaPlayer();
 	}
 
 	public void vibratePattern(Context context) {
@@ -73,23 +73,38 @@ public class NotificationsUtil {
 
 	public void playRingtone(Context context) {
 		stopRingtone();
-
-		if (null != mediaPlayer && !mediaPlayer.isPlaying()) {
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			String uriString = prefs.getString(context.getResources().getString(R.string.setting_sound_alarm_key), null);
-			Uri alert = uriString == null ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM) : Uri.parse(uriString);
-
-			final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-			if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-				try {
-					mediaPlayer.setDataSource(context, alert);
-					mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-					mediaPlayer.setLooping(true);
-					mediaPlayer.prepare();
-					mediaPlayer.start();
-				} catch (Exception e) {
-					Log.e("f.ninaber", "Failed to play : " + e);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		String uriString = prefs.getString(context.getResources().getString(R.string.setting_sound_alarm_key), null);
+		Uri alert = uriString == null ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM) : Uri.parse(uriString);
+		boolean isLooping = Boolean.valueOf(prefs.getString(context.getResources().getString(R.string.setting_sound_pattern_key), "true"));
+		final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+			try {
+				if (null == mediaPlayer) {
+					mediaPlayer = new MediaPlayer();
 				}
+				mediaPlayer.setDataSource(context, alert);
+				mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+				mediaPlayer.setLooping(isLooping);
+				mediaPlayer.prepareAsync();
+				mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+					@Override
+					public void onPrepared(MediaPlayer mp) {
+						if (mp != null) {
+							mp.start();
+						}
+					}
+				});
+				mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						mediaPlayer = null;
+						stopRingtone(mp);
+					}
+				});
+
+			} catch (Exception e) {
+				Log.e("f.ninaber", "Failed to play : " + e);
 			}
 		}
 	}
@@ -113,6 +128,16 @@ public class NotificationsUtil {
 	public void stopRingtone() {
 		if (null != mediaPlayer && mediaPlayer.isPlaying()) {
 			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayer = null;
+		}
+	}
+
+	public void stopRingtone(MediaPlayer mp) {
+		if (null != mp) {
+			mp.stop();
+			mp.release();
+			mp = null;
 		}
 	}
 
