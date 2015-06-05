@@ -20,4 +20,6 @@
     <dimen name="attachment_size">43dp</dimen>
     <dimen name="attachment_height_layout">180dp</dimen>
     <dimen name="attachment_photo_size">180dp</dimen>
+    <dimen name="attachment_recording_size">100dp</dimen>
+
 </resources>

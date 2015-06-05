@@ -23,6 +23,7 @@ public interface Constants {
 	public static final int REPEAT_YEAR = 3;
 
 	public static final String IMAGE_FOLDER = "/remindme/image/";
+	public static final String AUDIO_FOLDER = "/remindme/audio/";
 	public static final String PREF_KEY_MASTER = "com.f.ninaber.android.remind.me";
 	public static final String PIN_LOCK_SCREEN = "pin_lock_screen";
 }

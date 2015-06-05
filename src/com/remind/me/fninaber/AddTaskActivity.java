@@ -17,6 +17,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -24,8 +25,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -37,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -45,13 +49,14 @@ import com.remind.me.fninaber.model.Task;
 import com.remind.me.fninaber.model.Type;
 import com.remind.me.fninaber.util.DateUtil;
 import com.remind.me.fninaber.util.ImageUtil;
+import com.remind.me.fninaber.util.RecordingUtil;
 import com.remind.me.fninaber.util.RoundedTransform;
 import com.remind.me.fninaber.util.TaskManager;
 import com.remind.me.fninaber.widget.ArialText;
 import com.remind.me.fninaber.widget.TransparentProgressDialog;
 import com.squareup.picasso.Picasso;
 
-public class AddTaskActivity extends FragmentActivity implements OnClickListener, OnCheckedChangeListener {
+public class AddTaskActivity extends FragmentActivity implements OnClickListener, OnCheckedChangeListener, OnTouchListener {
 	private static final String TAG = AddTaskActivity.class.getSimpleName();
 	private String mDate;
 	private String mTime;
@@ -79,6 +84,9 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private boolean isView;
 	private TransparentProgressDialog dialog;
 	private Task existTask;
+	private RelativeLayout recordingBgAnimate;
+	private Handler recorderHandler;
+	private Runnable runnable;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,10 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		findViewById(R.id.activity_add_task_gallery).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_maps).setOnClickListener(this);
 		findViewById(R.id.add_task_image_remove).setOnClickListener(this);
+
+		recordingBgAnimate = (RelativeLayout) findViewById(R.id.activity_add_task_sound_recording);
+		recordingBgAnimate.setOnTouchListener(this);
+
 		// leftButton = (Button) findViewById(R.id.activity_add_task_cancel);
 		// leftButton.setOnClickListener(this);
 		// rightButton = (Button) findViewById(R.id.activity_add_task_save);
@@ -243,7 +255,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-
 		case R.id.add_task_date_group: {
 			int[] val = DateUtil.dayParseDate(mDate);
 			DatePickerDialog datePicker = new DatePickerDialog(this, dateListener, val[2], val[1], val[0]);
@@ -702,5 +713,50 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 				}.execute(uri);
 			}
 		}
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		switch (v.getId()) {
+		case R.id.activity_add_task_sound_recording: {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				startRecording();
+			}
+
+			if (event.getAction() == MotionEvent.ACTION_UP) {
+				stopRecording();
+			}
+			return true;
+		}
+		default:
+			break;
+		}
+		return false;
+	}
+
+	private void startRecording() {
+		recordingBgAnimate.setBackgroundDrawable(getResources().getDrawable(R.drawable.state_bg_round_grey200_corner_red));
+		runnable = new Runnable() {
+			@Override
+			public void run() {
+				RecordingUtil.getInstance().startRecording();
+				
+				
+			}
+		};
+		recorderHandler = new Handler();
+		recorderHandler.postDelayed(runnable, 500);
+	}
+	
+	
+
+	private void stopRecording() {
+		if (null != recorderHandler && null != runnable) {
+			recorderHandler.removeCallbacks(runnable);
+			recorderHandler = null;
+			runnable = null;
+		}
+		RecordingUtil.getInstance().stopRecording();
+		recordingBgAnimate.setBackgroundDrawable(getResources().getDrawable(R.drawable.state_bg_round_grey200));
 	}
 }
