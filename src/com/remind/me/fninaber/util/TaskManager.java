@@ -14,12 +14,15 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.remind.me.fninaber.Constants;
 import com.remind.me.fninaber.R;
 import com.remind.me.fninaber.db.TaskHelper;
 import com.remind.me.fninaber.model.Task;
+import com.remind.me.fninaber.model.Type;
 import com.remind.me.fninaber.service.AlarmReceiver;
 import com.remind.me.fninaber.service.BootReceiver;
 
@@ -157,4 +160,45 @@ public class TaskManager {
 			}
 		}.execute();
 	}
+
+	public Task buildTask(Task existTask, String title, String notes, Uri pathURI, long timestamp, int repeat) {
+		Task task = new Task();
+		if (null != existTask && !TextUtils.isEmpty(existTask.getTID())) {
+			task.setTID(existTask.getTID());
+		} else {
+			task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
+		}
+		task.setTitle(title);
+		task.setNotes(notes);
+		task.setTimestamp(timestamp);
+		task.setStatus(Constants.ON_GOING);
+		task.setRepeat(repeat);
+		task.setSnooze(-1);
+
+		if (null != pathURI) {
+			task.setPath(pathURI.toString());
+			task.setType(Type.PHOTO.toString());
+		} else {
+			task.setType(Type.TEXT.toString());
+		}
+		return task;
+	}
+
+	public int repeatVar(boolean isRepeat, View day, View week, View month, View year) {
+		if (!isRepeat) {
+			return -1;
+		}
+
+		if (day.isSelected()) {
+			return Constants.REPEAT_DAY;
+		} else if (week.isSelected()) {
+			return Constants.REPEAT_WEEK;
+		} else if (month.isSelected()) {
+			return Constants.REPEAT_MONTH;
+		} else if (year.isSelected()) {
+			return Constants.REPEAT_YEAR;
+		}
+		return -1;
+	}
+
 }

@@ -29,12 +29,12 @@ public class ImageUtil {
 		int size = ScreenUtil.width(act);
 		Bitmap bmp = null;
 		try {
+			Log.e("f.ninaber", "Source : " + source);
 			bmp = uriToScreenSize(act, source, size);
 			if (null == bmp) {
 				return null;
 			}
 
-			Log.e("f.ninaber", "Width : " + bmp.getWidth() + " | Height : " + bmp.getHeight());
 			Matrix matrix = new Matrix();
 			matrix.postRotate(setImageOrientation(source.getPath()));
 			bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, false);
@@ -92,7 +92,7 @@ public class ImageUtil {
 
 	public static Uri writeTempBitmap(Activity act, Bitmap bmp) {
 		File cacheDir = act.getCacheDir();
-		File f = new File(cacheDir, "shout");
+		File f = new File(cacheDir, "temp_image");
 		if (f.exists()) {
 			f.delete();
 		}
@@ -143,6 +143,7 @@ public class ImageUtil {
 	public static Bitmap uriToScreenSize(Context c, Uri uri, final int requiredSize) throws FileNotFoundException {
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
+
 		BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
 		float width_tmp = o.outWidth, height_tmp = o.outHeight;
 		Log.e("f.ninaber", "Width tmp : " + width_tmp + " | Height tmp : " + height_tmp);
@@ -217,8 +218,21 @@ public class ImageUtil {
 	public static File createTempImageFile() throws IOException {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
-		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir = new File(Environment.getExternalStorageDirectory() + Constants.TEMP_IMAGE_FOLDER);
+		if (!storageDir.exists()) {
+			storageDir.mkdirs();
+		}
+
 		File file = File.createTempFile(imageFileName, ".jpg", storageDir);
 		return file;
 	}
+
+	public static void deleteTempFile() {
+		File storageDir = new File(Environment.getExternalStorageDirectory() + Constants.TEMP_IMAGE_FOLDER);
+		File[] files = storageDir.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			files[0].delete();
+		}
+	}
+
 }

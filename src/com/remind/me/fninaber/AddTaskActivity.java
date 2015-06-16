@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
@@ -40,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -49,6 +49,7 @@ import com.remind.me.fninaber.model.Task;
 import com.remind.me.fninaber.model.Type;
 import com.remind.me.fninaber.util.DateUtil;
 import com.remind.me.fninaber.util.ImageUtil;
+import com.remind.me.fninaber.util.NotificationsUtil;
 import com.remind.me.fninaber.util.RecordingUtil;
 import com.remind.me.fninaber.util.RoundedTransform;
 import com.remind.me.fninaber.util.TaskManager;
@@ -79,14 +80,12 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private View repeatMonth;
 	private View repeatYear;
 	private Switch switchRepeat;
-	private Animator mCurrentAnimator;
-	private int mShortAnimationDuration;
 	private boolean isView;
 	private TransparentProgressDialog dialog;
 	private Task existTask;
-	private RelativeLayout recordingBgAnimate;
-	private Handler recorderHandler;
-	private Runnable runnable;
+	private LinearLayout recordButton;
+	private Rect rect;
+	private boolean isRecording;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -132,25 +131,19 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		editTitle = (EditText) findViewById(R.id.add_task_title);
 		editNotes = (EditText) findViewById(R.id.add_task_notes);
 
-		// findViewById(R.id.action_bar_right).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_recorder).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_photo).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_gallery).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_maps).setOnClickListener(this);
 		findViewById(R.id.add_task_image_remove).setOnClickListener(this);
 
-		recordingBgAnimate = (RelativeLayout) findViewById(R.id.activity_add_task_sound_recording);
-		recordingBgAnimate.setOnTouchListener(this);
-
-		// leftButton = (Button) findViewById(R.id.activity_add_task_cancel);
-		// leftButton.setOnClickListener(this);
-		// rightButton = (Button) findViewById(R.id.activity_add_task_save);
-		// rightButton.setOnClickListener(this);
+		recordButton = (LinearLayout) findViewById(R.id.activity_add_task_sound_recording);
+		recordButton.setOnTouchListener(this);
 
 		addAttachmentGroup = (LinearLayout) findViewById(R.id.add_task_attachments);
 		photoGroup = (RelativeLayout) findViewById(R.id.add_task_image_group);
 		photoAttachment = (ImageView) findViewById(R.id.add_task_image);
-		photoAttachment.setOnClickListener(this);
+
 		setRepeatTime(Constants.REPEAT_DAY);
 		Task task = (Task) getIntent().getSerializableExtra(Constants.TASK);
 		if (task != null) {
@@ -160,7 +153,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		if (isView) {
 			setViewEnableDisable(false);
 		}
-		mShortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
 	}
 
 	private void setViewEnableDisable(boolean isEnable) {
@@ -279,7 +271,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			break;
 		}
 		case R.id.activity_add_task_recorder: {
-			Toast.makeText(this, getResources().getString(R.string.available_on_next_update), Toast.LENGTH_SHORT).show();
+			initViewRecord();
 			break;
 		}
 
@@ -307,13 +299,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			break;
 		case R.id.action_bar_year:
 			setRepeatTime(Constants.REPEAT_YEAR);
-			break;
-		case R.id.add_task_image:
-			// zoomImageFromThumb(photoAttachment, cameraUri);
-
-			// findViewById(R.id.add_task_container).setVisibility(View.GONE);
-			// ((ImageView)findViewById(R.id.expanded_image)).setImageURI(cameraUri);
-			// ((ImageView)findViewById(R.id.expanded_image)).setVisibility(View.VISIBLE);;
 			break;
 		default:
 			break;
@@ -344,6 +329,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		switch (type) {
 		case GALLERY: {
 			Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			intent.setType("image/*");
 			startActivityForResult(intent, GALLERY);
 			break;
 		}
@@ -357,7 +343,9 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 					Log.e("f.ninaber", "Error : " + e.getMessage());
 				}
 				if (photoFile != null) {
+					Log.e("f.ninaber", "photoFile : " + photoFile.getAbsolutePath());
 					cameraUri = Uri.fromFile(photoFile);
+
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
 					startActivityForResult(intent, CAMERA);
 				}
@@ -376,6 +364,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 				Uri uri = data.getData();
 				doResize(uri);
 			} else if (requestCode == CAMERA && null != cameraUri) {
+
+				Log.e("f.ninaber", "CameraUri : " + cameraUri);
 				doResize(cameraUri);
 			}
 		} else {
@@ -387,15 +377,19 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		new AsyncTask<Uri, Void, Uri>() {
 			@Override
 			protected Uri doInBackground(Uri... params) {
-				return ImageUtil.resizeWriteUrI(AddTaskActivity.this, params[0], true);
+				return ImageUtil.resizeWriteUrI(AddTaskActivity.this, params[0], false);
 			}
 
 			protected void onPostExecute(Uri result) {
+				Log.e("f.ninaber", "Result : " + result);
+
 				if (null != result) {
 					cameraUri = result;
 					photoGroup.setVisibility(View.VISIBLE);
 					addAttachmentGroup.setVisibility(View.GONE);
 					// photoAttachment.setImageURI(result);
+
+					Log.e("f.ninaber", "hereeeeeeeeeeee : " + result);
 
 					int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
 					Picasso.with(AddTaskActivity.this).load(result).skipMemoryCache().transform(new RoundedTransform(corner, 0)).into(photoAttachment);
@@ -411,6 +405,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		ImageUtil.deleteTempFile();
 
 		// Start - Update alarm
 		TaskManager.getInstance(this).startTaskAlarm(this.getContentResolver(), System.currentTimeMillis());
@@ -468,135 +463,6 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 
 	}
 
-	private void zoomImageFromThumb(final View thumbView, Uri cameraUri) {
-		// If there's an animation in progress, cancel it immediately and
-		// proceed with this one.
-		if (mCurrentAnimator != null) {
-			mCurrentAnimator.cancel();
-		}
-
-		// Load the high-resolution "zoomed-in" image.
-
-		// ferdi
-		final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image);
-		expandedImageView.setImageURI(cameraUri);
-
-		// Calculate the starting and ending bounds for the zoomed-in image.
-		// This step
-		// involves lots of math. Yay, math.
-		final Rect startBounds = new Rect();
-		final Rect finalBounds = new Rect();
-		final Point globalOffset = new Point();
-
-		// The start bounds are the global visible rectangle of the thumbnail,
-		// and the
-		// final bounds are the global visible rectangle of the container view.
-		// Also
-		// set the container view's offset as the origin for the bounds, since
-		// that's
-		// the origin for the positioning animation properties (X, Y).
-		thumbView.getGlobalVisibleRect(startBounds);
-		findViewById(R.id.container_fragment).getGlobalVisibleRect(finalBounds, globalOffset);
-		startBounds.offset(-globalOffset.x, -globalOffset.y);
-		finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-		// Adjust the start bounds to be the same aspect ratio as the final
-		// bounds using the
-		// "center crop" technique. This prevents undesirable stretching during
-		// the animation.
-		// Also calculate the start scaling factor (the end scaling factor is
-		// always 1.0).
-		float startScale;
-		if ((float) finalBounds.width() / finalBounds.height() > (float) startBounds.width() / startBounds.height()) {
-			// Extend start bounds horizontally
-			startScale = (float) startBounds.height() / finalBounds.height();
-			float startWidth = startScale * finalBounds.width();
-			float deltaWidth = (startWidth - startBounds.width()) / 2;
-			startBounds.left -= deltaWidth;
-			startBounds.right += deltaWidth;
-		} else {
-			// Extend start bounds vertically
-			startScale = (float) startBounds.width() / finalBounds.width();
-			float startHeight = startScale * finalBounds.height();
-			float deltaHeight = (startHeight - startBounds.height()) / 2;
-			startBounds.top -= deltaHeight;
-			startBounds.bottom += deltaHeight;
-		}
-
-		// Hide the thumbnail and show the zoomed-in view. When the animation
-		// begins,
-		// it will position the zoomed-in view in the place of the thumbnail.
-		thumbView.setAlpha(0f);
-		expandedImageView.setVisibility(View.VISIBLE);
-
-		// Set the pivot point for SCALE_X and SCALE_Y transformations to the
-		// top-left corner of
-		// the zoomed-in view (the default is the center of the view).
-		expandedImageView.setPivotX(0f);
-		expandedImageView.setPivotY(0f);
-
-		// Construct and run the parallel animation of the four translation and
-		// scale properties
-		// (X, Y, SCALE_X, and SCALE_Y).
-		AnimatorSet set = new AnimatorSet();
-		set.play(ObjectAnimator.ofFloat(expandedImageView, View.X, startBounds.left, finalBounds.left)).with(ObjectAnimator.ofFloat(expandedImageView, View.Y, startBounds.top, finalBounds.top))
-				.with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X, startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_Y, startScale, 1f));
-		set.setDuration(mShortAnimationDuration);
-		set.setInterpolator(new DecelerateInterpolator());
-		set.addListener(new AnimatorListenerAdapter() {
-			@Override
-			public void onAnimationEnd(Animator animation) {
-				mCurrentAnimator = null;
-			}
-
-			@Override
-			public void onAnimationCancel(Animator animation) {
-				mCurrentAnimator = null;
-			}
-		});
-		set.start();
-		mCurrentAnimator = set;
-
-		// Upon clicking the zoomed-in image, it should zoom back down to the
-		// original bounds
-		// and show the thumbnail instead of the expanded image.
-		final float startScaleFinal = startScale;
-		expandedImageView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (mCurrentAnimator != null) {
-					mCurrentAnimator.cancel();
-				}
-
-				// Animate the four positioning/sizing properties in parallel,
-				// back to their
-				// original values.
-				AnimatorSet set = new AnimatorSet();
-				set.play(ObjectAnimator.ofFloat(expandedImageView, View.X, startBounds.left)).with(ObjectAnimator.ofFloat(expandedImageView, View.Y, startBounds.top))
-						.with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X, startScaleFinal)).with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_Y, startScaleFinal));
-				set.setDuration(mShortAnimationDuration);
-				set.setInterpolator(new DecelerateInterpolator());
-				set.addListener(new AnimatorListenerAdapter() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						thumbView.setAlpha(1f);
-						expandedImageView.setVisibility(View.GONE);
-						mCurrentAnimator = null;
-					}
-
-					@Override
-					public void onAnimationCancel(Animator animation) {
-						thumbView.setAlpha(1f);
-						expandedImageView.setVisibility(View.GONE);
-						mCurrentAnimator = null;
-					}
-				});
-				set.start();
-				mCurrentAnimator = set;
-			}
-		});
-	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -631,39 +497,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 					return false;
 				}
 
-				Task task = new Task();
-				if (null != existTask && !TextUtils.isEmpty(existTask.getTID())) {
-					task.setTID(existTask.getTID());
-				} else {
-					task.setTID(String.valueOf(System.currentTimeMillis() / 1000));
-				}
-				task.setTitle(title);
-				task.setNotes(notes);
-				task.setTimestamp(timestamp);
-				task.setStatus(Constants.ON_GOING);
-
-				if (isRepeat) {
-					if (repeatDay.isSelected()) {
-						task.setRepeat(Constants.REPEAT_DAY);
-					} else if (repeatWeek.isSelected()) {
-						task.setRepeat(Constants.REPEAT_WEEK);
-					} else if (repeatMonth.isSelected()) {
-						task.setRepeat(Constants.REPEAT_MONTH);
-					} else {
-						task.setRepeat(Constants.REPEAT_YEAR);
-					}
-				} else {
-					task.setRepeat(-1);
-				}
-
-				if (null != cameraUri) {
-					task.setPath(cameraUri.toString());
-					task.setType(Type.PHOTO.toString());
-				} else {
-					task.setType(Type.TEXT.toString());
-				}
-
-				task.setSnooze(-1);
+				int repeat = TaskManager.getInstance(this).repeatVar(isRepeat, repeatDay, repeatWeek, repeatMonth, repeatYear);
+				Task task = TaskManager.getInstance(this).buildTask(existTask, title, notes, cameraUri, timestamp, repeat);
 				saveTaskWriteImage(task, task.getPath() == null ? null : Uri.parse(task.getPath()));
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
@@ -680,7 +515,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 			finish();
 		} else {
-			if (existTask != null && existTask.getPath().equalsIgnoreCase(task.getPath())) {
+			if (existTask != null && existTask.getPath() != null && existTask.getPath().equalsIgnoreCase(task.getPath())) {
 				TaskHelper.getInstance().insertAsync(getContentResolver(), task);
 				finish();
 			} else {
@@ -720,12 +555,22 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		switch (v.getId()) {
 		case R.id.activity_add_task_sound_recording: {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				startRecording();
+				rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+				isRecording = RecordingUtil.getInstance().prepareRecording(this);
 			}
 
-			if (event.getAction() == MotionEvent.ACTION_UP) {
-				stopRecording();
+			if (isRecording) {
+				if (!rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
+					RecordingUtil.getInstance().ReleaseRecording(this, true);
+					isRecording = false;
+				} else {
+					if (event.getAction() == MotionEvent.ACTION_UP) {
+						RecordingUtil.getInstance().ReleaseRecording(this, false);
+						isRecording = false;
+					}
+				}
 			}
+
 			return true;
 		}
 		default:
@@ -734,29 +579,31 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		return false;
 	}
 
-	private void startRecording() {
-		recordingBgAnimate.setBackgroundDrawable(getResources().getDrawable(R.drawable.state_bg_round_grey200_corner_red));
-		runnable = new Runnable() {
-			@Override
-			public void run() {
-				RecordingUtil.getInstance().startRecording();
-				
-				
-			}
-		};
-		recorderHandler = new Handler();
-		recorderHandler.postDelayed(runnable, 500);
+	private void initViewRecord() {
+		addAttachmentGroup.setVisibility(View.GONE);
+		findViewById(R.id.activity_add_task_recording_group).setVisibility(View.VISIBLE);
 	}
-	
-	
 
-	private void stopRecording() {
-		if (null != recorderHandler && null != runnable) {
-			recorderHandler.removeCallbacks(runnable);
-			recorderHandler = null;
-			runnable = null;
-		}
-		RecordingUtil.getInstance().stopRecording();
-		recordingBgAnimate.setBackgroundDrawable(getResources().getDrawable(R.drawable.state_bg_round_grey200));
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		String title = editTitle.getText().toString();
+		String notes = editNotes.getText().toString();
+		String day = dateView.getText().toString();
+		String time = timeView.getText().toString();
+		long timestamp = DateUtil.timestampDay(day, time);
+		boolean isRepeat = switchRepeat.isChecked();
+
+		int repeat = TaskManager.getInstance(this).repeatVar(isRepeat, repeatDay, repeatWeek, repeatMonth, repeatYear);
+		Task task = TaskManager.getInstance(this).buildTask(existTask, title, notes, cameraUri, timestamp, repeat);
+		outState.putSerializable(Constants.TASK, task);
+		super.onSaveInstanceState(outState);
 	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		Task task = (Task) savedInstanceState.getSerializable(Constants.TASK);
+		setDataToView(task);
+	}
+
 }

@@ -79,7 +79,7 @@ public class HomeActivity extends FragmentActivity {
 	}
 
 	private void refreshFragment() {
-		getFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();
+		getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
 	}
 
 	@Override

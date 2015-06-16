@@ -12,7 +12,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:fillViewport="true" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -305,50 +306,92 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/activity_add_task_recording_group"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
-                    <RelativeLayout
-                        android:id="@+id/activity_add_task_sound_recording"
-                        android:layout_width="match_parent"
+                    <com.remind.me.fninaber.widget.ArialText
+                        android:id="@+id/activity_add_task_recording_time"
+                        style="@style/FontBlackNormal"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/time_00"
+                        android:textColor="@color/red_800"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                    <LinearLayout
+                        android:id="@+id/activity_add_task_sound_animate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/activity_add_task_recording_time"
+                        android:layout_centerHorizontal="true"
                         android:layout_margin="@dimen/padding_size_15dp"
-                        android:background="@drawable/state_bg_round_grey200"
-                        android:padding="@dimen/padding_size_5dp"
-                        android:visibility="visible" >
+                        android:background="@drawable/record_circle_pressed"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_size_15dp" >
 
                         <ImageView
                             android:layout_width="@dimen/attachment_size"
                             android:layout_height="@dimen/attachment_size"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_action_mic_record" />
+                            android:background="@drawable/ic_audio"
+                            android:visibility="invisible" />
+                    </LinearLayout>
 
-                        <com.remind.me.fninaber.widget.ArialText
-                            android:id="@+id/activity_add_task_recording_time"
-                            style="@style/FontBlackNormal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="@dimen/padding_size_10dp"
-                            android:text="@string/time_00" />
-                    </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/activity_add_task_sound_recording"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/activity_add_task_recording_time"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="@dimen/padding_size_15dp"
+                        android:background="@drawable/record_circle_normal"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_size_15dp" >
+
+                        <ImageView
+                            android:id="@+id/activity_add_task_center_record"
+                            android:layout_width="@dimen/attachment_size"
+                            android:layout_height="@dimen/attachment_size"
+                            android:background="@drawable/ic_audio" />
+                    </LinearLayout>
 
                     <com.remind.me.fninaber.widget.ArialText
-                        android:id="@+id/activity_add_task_recording_hint"
                         style="@style/FontBlackSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/padding_size_15dp"
-                        android:layout_marginRight="@dimen/padding_size_15dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/padding_size_10dp"
+                        android:layout_toLeftOf="@id/activity_add_task_sound_recording"
                         android:gravity="center"
                         android:text="@string/hold_to_start_recording"
                         android:textAlignment="center"
-                        android:textColor="@color/grey_400"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:textColor="@color/grey_700" />
+
+                    <com.remind.me.fninaber.widget.ArialText
+                        style="@style/FontBlackSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding_size_10dp"
+                        android:layout_toRightOf="@id/activity_add_task_sound_recording"
+                        android:gravity="center"
+                        android:text="@string/move_to_cancel_recording"
+                        android:textAlignment="center"
+                        android:textColor="@color/grey_700" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/padding_size_35dp"
+                        android:layout_below="@id/activity_add_task_sound_recording" />
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

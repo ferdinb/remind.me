@@ -65,6 +65,12 @@ public class NotificationsUtil {
 		}
 	}
 
+	public void vibrateRecord() {
+		if (null != vibrator) {
+			vibrator.vibrate(200);;
+		}
+	}
+	
 	public void stopVibrate() {
 		if (null != vibrator) {
 			vibrator.cancel();
