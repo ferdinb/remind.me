@@ -313,6 +313,16 @@
                     android:orientation="vertical"
                     android:visibility="gone" >
 
+                    <ImageView
+                        android:id="@+id/add_task_record_remove"
+                        android:layout_width="@dimen/attachment_size"
+                        android:layout_height="@dimen/attachment_size"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/padding_size_25dp"
+                        android:layout_marginTop="@dimen/padding_size_5dp"
+                        android:background="@drawable/ic_close"
+                        android:clickable="true" />
+
                     <com.remind.me.fninaber.widget.ArialText
                         android:id="@+id/activity_add_task_recording_time"
                         style="@style/FontBlackNormal"
@@ -391,6 +401,60 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/padding_size_35dp"
                         android:layout_below="@id/activity_add_task_sound_recording" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/activity_add_task_play_audio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/padding_size_15dp"
+                    android:background="@drawable/state_bg_round_grey200"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_size_10dp"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/add_task_play_remove"
+                        android:layout_width="@dimen/attachment_size"
+                        android:layout_height="@dimen/attachment_size"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/ic_close"
+                        android:clickable="true" />
+
+                    <com.remind.me.fninaber.widget.ArialText
+                        android:id="@+id/activity_add_task_play_time"
+                        style="@style/FontBlackNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_size_10dp"
+                        android:text="@string/time_00"
+                        android:textColor="@color/red_800"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/activity_add_task_play_time"
+                        android:layout_marginTop="@dimen/padding_size_15dp" >
+
+                        <ImageView
+                            android:id="@+id/add_task_play_stop"
+                            android:layout_width="@dimen/attachment_size"
+                            android:layout_height="@dimen/attachment_size"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginRight="@dimen/padding_size_5dp"
+                            android:background="@drawable/ic_action_playback_play"
+                            android:clickable="true" />
+
+                        <SeekBar
+                            android:id="@+id/add_task_seekbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/padding_size_25dp"
+                            android:layout_toRightOf="@id/add_task_play_stop" />
+                    </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

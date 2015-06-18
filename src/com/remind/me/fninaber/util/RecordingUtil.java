@@ -38,7 +38,7 @@ public class RecordingUtil {
 		return instance;
 	}
 
-	private boolean startRecording() {
+	private File startRecording() {
 		stopRecording();
 
 		File f = new File(Environment.getExternalStorageDirectory() + Constants.AUDIO_FOLDER);
@@ -62,9 +62,16 @@ public class RecordingUtil {
 		} catch (Exception e) {
 			Log.e("f.ninaber", "Exception : " + e);
 			fileName = null;
-			return false;
+			
+			if(mRecorder != null){
+				mRecorder.stop();
+				mRecorder.release();
+				mRecorder = null;
+			}
+			
+			return fileName;
 		}
-		return fileName.getAbsolutePath() != null ? true : false;
+		return fileName;
 	}
 
 	private void stopRecording() {
@@ -75,9 +82,9 @@ public class RecordingUtil {
 		}
 	}
 
-	public boolean prepareRecording(final Activity act) {
+	public File prepareRecording(final Activity act) {
 		NotificationsUtil.getInstance(act).vibrateRecord();
-		boolean path = startRecording();
+		File path = startRecording();
 		startAnimation(act);
 		startTimer((TextView) act.findViewById(R.id.activity_add_task_recording_time));
 		return path;
@@ -134,6 +141,14 @@ public class RecordingUtil {
 		if (null != fileName && fileName.exists()) {
 			fileName.delete();
 		}
+	}
+	
+	
+	public boolean deleteAudioFile(File audioPath) {
+		if (null != audioPath && audioPath.exists()) {
+			return audioPath.delete();
+		}
+		return false;
 	}
 
 	private void startAnimation(Activity act) {

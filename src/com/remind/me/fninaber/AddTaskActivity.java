@@ -40,13 +40,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.remind.me.fninaber.db.TaskHelper;
 import com.remind.me.fninaber.model.Task;
 import com.remind.me.fninaber.model.Type;
+import com.remind.me.fninaber.util.AudioUtil;
 import com.remind.me.fninaber.util.DateUtil;
 import com.remind.me.fninaber.util.ImageUtil;
 import com.remind.me.fninaber.util.NotificationsUtil;
@@ -86,6 +89,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 	private LinearLayout recordButton;
 	private Rect rect;
 	private boolean isRecording;
+	private File audioPath;
+	private boolean isAudioPlaying;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -136,6 +141,10 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		findViewById(R.id.activity_add_task_gallery).setOnClickListener(this);
 		findViewById(R.id.activity_add_task_maps).setOnClickListener(this);
 		findViewById(R.id.add_task_image_remove).setOnClickListener(this);
+		findViewById(R.id.add_task_record_remove).setOnClickListener(this);
+		findViewById(R.id.add_task_play_remove).setOnClickListener(this);
+		findViewById(R.id.add_task_play_stop).setOnClickListener(this);
+		
 
 		recordButton = (LinearLayout) findViewById(R.id.activity_add_task_sound_recording);
 		recordButton.setOnTouchListener(this);
@@ -285,6 +294,30 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			photoGroup.setVisibility(View.GONE);
 			addAttachmentGroup.setVisibility(View.VISIBLE);
 			photoAttachment.setImageBitmap(null);
+			break;
+		}
+
+		case R.id.add_task_record_remove: {
+			findViewById(R.id.activity_add_task_recording_group).setVisibility(View.GONE);
+			addAttachmentGroup.setVisibility(View.VISIBLE);
+
+			break;
+		}
+		
+		case R.id.add_task_play_stop:{
+			ImageView button = ((ImageView)findViewById(R.id.add_task_play_stop));
+			TextView time = ((TextView)findViewById(R.id.activity_add_task_play_time));
+			SeekBar seekBar = ((SeekBar)findViewById(R.id.add_task_seekbar));
+			
+			
+			AudioUtil.getInstance().playAudio(this, audioPath, button, seekBar, time);
+			break;
+		}
+
+		case R.id.add_task_play_remove: {
+			findViewById(R.id.activity_add_task_play_audio_group).setVisibility(View.GONE);
+			addAttachmentGroup.setVisibility(View.VISIBLE);
+			RecordingUtil.getInstance().deleteAudioFile(audioPath);			
 			break;
 		}
 
@@ -556,7 +589,8 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 		case R.id.activity_add_task_sound_recording: {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
-				isRecording = RecordingUtil.getInstance().prepareRecording(this);
+				audioPath = RecordingUtil.getInstance().prepareRecording(this);
+				isRecording = audioPath != null ? true : false;
 			}
 
 			if (isRecording) {
@@ -567,6 +601,7 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 					if (event.getAction() == MotionEvent.ACTION_UP) {
 						RecordingUtil.getInstance().ReleaseRecording(this, false);
 						isRecording = false;
+						initPlayRecord();
 					}
 				}
 			}
@@ -577,6 +612,12 @@ public class AddTaskActivity extends FragmentActivity implements OnClickListener
 			break;
 		}
 		return false;
+	}
+
+	private void initPlayRecord() {
+		findViewById(R.id.activity_add_task_recording_group).setVisibility(View.GONE);
+		findViewById(R.id.activity_add_task_play_audio_group).setVisibility(View.VISIBLE);
+
 	}
 
 	private void initViewRecord() {
