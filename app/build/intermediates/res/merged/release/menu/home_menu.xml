@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sort"
+        android:icon="@drawable/btn_add_sort"
+        app:showAsAction="ifRoom"
+        android:title="Sort"/>
+    <item
+        android:id="@+id/action_style"
+        android:icon="@drawable/ic_action_view_grid"
+        app:showAsAction="ifRoom"
+        android:title="Style"/>
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/btn_add_reminder"
+        app:showAsAction="ifRoom"
+        android:title="Add"/>
+
+</menu><!-- From: file:/D:/workspace/remind.me1/app/src/main/res/menu/home_menu.xml -->

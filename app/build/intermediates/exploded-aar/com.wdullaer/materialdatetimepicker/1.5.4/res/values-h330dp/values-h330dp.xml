@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/mnt/documents/wdullaer/Programming%20Projects/MaterialDateTimePicker/library/src/main/res/values-h330dp/dimens.xml -->
+    <eat-comment/>
+    <dimen name="mdtp_date_picker_view_animator_height">252dp</dimen>
+</resources>

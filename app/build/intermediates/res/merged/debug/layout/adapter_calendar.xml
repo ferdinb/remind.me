@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/state_bg_round_grey200"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_size_10dp" >
+
+    <TextView
+        android:id="@+id/adapter_calendar_date"
+        style="@style/FontBlackHuge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/adapter_calendar_month_year"
+        style="@style/FontBlackSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/adapter_calendar_task"
+        style="@style/FontBlackSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+</LinearLayout><!-- From: file:/D:/workspace/remind.me1/app/src/main/res/layout/adapter_calendar.xml -->

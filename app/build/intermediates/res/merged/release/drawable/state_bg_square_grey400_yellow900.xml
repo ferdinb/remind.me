@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/red_800_alpha" />
+        </shape>
+    </item>
+	
+	<item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/red_800_alpha" />
+        </shape>
+    </item>
+    
+	<item>
+        <shape android:shape="rectangle">
+            <solid android:color="@null" />
+        </shape>
+    </item>
+
+</selector><!-- From: file:/D:/workspace/remind.me1/app/src/main/res/drawable/state_bg_square_grey400_yellow900.xml -->

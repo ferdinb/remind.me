@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/workspace/remind.me1/app/src/main/res/values-mdpi/dimens.xml -->
+    <eat-comment/>
+    <dimen name="action_bar_size">45dp</dimen>
+    <dimen name="attachment_height_layout">180dp</dimen>
+    <dimen name="attachment_photo_size">180dp</dimen>
+    <dimen name="attachment_recording_size">100dp</dimen>
+    <dimen name="attachment_size">43dp</dimen>
+    <dimen name="circle_record_size">100dp</dimen>
+    <dimen name="circle_status_size">11dp</dimen>
+    <dimen name="padding_size_10dp">9dp</dimen>
+    <dimen name="padding_size_15dp">14dp</dimen>
+    <dimen name="padding_size_1dp">1dp</dimen>
+    <dimen name="padding_size_25dp">24dp</dimen>
+    <dimen name="padding_size_30dp">329dp</dimen>
+    <dimen name="padding_size_35dp">34dp</dimen>
+    <dimen name="padding_size_3dp">2dp</dimen>
+    <dimen name="padding_size_5dp">4dp</dimen>
+    <dimen name="plus_addtask_size">33dp</dimen>
+    <dimen name="text_size_huge">22dp</dimen>
+    <dimen name="text_size_large">17dp</dimen>
+    <dimen name="text_size_normal">15dp</dimen>
+    <dimen name="text_size_small">13dp</dimen>
+    <dimen name="text_size_tiny">10dp</dimen>
+    <dimen name="timer_size">28dp</dimen>
+</resources>

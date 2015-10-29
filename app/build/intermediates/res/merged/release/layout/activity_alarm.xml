@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.remind.me.fninaber.widget.ArialText
+            android:id="@+id/alarm_date"
+            style="@style/FontWhiteLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_900"
+            android:ellipsize="end"
+            android:padding="@dimen/padding_size_10dp"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey_700" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_size_10dp"
+            android:background="@drawable/state_bg_round_grey200"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/alarm_repeat_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="@dimen/padding_size_5dp"
+                    android:paddingLeft="@dimen/padding_size_5dp"
+                    android:paddingRight="@dimen/padding_size_5dp"
+                    android:paddingTop="@dimen/padding_size_5dp"
+                    android:selectAllOnFocus="false"
+                    android:text="@string/repeat"
+                    android:textColor="@color/grey_700"
+                    android:textOff="@string/off"
+                    android:textOn="@string/on"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <com.remind.me.fninaber.widget.ArialText
+                    android:id="@+id/alarm_time"
+                    style="@style/FontBlackLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toLeftOf="@id/alarm_repeat_btn"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_alarm"
+                    android:drawablePadding="@dimen/padding_size_5dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/title"
+                    android:paddingBottom="@dimen/padding_size_5dp"
+                    android:paddingLeft="@dimen/padding_size_5dp"
+                    android:paddingRight="@dimen/padding_size_5dp"
+                    android:paddingTop="@dimen/padding_size_5dp"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/alarm_repeat_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_size_5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.remind.me.fninaber.widget.ArialText
+                    android:id="@+id/action_bar_day"
+                    style="@style/FontBlackLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_bg_square_grey400_yellow900"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/padding_size_10dp"
+                    android:text="@string/repeat_day"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <com.remind.me.fninaber.widget.ArialText
+                    android:id="@+id/action_bar_week"
+                    style="@style/FontBlackLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_bg_square_grey400_yellow900"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/padding_size_10dp"
+                    android:text="@string/repeat_week"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <com.remind.me.fninaber.widget.ArialText
+                    android:id="@+id/action_bar_month"
+                    style="@style/FontBlackLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_bg_square_grey400_yellow900"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/padding_size_10dp"
+                    android:text="@string/repeat_month"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <com.remind.me.fninaber.widget.ArialText
+                    android:id="@+id/action_bar_year"
+                    style="@style/FontBlackLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_bg_square_grey400_yellow900"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/padding_size_10dp"
+                    android:text="@string/repeat_year"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_size_10dp"
+            android:background="@drawable/state_bg_round_grey200"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_size_5dp">
+
+            <com.remind.me.fninaber.widget.ArialText
+                android:id="@+id/alarm_title"
+                style="@style/FontBlackLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_size_5dp"
+                android:layout_marginLeft="@dimen/padding_size_15dp"
+                android:layout_marginRight="@dimen/padding_size_15dp"
+                android:layout_marginTop="@dimen/padding_size_5dp"
+                android:hint="@string/title" />
+
+            <com.remind.me.fninaber.widget.ArialText
+                android:id="@+id/alarm_notes"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_size_15dp"
+                android:layout_marginLeft="@dimen/padding_size_15dp"
+                android:layout_marginRight="@dimen/padding_size_15dp"
+                android:layout_marginTop="@dimen/padding_size_5dp"
+                android:hint="@string/notes" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/alarm_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_size_10dp"
+            android:layout_marginRight="@dimen/padding_size_10dp"
+            android:adjustViewBounds="true" />
+
+
+        <RelativeLayout
+            android:id="@+id/activity_add_task_play_audio_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_size_15dp"
+            android:background="@drawable/state_bg_round_grey200"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_size_10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/add_task_play_remove"
+                android:layout_width="@dimen/attachment_size"
+                android:layout_height="@dimen/attachment_size"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_close"
+                android:clickable="true"
+                android:visibility="invisible" />
+
+            <com.remind.me.fninaber.widget.ArialText
+                android:id="@+id/activity_add_task_play_time"
+                style="@style/FontBlackNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_size_10dp"
+                android:text="@string/time_00"
+                android:textColor="@color/red_800"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_add_task_play_time"
+                android:layout_marginTop="@dimen/padding_size_15dp">
+
+                <ImageView
+                    android:id="@+id/add_task_play_stop"
+                    android:layout_width="@dimen/attachment_size"
+                    android:layout_height="@dimen/attachment_size"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="@dimen/padding_size_5dp"
+                    android:background="@drawable/ic_action_playback_play"
+                    android:clickable="true" />
+
+                <SeekBar
+                    android:id="@+id/add_task_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/padding_size_25dp"
+                    android:layout_toRightOf="@id/add_task_play_stop" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/alarm_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_size_15dp">
+
+            <Button
+                android:id="@+id/alarm_dismiss"
+                style="@style/FontBlackNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_size_15dp"
+                android:layout_marginRight="@dimen/padding_size_15dp"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_corner_grey"
+                android:text="@string/dismiss" />
+
+            <Button
+                android:id="@+id/alarm_snooze"
+                style="@style/FontWhiteNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_size_15dp"
+                android:layout_marginStart="@dimen/padding_size_15dp"
+                android:layout_weight="1"
+                android:background="@drawable/state_bg_round_grey700"
+                android:text="@string/snooze" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/D:/workspace/remind.me1/app/src/main/res/layout/activity_alarm.xml -->

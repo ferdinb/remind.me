@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-47ba1e7ea3545b0e27a4955176162ffc74ebd75f.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.afollestad.material-dialogs\core\0.8.4.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f69d5ffbc9a060429c1c8c5c58a3fe35c4bed1e2">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-6d01471492eda6f0bfb2462fd57bbc719efb4ca8.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-15be4b4ec44a43e0347d5f0193b2d3fcfc36eb81.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.afollestad.material-dialogs\commons\0.8.4.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9e91cedb1fc574ff743718b6fad8dea0e88b0373">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-5cf78e8f5b69eec7670d67a545fefcf0c537fbf7.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\internal_impl-23.1.0-b8002ad441b6b1c3b7efe2b212ec2e0fa8f43972.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.wdullaer\materialdatetimepicker\1.5.4\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="25ed3c22824ec25eb68c650bb85d897f3ee0e8bc">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-827b2e79c8d7ad017778a5789697b9ddaaec03a5.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-3b7d4b57afbda56d7692c15510590e767a81ed9f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Windy\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\support-annotations-23.1.0-9529e7470026c8739b902e38bed34a3a7ff44163.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\com.android.support\design\23.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8a5238e4bdcd6568b82db669d41817de670586b8">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-dd66027a6234fd726ee0c750cc3df0908ec2b27b.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\libs\picasso-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\picasso-2.4.0-3b6c000ce0282e383cac77da46cffc6a67d052f4.jar" />
+    </item>
+    <item
+        jar="D:\workspace\remind.me1\app\build\intermediates\exploded-aar\me.zhanghai.android.materialprogressbar\library\1.1.4\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2a24cba08e1d865a79e61335f5a1bd64d520106d">
+        <dex dex="D:\workspace\remind.me1\app\build\intermediates\pre-dexed\release\classes-e2da0551bd5eb33dcbe035f1ec3fe4bb110e21ac.jar" />
+    </item>
+
+</items>

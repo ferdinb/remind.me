@@ -1,0 +1,103 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/setting_general">
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="true"
+            android:entries="@array/setting_time_format"
+            android:entryValues="@array/setting_time_values"
+            android:key="@string/setting_time_key"
+            android:summary="@string/setting_time_desc"
+            android:title="@string/setting_time_title" />
+
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="awake"
+            android:entries="@array/setting_screen_timeout"
+            android:entryValues="@array/setting_screen_values"
+            android:key="@string/setting_screen_timeout_key"
+            android:summary="@string/setting_screentimeout_awake_desc"
+            android:title="@string/setting_screen_timeout_title" />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/setting_notifications">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/setting_popup_key"
+            android:summary="@string/setting_popup_desc"
+            android:title="@string/setting_popup" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/setting_notification_bar_key"
+            android:summary="@string/setting_notification_bar_desc"
+            android:title="@string/setting_notification_bar" />
+
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="300000"
+            android:entries="@array/setting_snooze_entries"
+            android:entryValues="@array/setting_snooze_values"
+            android:key="@string/setting_snooze_key"
+            android:summary="@string/setting_snooze_desc"
+            android:title="@string/setting_snooze_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/setting_vibrate_key"
+            android:summary="@string/setting_vibrate_summary"
+            android:title="@string/setting_vibrate" />
+
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="1000"
+            android:dependency="@string/setting_vibrate_key"
+            android:entries="@array/setting_pattern_entries"
+            android:entryValues="@array/setting_pattern_values"
+            android:key="@string/setting_vibrate_pattern_key"
+            android:summary="@string/setting_vibrate_pattern_summary"
+            android:title="@string/setting_vibrate_pattern" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/setting_sound_key"
+            android:summary="@string/setting_sound_summary"
+            android:title="@string/setting_sound" />
+
+        <Preference
+            android:dependency="@string/setting_sound_key"
+            android:key="@string/setting_sound_alarm_key"
+            android:summary="@string/setting_sound_alarm_summary"
+            android:title="@string/settings_sound_alarm_title" />
+
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="true"
+            android:dependency="@string/setting_sound_key"
+            android:entries="@array/setting_sound_pattern_entries"
+            android:entryValues="@array/setting_sound_pattern_values"
+            android:key="@string/setting_sound_pattern_key"
+            android:summary="@string/setting_sound_summary_pattern"
+            android:title="@string/setting_sound_title_pattern" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/setting_touch_screen_key"
+            android:summary="@string/setting_touch_screen_summary"
+            android:title="@string/setting_touch_screen" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/setting_storage">
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="2"
+            android:entries="@array/setting_storage_entries"
+            android:entryValues="@array/setting_storage_values"
+            android:key="@string/setting_storage_key"
+            android:summary="@string/setting_storage_desc"
+            android:title="@string/setting_storage_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/setting_security">
+        <Preference
+            android:defaultValue="null"
+            android:key="@string/setting_pin_key"
+            android:summary="@string/setting_pin_summary"
+            android:title="@string/pin_off" />
+    </PreferenceCategory>
+
+</PreferenceScreen><!-- From: file:/D:/workspace/remind.me1/app/src/main/res/xml/preferences_setting.xml -->

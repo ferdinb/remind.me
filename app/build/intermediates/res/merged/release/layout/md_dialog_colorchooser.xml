@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/md_stub_colorchooser_grid" />
+
+    <include
+        layout="@layout/md_stub_colorchooser_custom"
+        android:visibility="gone" />
+
+</FrameLayout><!-- From: file:/build/commons/src/main/res/layout/md_dialog_colorchooser.xml --><!-- From: file:/D:/workspace/remind.me1/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/commons/0.8.4.2/res/layout/md_dialog_colorchooser.xml -->
