@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/adapter_date_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_900"
+        android:padding="@dimen/padding_size_10dp" >
+
+        <com.remind.me.fninaber.widget.ArialText
+            android:id="@+id/adapter_task_day"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <com.remind.me.fninaber.widget.ArialText
+            android:id="@+id/adapter_task_date"
+            style="@style/FontWhiteNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_size_10dp"
+        android:layout_marginRight="@dimen/padding_size_10dp"
+        android:layout_marginTop="@dimen/padding_size_10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/adapter_task_type"
+            android:layout_width="@dimen/padding_size_25dp"
+            android:layout_height="@dimen/padding_size_25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <com.remind.me.fninaber.widget.ArialText
+            android:id="@+id/adapter_task_status"
+            style="@style/FontBlackTiny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/circle_red"
+            android:drawablePadding="@dimen/padding_size_5dp"
+            android:gravity="center_vertical"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/padding_size_10dp"
+        android:layout_marginLeft="@dimen/padding_size_10dp"
+        android:layout_marginRight="@dimen/padding_size_10dp"
+        android:layout_marginTop="@dimen/padding_size_3dp"
+        android:background="@drawable/state_bg_round_grey200"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_size_10dp" >
+
+        <com.remind.me.fninaber.widget.ArialText
+            android:id="@+id/adapter_task_time"
+            style="@style/FontBlackLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/padding_size_5dp"
+            android:layout_marginRight="@dimen/padding_size_5dp"
+            android:textColor="@color/grey_700"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_size_10dp"
+            android:orientation="vertical" >
+
+            <com.remind.me.fninaber.widget.ArialText
+                android:id="@+id/adapter_task_title"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.remind.me.fninaber.widget.ArialText
+                android:id="@+id/adapter_task_notes"
+                style="@style/FontBlackSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_size_5dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

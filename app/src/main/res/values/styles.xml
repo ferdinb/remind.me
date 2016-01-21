@@ -1,0 +1,169 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Rmindme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_rmindme</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Rmindme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Rmindme</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Rmindme</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Rmindme</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Rmindme</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_rmindme</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_rmindme</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Rmindme</item>
+        <item name="colorControlNormal">@color/grey_900</item>
+        <item name="colorControlActivated">@color/yellow_900</item>
+        <item name="colorControlHighlight">@color/yellow_900</item>
+
+        <item name="md_background_color">@color/grey_bg_200</item>
+        <item name="md_title_color">@color/yellow_900</item>
+        <item name="md_content_color">@color/grey_900</item>
+        <item name="md_positive_color">@color/yellow_900</item>
+        <item name="md_neutral_color">@color/blue</item>
+        <item name="md_negative_color">@color/grey_900</item>
+        <item name="md_widget_color">@color/yellow_900</item>
+
+        <!--        <item name="md_list_selector">@drawable/btn_selected_list</item>
+                <item name="md_btn_stacked_selector">@drawable/btn_selected_list</item> -->
+
+    </style>
+
+    <style name="ActionBar.Solid.Rmindme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_rmindme</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_rmindme</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_rmindme</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Rmindme</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Rmindme" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_rmindme</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Rmindme</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Rmindme.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Rmindme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Rmindme</item>
+    </style>
+
+
+    <style name="PopupMenu.Rmindme" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_rmindme</item>
+    </style>
+
+    <style name="DropDownListView.Rmindme" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_rmindme</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Rmindme" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_rmindme</item>
+    </style>
+
+    <style name="DropDownNav.Rmindme" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_rmindme</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_rmindme</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_rmindme</item>
+    </style>
+
+    <style name="ProgressBar.Rmindme" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_rmindme</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Rmindme" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_rmindme</item>
+    </style>
+
+
+    <style name="ToolBarTheme" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textColorPrimary">@color/grey_200</item>
+        <item name="colorControlNormal">@color/yellow_900</item>
+
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+        <item name="colorControlHighlight">@color/yellow_100</item>
+    </style>
+
+
+    <style name="CustomDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:windowBackground">@color/grey_300</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_rmindme</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Rmindme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Rmindme</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Rmindme</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Rmindme</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Rmindme</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_rmindme</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_rmindme</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Rmindme</item>
+        <item name="colorControlNormal">@color/grey_900</item>
+        <item name="colorControlActivated">@color/yellow_900</item>
+        <item name="colorControlHighlight">@color/yellow_900</item>
+
+        <item name="md_background_color">@color/grey_bg_200</item>
+        <item name="md_title_color">@color/yellow_900</item>
+        <item name="md_content_color">@color/grey_900</item>
+        <item name="md_positive_color">@color/yellow_900</item>
+        <item name="md_neutral_color">@color/blue</item>
+        <item name="md_negative_color">@color/grey_900</item>
+        <item name="md_widget_color">@color/yellow_900</item>
+    </style>
+
+    <style name="FontBlackNormal">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="FontBlackTiny">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+
+    <style name="FontBlackSmall">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="FontBlackHuge">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+
+    <style name="FontBlackLarge">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="FontGreyLarge">
+        <item name="android:textColor">@color/grey_700</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="FontWhiteLarge">
+        <item name="android:textColor">@color/grey_200</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="FontWhiteHuge">
+        <item name="android:textColor">@color/grey_200</item>
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+
+    <style name="FontWhiteNormal">
+        <item name="android:textColor">@color/grey_200</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="transparentDialog" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@color/transparant</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@color/transparant</item>
+        <item name="android:progressDrawable">@color/grey_900</item>
+    </style>
+
+</resources>
