@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -79,6 +80,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
     private Toolbar toolbar;
     private static final String TIME_TAG = "TIME_TAG";
     private static final String DATE_TAG = "DATE_TAG";
+    private TextInputLayout titleWrapper;
+    private TextInputLayout noteWrapper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,11 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
         setContentView(R.layout.activity_add_task);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setupActionBar();
+
+        titleWrapper = (TextInputLayout) findViewById(R.id.add_task_title_wrapper);
+        noteWrapper = (TextInputLayout) findViewById(R.id.add_task_notes_wrapper);
+        titleWrapper.setHint(getResources().getString(R.string.title));
+        noteWrapper.setHint(getResources().getString(R.string.notes));
 
         repeatLayout = (LinearLayout) this.findViewById(R.id.repeat_group);
 
@@ -567,7 +575,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
                     }
 
                 } else {
-                    Toast.makeText(this, getResources().getString(R.string.add_title), Toast.LENGTH_SHORT).show();
+                    titleWrapper.setError(getResources().getString(R.string.add_title));
                 }
                 break;
             default:
