@@ -4,17 +4,17 @@
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/btn_add_sort"
-        app:showAsAction="ifRoom"
-        android:title="Sort"/>
+        android:title="Sort"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_style"
         android:icon="@drawable/ic_action_view_grid"
-        app:showAsAction="ifRoom"
-        android:title="Style"/>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/btn_add_reminder"
-        app:showAsAction="ifRoom"
-        android:title="Add"/>
-
+        android:title="Style"
+        app:showAsAction="ifRoom" />
+    <!--    <item
+            android:id="@+id/action_add"
+            android:icon="@drawable/btn_add_reminder"
+            app:showAsAction="ifRoom"
+            android:title="Add"/>
+    !-->
 </menu>

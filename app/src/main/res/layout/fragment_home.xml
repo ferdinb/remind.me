@@ -1,39 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/list_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:animateLayoutChanges="true"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:dividerHeight="0dp" >
-    </ListView>
+        android:dividerHeight="0dp"
+        android:background="@color/grey_bg_200"/>
 
     <GridView
         android:id="@+id/grid_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:horizontalSpacing="@dimen/padding_size_10dp"
         android:numColumns="auto_fit"
         android:padding="@dimen/padding_size_10dp"
         android:verticalSpacing="@dimen/padding_size_10dp"
-        android:visibility="gone" >
-    </GridView>
+        android:visibility="gone"
+        android:background="@color/grey_bg_200"/>
 
     <TextView
         android:id="@+id/empty_view"
         style="@style/FontGreyLarge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/padding_size_25dp"
         android:gravity="center"
         android:text="@string/text_empty_view" />
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_task_floating_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_add_reminder"
+        app:elevation="@dimen/padding_size_25dp"
+        app:pressedTranslationZ="@dimen/padding_size_10dp"
+        app:backgroundTint="@color/grey_900"
+        app:rippleColor="@color/yellow_900"/>
+
+</RelativeLayout>

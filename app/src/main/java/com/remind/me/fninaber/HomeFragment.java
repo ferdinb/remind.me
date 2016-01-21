@@ -17,6 +17,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
@@ -63,8 +64,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     private BaseActivity activity;
     private CalendarAdapter mCalendarAdapter;
     private int sizeCalendar;
-
     private boolean isGridView;
+    private FloatingActionButton addTaskBtn;
 
     @Override
     public void onAttach(Activity activity) {
@@ -124,7 +125,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        addTaskBtn = (FloatingActionButton) root.findViewById(R.id.add_task_floating_btn);
         mListView = (ListView) root.findViewById(R.id.list_task);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
@@ -133,11 +134,18 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
 
         mListView.setEmptyView(root.findViewById(R.id.empty_view));
         mGridView.setEmptyView(root.findViewById(R.id.empty_view));
+        addTaskBtn.setOnClickListener(this);
         return root;
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add_task_floating_btn:
+                Intent intent = new Intent(activity, AddTaskActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -236,11 +244,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add: {
-                Intent intent = new Intent(activity, AddTaskActivity.class);
-                startActivity(intent);
-                break;
-            }
+//            case R.id.action_add: {
+//                Intent intent = new Intent(activity, AddTaskActivity.class);
+//                startActivity(intent);
+//                break;
+//            }
             case R.id.action_sort: {
                 isDescending = !isDescending;
                 if (isDescending) {
