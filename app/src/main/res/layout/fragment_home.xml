@@ -47,8 +47,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/btn_add_reminder"
-        app:elevation="@dimen/padding_size_25dp"
-        app:pressedTranslationZ="@dimen/padding_size_10dp"
+        app:elevation="@dimen/padding_size_15dp"
+        app:pressedTranslationZ="@dimen/padding_size_5dp"
         app:backgroundTint="@color/grey_900"
         app:rippleColor="@color/yellow_900"/>
 
