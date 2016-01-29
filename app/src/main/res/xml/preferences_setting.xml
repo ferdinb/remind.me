@@ -100,4 +100,13 @@
             android:title="@string/pin_off" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/setting_backup">
+        <Preference
+            android:defaultValue="null"
+            android:key="@string/setting_backup_key"
+            android:summary="@string/setting_backup_summary"
+            android:title="@string/setting_backup" />
+    </PreferenceCategory>
+
+
 </PreferenceScreen>

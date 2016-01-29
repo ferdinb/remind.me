@@ -62,9 +62,12 @@
     <string name="setting_storage_key">storage_key</string>
     <string name="setting_snooze_key">snooze_key</string>
     <string name="setting_security">Security</string>
+    <string name="setting_backup">Backup</string>
     <string name="setting_pin_key">pin_key</string>
+    <string name="setting_backup_key">backup_key</string>
     <string name="setting_pin">PIN</string>
     <string name="setting_pin_summary">All task will be secured using PIN</string>
+    <string name="setting_backup_summary">Backup your data to sdcard</string>
     <string name="setting_touch_screen">Touch Mode</string>
     <string name="setting_touch_screen_key">touch_snooze</string>
     <string name="setting_touch_screen_summary">When popup task is shown, touching the screen will stop vibrating / ringing </string>
