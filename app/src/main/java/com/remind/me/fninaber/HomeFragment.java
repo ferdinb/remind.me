@@ -1,27 +1,15 @@
 package com.remind.me.fninaber;
 
-import java.io.File;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +33,9 @@ import com.remind.me.fninaber.model.Task;
 import com.remind.me.fninaber.model.Type;
 import com.remind.me.fninaber.util.DateUtil;
 import com.remind.me.fninaber.widget.BaseFragment;
+
+import java.io.File;
+import java.util.List;
 
 public class HomeFragment extends BaseFragment implements OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener,
         OnItemLongClickListener {

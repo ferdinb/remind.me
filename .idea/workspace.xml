@@ -37,81 +37,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SettingFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/SettingFragment.java">
+      <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="preferences_setting.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/preferences_setting.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9087657">
-              <caret line="107" column="49" selection-start-line="107" selection-start-column="49" selection-end-line="107" selection-end-column="49" />
+              <caret line="61" column="4" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="4" />
               <folding>
-                <element signature="e#117#142#0" expanded="true" />
-                <element signature="e#395#421#0" expanded="true" />
-                <element signature="e#450#477#0" expanded="true" />
-                <element signature="e#504#532#0" expanded="true" />
-                <element signature="e#794#830#0" expanded="true" />
-                <element signature="e#859#901#0" expanded="true" />
-                <element signature="e#928#966#0" expanded="true" />
-                <element signature="e#1038#1069#0" expanded="true" />
-                <element signature="e#1163#1190#0" expanded="true" />
-                <element signature="e#1219#1247#0" expanded="true" />
-                <element signature="e#1274#1297#0" expanded="true" />
-                <element signature="e#1394#1432#0" expanded="true" />
-                <element signature="e#1461#1500#0" expanded="true" />
-                <element signature="e#1527#1561#0" expanded="true" />
-                <element signature="e#1824#1852#0" expanded="true" />
-                <element signature="e#1881#1910#0" expanded="true" />
-                <element signature="e#1937#1967#0" expanded="true" />
-                <element signature="e#2064#2093#0" expanded="true" />
-                <element signature="e#2122#2155#0" expanded="true" />
-                <element signature="e#2182#2207#0" expanded="true" />
-                <element signature="e#2352#2381#0" expanded="true" />
-                <element signature="e#2531#2568#0" expanded="true" />
-                <element signature="e#2597#2638#0" expanded="true" />
-                <element signature="e#2665#2698#0" expanded="true" />
-                <element signature="e#2796#2823#0" expanded="true" />
-                <element signature="e#2852#2883#0" expanded="true" />
-                <element signature="e#2910#2933#0" expanded="true" />
-                <element signature="e#2989#3016#0" expanded="true" />
-                <element signature="e#3041#3074#0" expanded="true" />
-                <element signature="e#3103#3140#0" expanded="true" />
-                <element signature="e#3167#3203#0" expanded="true" />
-                <element signature="e#3348#3375#0" expanded="true" />
-                <element signature="e#3537#3572#0" expanded="true" />
-                <element signature="e#3601#3640#0" expanded="true" />
-                <element signature="e#3667#3704#0" expanded="true" />
-                <element signature="e#3802#3836#0" expanded="true" />
-                <element signature="e#3865#3903#0" expanded="true" />
-                <element signature="e#3930#3960#0" expanded="true" />
-                <element signature="e#4028#4053#0" expanded="true" />
-                <element signature="e#4310#4339#0" expanded="true" />
-                <element signature="e#4368#4398#0" expanded="true" />
-                <element signature="e#4425#4456#0" expanded="true" />
-                <element signature="e#4524#4550#0" expanded="true" />
-                <element signature="e#4636#4661#0" expanded="true" />
-                <element signature="e#4690#4719#0" expanded="true" />
-                <element signature="e#4746#4763#0" expanded="true" />
-                <element signature="e#4832#4856#0" expanded="true" />
-                <element signature="e#4942#4970#0" expanded="true" />
-                <element signature="e#4999#5031#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#6005#7807#0" expanded="true" />
+                <element signature="e#7806#7807#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="HomeActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.185185">
-              <caret line="69" column="68" selection-start-line="69" selection-start-column="68" selection-end-line="69" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.12164579">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1521,10 +1465,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_task.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/AddTaskActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/home_menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/preferences_setting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java" />
       </list>
     </option>
   </component>
@@ -1541,7 +1485,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="width" value="1378" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -1572,7 +1516,7 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="4df170b21f1f9f97" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="LJAUGUTCZ945KJRW" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23_x86" />
   </component>
   <component name="RunManager" selected="Android Application.app">
@@ -1779,7 +1723,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1378" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -1789,8 +1733,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.713799" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1800,14 +1744,14 @@
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1853,12 +1797,38 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/SettingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/preferences_setting.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="68" selection-start-line="69" selection-start-column="68" selection-end-line="69" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="159" column="31" selection-start-line="159" selection-start-column="31" selection-end-line="159" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6005#7807#0" expanded="true" />
+            <element signature="e#7806#7807#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1890,6 +1860,8 @@
           <caret line="143" column="44" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6005#7807#0" expanded="true" />
+            <element signature="e#7806#7807#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2065,16 +2037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="159" column="31" selection-start-line="159" selection-start-column="31" selection-end-line="159" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -2088,17 +2050,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/SettingFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.185185">
+        <state vertical-scroll-proportion="0.0">
           <caret line="69" column="68" selection-start-line="69" selection-start-column="68" selection-end-line="69" selection-end-column="68" />
           <folding />
         </state>
@@ -2106,59 +2060,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/preferences_setting.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9087657">
+        <state vertical-scroll-proportion="0.69588554">
           <caret line="107" column="49" selection-start-line="107" selection-start-column="49" selection-end-line="107" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/SettingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4257603">
+          <caret line="60" column="78" selection-start-line="60" selection-start-column="78" selection-end-line="60" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="4" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="4" />
           <folding>
-            <element signature="e#117#142#0" expanded="true" />
-            <element signature="e#395#421#0" expanded="true" />
-            <element signature="e#450#477#0" expanded="true" />
-            <element signature="e#504#532#0" expanded="true" />
-            <element signature="e#794#830#0" expanded="true" />
-            <element signature="e#859#901#0" expanded="true" />
-            <element signature="e#928#966#0" expanded="true" />
-            <element signature="e#1038#1069#0" expanded="true" />
-            <element signature="e#1163#1190#0" expanded="true" />
-            <element signature="e#1219#1247#0" expanded="true" />
-            <element signature="e#1274#1297#0" expanded="true" />
-            <element signature="e#1394#1432#0" expanded="true" />
-            <element signature="e#1461#1500#0" expanded="true" />
-            <element signature="e#1527#1561#0" expanded="true" />
-            <element signature="e#1824#1852#0" expanded="true" />
-            <element signature="e#1881#1910#0" expanded="true" />
-            <element signature="e#1937#1967#0" expanded="true" />
-            <element signature="e#2064#2093#0" expanded="true" />
-            <element signature="e#2122#2155#0" expanded="true" />
-            <element signature="e#2182#2207#0" expanded="true" />
-            <element signature="e#2352#2381#0" expanded="true" />
-            <element signature="e#2531#2568#0" expanded="true" />
-            <element signature="e#2597#2638#0" expanded="true" />
-            <element signature="e#2665#2698#0" expanded="true" />
-            <element signature="e#2796#2823#0" expanded="true" />
-            <element signature="e#2852#2883#0" expanded="true" />
-            <element signature="e#2910#2933#0" expanded="true" />
-            <element signature="e#2989#3016#0" expanded="true" />
-            <element signature="e#3041#3074#0" expanded="true" />
-            <element signature="e#3103#3140#0" expanded="true" />
-            <element signature="e#3167#3203#0" expanded="true" />
-            <element signature="e#3348#3375#0" expanded="true" />
-            <element signature="e#3537#3572#0" expanded="true" />
-            <element signature="e#3601#3640#0" expanded="true" />
-            <element signature="e#3667#3704#0" expanded="true" />
-            <element signature="e#3802#3836#0" expanded="true" />
-            <element signature="e#3865#3903#0" expanded="true" />
-            <element signature="e#3930#3960#0" expanded="true" />
-            <element signature="e#4028#4053#0" expanded="true" />
-            <element signature="e#4310#4339#0" expanded="true" />
-            <element signature="e#4368#4398#0" expanded="true" />
-            <element signature="e#4425#4456#0" expanded="true" />
-            <element signature="e#4524#4550#0" expanded="true" />
-            <element signature="e#4636#4661#0" expanded="true" />
-            <element signature="e#4690#4719#0" expanded="true" />
-            <element signature="e#4746#4763#0" expanded="true" />
-            <element signature="e#4832#4856#0" expanded="true" />
-            <element signature="e#4942#4970#0" expanded="true" />
-            <element signature="e#4999#5031#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#6005#7807#0" expanded="true" />
+            <element signature="e#7806#7807#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/remind/me/fninaber/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12164579">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
