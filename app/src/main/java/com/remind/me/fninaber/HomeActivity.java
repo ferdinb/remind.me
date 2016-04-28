@@ -26,7 +26,6 @@ public class HomeActivity extends BaseActivity {
     private static final String TAG = HomeActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    //    private android.support.v7.app.ActionBar actionBar;
     private ActionBarDrawerToggle mDrawerToggle;
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_HISTORY = 1;

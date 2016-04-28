@@ -1,7 +1,7 @@
 package com.remind.me.fninaber;
 
-import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -46,28 +46,27 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     private TaskAdapter mAdapter;
     private String mSelection;
     private String[] mArgs = {String.valueOf(DateUtil.getBeginningOfday())};
-    //	private String[] mArgs = { String.valueOf(System.currentTimeMillis()) };
     private String mOrder;
     private static final String ASC = " ASC";
     private static final String DESC = " DESC";
     private boolean isDescending;
     private View root;
-    private BaseActivity activity;
+    private Context context;
     private CalendarAdapter mCalendarAdapter;
     private int sizeCalendar;
     private boolean isGridView;
     private FloatingActionButton addTaskBtn;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (BaseActivity) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        this.activity = null;
+        this.context = null;
     }
 
     @Override
@@ -83,7 +82,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        activity.getMenuInflater().inflate(R.menu.home_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.home_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -95,22 +94,24 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
 
         mSelection = TableTask.Column.TIMESTAMP + " > ?";
         mOrder = TableTask.Column.TIMESTAMP + ASC;
-        mAdapter = new TaskAdapter(activity, null, false);
-        activity.getLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
+        mAdapter = new TaskAdapter(context, null, false);
+        getLoaderManager().initLoader(CURSOR_LOADER_TASK, null, this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-        int count = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());
+        List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(context.getContentResolver(), isDescending);
+        int count = TaskHelper.getInstance().getCursorCount(context.getContentResolver());
         if (sizeCalendar != count) {
             if (null != mCalendarAdapter) {
                 mCalendarAdapter.resetData(val);
             }
         }
         sizeCalendar = count;
-        ((Toolbar) activity.findViewById(R.id.toolbar)).setTitle(activity.getResources().getString(R.string.home));
+
+
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(getResources().getString(R.string.home));
     }
 
     @Override
@@ -133,7 +134,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_task_floating_btn:
-                Intent intent = new Intent(activity, AddTaskActivity.class);
+                Intent intent = new Intent(context, AddTaskActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -155,7 +156,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
 
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-        return new CursorLoader(activity, TableTask.CONTENT_URI, null, mSelection, mArgs, mOrder);
+        return new CursorLoader(context, TableTask.CONTENT_URI, null, mSelection, mArgs, mOrder);
     }
 
     @Override
@@ -168,9 +169,9 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
                     switch (position) {
                         case Constants.MENU_EDIT: {
                             Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
-                            Intent i = new Intent(activity, AddTaskActivity.class);
+                            Intent i = new Intent(context, AddTaskActivity.class);
                             i.putExtra(Constants.TASK, task);
-                            activity.startActivity(i);
+                            context.startActivity(i);
                             break;
                         }
                         case Constants.MENU_DELETE: {
@@ -188,7 +189,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
                                     }
                                 }
                             }
-                            TaskHelper.getInstance().deleteByTID(activity.getContentResolver(), task.getTID());
+                            TaskHelper.getInstance().deleteByTID(context.getContentResolver(), task.getTID());
                             break;
                         }
                     }
@@ -207,13 +208,13 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (R.id.list_task == parent.getId() && null != mAdapter) {
             Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
-            Intent i = new Intent(activity, AddTaskActivity.class);
+            Intent i = new Intent(context, AddTaskActivity.class);
             i.putExtra(Constants.TASK, task);
             i.putExtra(Constants.VIEW, true);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (R.id.grid_task == parent.getId() && null != mCalendarAdapter) {
-            Intent i = new Intent(activity, DetailGridActivity.class);
+            Intent i = new Intent(context, DetailGridActivity.class);
             String day = ((Calendar) mCalendarAdapter.getItem(position)).getDay();
             String dateMonthYear = ((Calendar) mCalendarAdapter.getItem(position)).getDateMonthYear();
             i.putExtra(HistoryFragment.KEY_DAY, day + ", " + dateMonthYear);
@@ -222,8 +223,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     }
 
     private MaterialDialog.Builder createMaterialDialogBuilder(MaterialDialog.ListCallback callback) {
-        String[] menuItems = {activity.getResources().getString(R.string.menu_edit), activity.getResources().getString(R.string.menu_delete)};
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(activity);
+        String[] menuItems = {getResources().getString(R.string.menu_edit), getResources().getString(R.string.menu_delete)};
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context);
         builder.title("Select Action");
         builder.cancelable(true);
         builder.items(menuItems);
@@ -235,11 +236,6 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.action_add: {
-//                Intent intent = new Intent(activity, AddTaskActivity.class);
-//                startActivity(intent);
-//                break;
-//            }
             case R.id.action_sort: {
                 isDescending = !isDescending;
                 if (isDescending) {
@@ -252,11 +248,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
                     mAdapter.notifyDataSetChanged();
                     mListView.invalidate();
                 }
-                activity.getLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
+                getLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
 
                 if (mGridView.getVisibility() == View.VISIBLE) {
                     if (null != mCalendarAdapter) {
-                        List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
+                        List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(context.getContentResolver(), isDescending);
                         mCalendarAdapter.resetData(val);
                     }
                 }
@@ -266,12 +262,12 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
             case R.id.action_style:
                 if (mListView.getVisibility() == View.VISIBLE) {
                     if (null == mCalendarAdapter) {
-                        List<Calendar> value = TaskHelper.getInstance().getAvailableTimestamp(activity.getContentResolver(), isDescending);
-                        mCalendarAdapter = new CalendarAdapter(value, activity);
+                        List<Calendar> value = TaskHelper.getInstance().getAvailableTimestamp(context.getContentResolver(), isDescending);
+                        mCalendarAdapter = new CalendarAdapter(value, context);
                         mGridView.setAdapter(mCalendarAdapter);
                         mGridView.setOnItemClickListener(this);
 
-                        sizeCalendar = TaskHelper.getInstance().getCursorCount(activity.getContentResolver());
+                        sizeCalendar = TaskHelper.getInstance().getCursorCount(context.getContentResolver());
                     }
                     mListView.setVisibility(View.GONE);
                     mGridView.setVisibility(View.VISIBLE);
@@ -281,7 +277,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, Loade
                     mGridView.setVisibility(View.GONE);
                     isGridView = false;
                 }
-                activity.invalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
                 break;
 
             default:
