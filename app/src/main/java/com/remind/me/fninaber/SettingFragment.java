@@ -7,17 +7,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.provider.Settings;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 
-public class SettingFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
+public class SettingFragment extends PreferenceFragmentCompat implements OnSharedPreferenceChangeListener {
     public static final int DELETE_NEVER = 0;
     public static final int DELETE_DAY = 1;
     public static final int DELETE_MONTH = 2;
@@ -39,13 +35,12 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
         this.activity = null;
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle bundle, String s) {
         ((Toolbar) activity.findViewById(R.id.toolbar)).setTitle(getActivity().getResources().getString(R.string.setting));
 
         addPreferencesFromResource(R.xml.preferences_setting);
-
         Preference preference = findPreference(getResources().getString(R.string.setting_pin_key));
         SharedPreferences pref = preference.getSharedPreferences();
         if (!TextUtils.isEmpty(pref.getString(getResources().getString(R.string.setting_pin_key), null))) {
@@ -65,7 +60,6 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
                 preferenceScreen.setSummary(getResources().getString(R.string.setting_screentimeout_sleep_desc));
             }
         }
-
     }
 
     @Override
@@ -157,13 +151,14 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
             if (null == uri) {
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             }
-            preference.getEditor().putString(getResources().getString(R.string.setting_sound_alarm_key), uri.toString()).commit();
+
+            preference.getSharedPreferences().edit().putString(getResources().getString(R.string.setting_sound_alarm_key), uri.toString()).commit();
         }
 
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    public boolean onPreferenceTreeClick(Preference preference) {
         if (preference.getKey().equals(getResources().getString(R.string.setting_pin_key))) {
             Intent i = new Intent(getActivity(), PINActivity.class);
             startActivityForResult(i, REQUEST_CODE_PIN);
@@ -180,7 +175,8 @@ public class SettingFragment extends PreferenceFragment implements OnSharedPrefe
             this.startActivityForResult(intent, REQUEST_CODE_RINGTONE);
             return false;
         } else {
-            return super.onPreferenceTreeClick(preferenceScreen, preference);
+            return super.onPreferenceTreeClick(preference);
         }
     }
+
 }

@@ -39,7 +39,7 @@
                     android:paddingRight="@dimen/padding_size_15dp"
                     android:paddingTop="@dimen/padding_size_5dp">
 
-                    <com.remind.me.fninaber.widget.ArialText
+                    <com.remind.me.fninaber.widget.FninaberText
                         android:id="@+id/add_task_date"
                         style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                             android:textOn="@string/on"
                             android:textSize="@dimen/text_size_normal" />
 
-                        <com.remind.me.fninaber.widget.ArialText
+                        <com.remind.me.fninaber.widget.FninaberText
                             android:id="@+id/add_task_time"
                             style="@style/FontBlackLarge"
                             android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                         android:orientation="horizontal"
                         android:visibility="gone">
 
-                        <com.remind.me.fninaber.widget.ArialText
+                        <com.remind.me.fninaber.widget.FninaberText
                             android:id="@+id/action_bar_day"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.remind.me.fninaber.widget.ArialText
+                        <com.remind.me.fninaber.widget.FninaberText
                             android:id="@+id/action_bar_week"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.remind.me.fninaber.widget.ArialText
+                        <com.remind.me.fninaber.widget.FninaberText
                             android:id="@+id/action_bar_month"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
                             android:textStyle="bold"
                             android:typeface="serif" />
 
-                        <com.remind.me.fninaber.widget.ArialText
+                        <com.remind.me.fninaber.widget.FninaberText
                             android:id="@+id/action_bar_year"
                             style="@style/FontBlackNormal"
                             android:layout_width="wrap_content"
@@ -345,7 +345,7 @@
                         android:background="@drawable/ic_close"
                         android:clickable="true" />
 
-                    <com.remind.me.fninaber.widget.ArialText
+                    <com.remind.me.fninaber.widget.FninaberText
                         android:id="@+id/activity_add_task_recording_time"
                         style="@style/FontBlackNormal"
                         android:layout_width="wrap_content"
@@ -393,7 +393,7 @@
                             android:background="@drawable/ic_audio" />
                     </LinearLayout>
 
-                    <com.remind.me.fninaber.widget.ArialText
+                    <com.remind.me.fninaber.widget.FninaberText
                         style="@style/FontBlackSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -406,7 +406,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/grey_700" />
 
-                    <com.remind.me.fninaber.widget.ArialText
+                    <com.remind.me.fninaber.widget.FninaberText
                         style="@style/FontBlackSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -443,7 +443,7 @@
                         android:background="@drawable/ic_close"
                         android:clickable="true" />
 
-                    <com.remind.me.fninaber.widget.ArialText
+                    <com.remind.me.fninaber.widget.FninaberText
                         android:id="@+id/activity_add_task_play_time"
                         style="@style/FontBlackNormal"
                         android:layout_width="wrap_content"

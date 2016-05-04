@@ -36,9 +36,10 @@ import com.remind.me.fninaber.util.AudioUtil;
 import com.remind.me.fninaber.util.DateUtil;
 import com.remind.me.fninaber.util.ImageUtil;
 import com.remind.me.fninaber.util.RecordingUtil;
+import com.remind.me.fninaber.util.RoundedSelectedTransform;
 import com.remind.me.fninaber.util.RoundedTransform;
 import com.remind.me.fninaber.util.TaskManager;
-import com.remind.me.fninaber.widget.ArialText;
+import com.remind.me.fninaber.widget.FninaberText;
 import com.remind.me.fninaber.widget.TransparentProgressDialog;
 import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -51,8 +52,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
     private static final String TAG = AddTaskActivity.class.getSimpleName();
     private String mDate;
     private String mTime;
-    private ArialText dateView;
-    private ArialText timeView;
+    private FninaberText dateView;
+    private FninaberText timeView;
     private EditText editTitle;
     private EditText editNotes;
     private static final int GALLERY = 0;
@@ -115,9 +116,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
         switchRepeat = ((android.support.v7.widget.SwitchCompat) findViewById(R.id.add_task_repeat_btn));
         switchRepeat.setOnCheckedChangeListener(this);
 
-        dateView = (ArialText) findViewById(R.id.add_task_date);
+        dateView = (FninaberText) findViewById(R.id.add_task_date);
         dateView.setText(mDate);
-        timeView = (ArialText) findViewById(R.id.add_task_time);
+        timeView = (FninaberText) findViewById(R.id.add_task_time);
         timeView.setOnClickListener(this);
         timeView.setText(mTime);
 
@@ -251,7 +252,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
             cameraUri = uri;
 
             int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
-            Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedTransform(corner, 0)).into(photoAttachment);
+            Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedSelectedTransform(corner)).into(photoAttachment);
 
             photoGroup.setVisibility(View.VISIBLE);
             addAttachmentGroup.setVisibility(View.GONE);
@@ -655,7 +656,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
                         audioPath = null;
                     } else {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
-                            ArialText timeText = (ArialText) this.findViewById(R.id.activity_add_task_recording_time);
+                            FninaberText timeText = (FninaberText) this.findViewById(R.id.activity_add_task_recording_time);
                             if (!timeText.getText().toString().equalsIgnoreCase(getResources().getString(R.string.time_00))) {
                                 RecordingUtil.getInstance().ReleaseRecording(this, false);
                                 isRecording = false;

@@ -149,7 +149,6 @@ public class TaskHelper {
         return paths;
     }
 
-
     public List<String> deleteAudioByTime(ContentResolver resolver, String timestamp) {
         List<String> paths = new ArrayList<String>();
         String selection = TableTask.Column.TIMESTAMP + " <= ?" + " AND " + TableTask.Column.TYPE + " = ?";
@@ -173,6 +172,30 @@ public class TaskHelper {
         }
         resolver.delete(URI, selection, args);
         return paths;
+    }
+
+
+    public List<Task> getAllAvailableTask(ContentResolver resolver, boolean isAscending) {
+        String order = isAscending ? " ASC" : " DESC";
+        List<Task> tasks = new ArrayList<Task>();
+        String selection = TableTask.Column.TIMESTAMP + " >= ?";
+        String[] args = {String.valueOf(DateUtil.getBeginningOfday())};
+        Cursor cursor = resolver.query(URI, null, selection, args, TableTask.Column.TIMESTAMP + order);
+        if (cursor != null && cursor.getCount() >= 0) {
+            if (cursor.getCount() == 0) {
+                cursor.close();
+                return null;
+            }
+
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                Task task = cursorToTask(cursor);
+                tasks.add(task);
+
+                cursor.moveToNext();
+            }
+        }
+        return tasks;
     }
 
     public void deleteTaskByTime(ContentResolver resolver, String timestamp) {

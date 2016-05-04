@@ -1,9 +1,9 @@
 package com.remind.me.fninaber.widget;
 
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 
 import com.remind.me.fninaber.Constants;
 import com.remind.me.fninaber.R;

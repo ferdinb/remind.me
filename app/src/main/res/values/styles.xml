@@ -14,7 +14,7 @@
         <item name="colorControlActivated">@color/yellow_900</item>
         <item name="colorControlHighlight">@color/yellow_900</item>
 
-        <item name="md_background_color">@color/grey_bg_200</item>
+        <item name="md_background_color">@android:color/white</item>
         <item name="md_title_color">@color/yellow_900</item>
         <item name="md_content_color">@color/grey_900</item>
         <item name="md_positive_color">@color/yellow_900</item>

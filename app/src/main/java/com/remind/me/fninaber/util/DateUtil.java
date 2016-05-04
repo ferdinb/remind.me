@@ -1,10 +1,12 @@
 package com.remind.me.fninaber.util;
 
+import android.content.Context;
 import android.text.format.Time;
 import android.util.Log;
 
 import com.remind.me.fninaber.BaseActivity;
 import com.remind.me.fninaber.Constants;
+import com.remind.me.fninaber.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +59,13 @@ public class DateUtil {
         return sdf.format(date);
     }
 
+
+    public static String dayTimestamp(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date date = new Date(timestamp);
+        return sdf.format(date);
+    }
+
     public static String timeTimestamp(long timestamp) {
         String timeFormat = "HH:mm";
         if (!Constants.is24HoursFormat) {
@@ -64,6 +73,13 @@ public class DateUtil {
         }
 
 
+        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
+        Date time = new Date(timestamp);
+        return sdf.format(time);
+    }
+
+    public static String calendarDayAdapter(long timestamp) {
+        String timeFormat = "dd MMM yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
         Date time = new Date(timestamp);
         return sdf.format(time);
@@ -293,5 +309,24 @@ public class DateUtil {
         cal.setTimeInMillis(timestamp);
         cal.add(Calendar.WEEK_OF_YEAR, -1);
         return cal.getTimeInMillis();
+    }
+
+    public static String remainingTime(Context context, long timestamp) {
+        long diff = (timestamp - System.currentTimeMillis()) / 1000;
+        String value = "";
+        if (diff > 0) {
+            float days = 24 * 60 * 60;
+            float hours = 60 * 60;
+            float minutes = 60;
+
+            if (diff >= days) {
+                value = String.valueOf((int) Math.ceil(diff / days)) + " " + context.getResources().getString(R.string.days);
+            } else if (diff >= hours) {
+                value = String.valueOf((int) Math.ceil(diff / hours)) + " " + context.getResources().getString(R.string.hours);
+            } else {
+                value = String.valueOf((int) Math.ceil(diff / minutes)) + " " + context.getResources().getString(R.string.minutes);
+            }
+        }
+        return value;
     }
 }

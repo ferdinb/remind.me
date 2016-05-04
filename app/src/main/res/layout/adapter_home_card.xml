@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    xmlns:ferdi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_size_10dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/adapter_card_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        cardview:cardBackgroundColor="@color/grey_200"
+        cardview:cardCornerRadius="@dimen/padding_size_5dp"
+        cardview:cardElevation="1dp"
+        cardview:cardPreventCornerOverlap="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/adapter_home_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_card_top"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_size_10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.remind.me.fninaber.widget.FninaberText
+                        android:id="@+id/adapter_home_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="@dimen/padding_size_3dp"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/text_size_super_huge"
+                        ferdi:type="Regular" />
+
+                    <com.remind.me.fninaber.widget.FninaberText
+                        android:id="@+id/adapter_home_month"
+                        style="@style/FontBlackTiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/adapter_home_date"
+                        android:layout_toRightOf="@id/adapter_home_date"
+                        android:textColor="@color/grey_800"
+                        ferdi:type="Regular" />
+
+                    <com.remind.me.fninaber.widget.FninaberText
+                        android:id="@+id/adapter_home_year"
+                        style="@style/FontBlackTiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/adapter_home_month"
+                        android:layout_alignStart="@id/adapter_home_month"
+                        android:layout_below="@id/adapter_home_month"
+                        android:textColor="@color/grey_700"
+                        ferdi:type="Regular" />
+
+
+                    <com.remind.me.fninaber.widget.FninaberText
+                        android:id="@+id/adapter_home_day_remaining"
+                        style="@style/FontBlackTiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/adapter_home_date"
+                        android:textAllCaps="true"
+                        android:textColor="@color/red_800"
+                        ferdi:type="Regular" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_size_10dp"
+                    android:layout_toRightOf="@id/adapter_home_year"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="@dimen/padding_size_1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_400" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/padding_size_15dp"
+                        android:layout_toRightOf="@id/line"
+                        android:orientation="vertical">
+
+
+                        <com.remind.me.fninaber.widget.FninaberText
+                            android:id="@+id/adapter_home_day"
+                            style="@style/FontBlackLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_calendar"
+                            android:drawablePadding="@dimen/padding_size_10dp"
+                            android:textColor="@color/yellow_900"
+                            ferdi:type="Regular" />
+
+
+                        <com.remind.me.fninaber.widget.FninaberText
+                            android:id="@+id/adapter_home_time"
+                            style="@style/FontBlackLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_clock"
+                            android:drawablePadding="@dimen/padding_size_10dp"
+                            android:textColor="@color/grey_900"
+                            ferdi:type="Regular" />
+
+                        <com.remind.me.fninaber.widget.FninaberText
+                            android:id="@+id/adapter_home_title"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_notes"
+                            android:drawablePadding="@dimen/padding_size_10dp"
+                            ferdi:type="Regular" />
+
+                        <com.remind.me.fninaber.widget.FninaberText
+                            android:id="@+id/adapter_home_notes"
+                            style="@style/FontBlackSmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_size_5dp"
+                            android:visibility="gone"
+                            ferdi:type="Regular" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/adapter_home_expired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/flag_expired"
+        android:elevation="2dp" />
+</RelativeLayout>
+

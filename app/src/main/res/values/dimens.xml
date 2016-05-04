@@ -1,5 +1,5 @@
 <resources>
-
+    <dimen name="home_backdrop">256dp</dimen>
     <dimen name="action_bar_size">45dp</dimen>
     <dimen name="padding_size_1dp">1dp</dimen>
     <dimen name="padding_size_3dp">3dp</dimen>
@@ -9,15 +9,20 @@
     <dimen name="padding_size_25dp">25dp</dimen>
     <dimen name="padding_size_30dp">30dp</dimen>
     <dimen name="padding_size_35dp">35dp</dimen>
-    <dimen name="text_size_huge">24dp</dimen>
-    <dimen name="text_size_large">19dp</dimen>
-    <dimen name="text_size_normal">17dp</dimen>
-    <dimen name="text_size_small">15dp</dimen>
-    <dimen name="text_size_tiny">12dp</dimen>
-    <dimen name="circle_status_size">12dp</dimen>
+    <dimen name="text_size_super_huge">40dp</dimen>
+    <dimen name="text_size_huge">28dp</dimen>
+    <dimen name="text_size_large">21dp</dimen>
+    <dimen name="text_size_normal">19dp</dimen>
+    <dimen name="text_size_small">16dp</dimen>
+    <dimen name="text_size_tiny">14dp</dimen>
+    <dimen name="circle_status_size">6dp</dimen>
     <dimen name="timer_size">30dp</dimen>
     <dimen name="plus_addtask_size">35dp</dimen>
     <dimen name="attachment_size">45dp</dimen>
     <dimen name="attachment_height_layout">200dp</dimen>
     <dimen name="attachment_photo_size">200dp</dimen>
+    <dimen name="circle_record_size">100dp</dimen>
+    <dimen name="ic_task_size">35dp</dimen>
+    <dimen name="attachment_recording_size">100dp</dimen>
+    <dimen name="image_card_top">100dp</dimen>
 </resources>
