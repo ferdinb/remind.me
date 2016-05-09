@@ -1,5 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ferdi="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,19 +16,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/FontWhiteNormal"
             app:contentScrim="@color/blue"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="@dimen/padding_size_10dp"
+            app:expandedTitleMarginStart="@dimen/padding_size_35dp"
+            app:expandedTitleTextAppearance="@style/FontWhiteHuge"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
 
             <ImageView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/img_rainbow"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
+            <com.remind.me.fninaber.widget.FninaberText
+                android:id="@+id/activity_home_num_task"
+                style="@style/FontGreyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="@dimen/padding_size_25dp"
+                android:fitsSystemWindows="true"
+                android:textColor="@color/blue"
+                ferdi:type="Regular" />
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

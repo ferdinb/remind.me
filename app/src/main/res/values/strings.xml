@@ -76,6 +76,7 @@
     <string name="setting_touch_screen_summary">When popup task is shown, touching the screen will stop vibrating / ringing </string>
     <string name="setting_time_key">time_key</string>
     <string name="setting_screen_timeout_key">screen_timeout_key</string>
+    <string name="today_you_have"><u>Today you have %1$s task. Starting at %2$s</u></string>
 
     <string-array name="setting_sound_pattern_entries">
         <item>Once</item>
@@ -146,6 +147,14 @@
     <string-array name="setting_screen_values">
         <item>awake</item>
         <item>sleep</item>
+    </string-array>
+
+
+    <string-array name="motivation_word">
+        <item>Hi, Have a great day!</item>
+        <item>Your smile, Love it !</item>
+        <item>Be Happy and Keep Smile</item>
+        <item>Stop Wishing. Start Doing</item>
     </string-array>
 
     <string name="setting_screentimeout_awake_desc">Phone will stay awake until user dismiss the task window. Consume more battery but more guarantee that user will be notice</string>

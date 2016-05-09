@@ -25,4 +25,5 @@
     <dimen name="ic_task_size">35dp</dimen>
     <dimen name="attachment_recording_size">100dp</dimen>
     <dimen name="image_card_top">100dp</dimen>
+    <dimen name="audio_card_right">70dp</dimen>
 </resources>

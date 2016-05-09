@@ -10,9 +10,15 @@ import android.graphics.Shader;
 
 public class RoundedSelectedTransform implements com.squareup.picasso.Transformation {
     private final int radius;
+    private Corner corner;
 
-    public RoundedSelectedTransform(final int radius) {
+    public static enum Corner {
+        LEFT, TOP, RIGHT, Bottom
+    }
+
+    public RoundedSelectedTransform(final int radius, Corner corner) {
         this.radius = radius;
+        this.corner = corner;
     }
 
     @Override
@@ -26,13 +32,19 @@ public class RoundedSelectedTransform implements com.squareup.picasso.Transforma
 
         Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
-        canvas.drawRoundRect(new RectF(0, 0, width, height), radius, radius, paint);
-        canvas.drawRect(new RectF(0, height - radius * 2, width, height), paint);
 
+        RectF rectF = new RectF();
+        if (corner == Corner.TOP) {
+            rectF.set(0, height - radius * 2, width, height);
+        } else if (corner == Corner.RIGHT) {
+            rectF.set(0, 0, radius * 2, height);
+        }
+
+        canvas.drawRoundRect(new RectF(0, 0, width, height), radius, radius, paint);
+        canvas.drawRect(rectF, paint);
         if (source != output) {
             source.recycle();
         }
-
         return output;
     }
 

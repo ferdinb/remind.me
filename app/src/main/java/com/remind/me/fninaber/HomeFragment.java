@@ -2,9 +2,17 @@ package com.remind.me.fninaber;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,25 +20,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.remind.me.fninaber.adapter.HomeCardAdapter;
 import com.remind.me.fninaber.db.TaskHelper;
 import com.remind.me.fninaber.model.Task;
+import com.remind.me.fninaber.util.DateUtil;
+import com.remind.me.fninaber.util.ScreenUtil;
 import com.remind.me.fninaber.widget.BaseFragment;
+import com.remind.me.fninaber.widget.FninaberText;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
-public class HomeFragment extends BaseFragment implements OnClickListener, OnItemClickListener, OnItemLongClickListener {
+public class HomeFragment extends BaseFragment implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
+    private static final float PERCENTAGE_TO_HIDE_TITLE = 0.9f;
+    private static final float PERCENTAGE_TO_ALPHA_TASK = 0.9f;
     private View root;
     private Context context;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private HomeCardAdapter mAdapter;
     private List<Task> tasks;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private int mTotalTask;
+    private String[] words;
+    private int[] drawables = {R.drawable.img_book, R.drawable.img_rainbow, R.drawable.img_coffee, R.drawable.img_sunset};
+    private ImageView background;
+    private FninaberText numTaskView;
+    private String mSelectedWords;
 
     @Override
     public void onAttach(Context context) {
@@ -51,6 +76,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.home_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -59,15 +85,27 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
+        words = getResources().getStringArray(R.array.motivation_word);
+        mSelectedWords = words[ScreenUtil.generateRandomNumber()];
     }
 
     @Override
     public void onResume() {
         super.onResume();
         tasks = TaskHelper.getInstance().getAllAvailableTask(context.getContentResolver(), true);
+        mTotalTask = tasks.size();
         if (null != mAdapter) {
             mAdapter.setTasks(tasks);
             mAdapter.notifyDataSetChanged();
+        }
+
+        long[] mTaskTime = TaskHelper.getInstance().numTaskAndStartTime(getActivity().getContentResolver());
+        if (null != mTaskTime) {
+            numTaskView.setText(getResources().getString(R.string.today_you_have, mTaskTime[0], DateUtil.timeTimestamp(mTaskTime[1])));
+        } else {
+            String mDefault = getResources().getString(R.string.today_you_have, 0, 0);
+            String mTaskValue = mDefault.substring(0, mDefault.indexOf('.'));
+            numTaskView.setText(mTaskValue);
         }
     }
 
@@ -84,11 +122,26 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
         return root;
     }
 
+    private void setAppbarBehaviour() {
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), "perfectly.ttf");
+        background = (ImageView) getActivity().findViewById(R.id.backdrop);
+        numTaskView = (FninaberText) getActivity().findViewById(R.id.activity_home_num_task);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(tf);
+        collapsingToolbarLayout.setExpandedTitleTypeface(tf);
+        collapsingToolbarLayout.setTitle(mSelectedWords);
+
+        Picasso.with(context).load(drawables[ScreenUtil.generateRandomNumber()]).fit().skipMemoryCache().centerCrop().into(background);
+        AppBarLayout mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar);
+        mAppBarLayout.addOnOffsetChangedListener(this);
+    }
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
+        setAppbarBehaviour();
     }
 
     @Override
@@ -101,70 +154,6 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
         }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//        if (R.id.list_task == parent.getId() && null != mAdapter) {
-//            final Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
-//            MaterialDialog.ListCallback callback = new MaterialDialog.ListCallback() {
-//                @Override
-//                public void onSelection(MaterialDialog materialDialog, View view, int position, CharSequence charSequence) {
-//                    switch (position) {
-//                        case Constants.MENU_EDIT: {
-//                            Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
-//                            Intent i = new Intent(context, AddTaskActivity.class);
-//                            i.putExtra(Constants.TASK, task);
-//                            context.startActivity(i);
-//                            break;
-//                        }
-//                        case Constants.MENU_DELETE: {
-//                            if (null != task.getPath()) {
-//                                if (task.getType().equalsIgnoreCase(Type.PHOTO.toString())) {
-//                                    Uri uri = Uri.parse(task.getPath());
-//                                    File f = new File(uri.getPath());
-//                                    if (f.exists()) {
-//                                        f.delete();
-//                                    }
-//                                } else if (task.getType().equalsIgnoreCase(Type.AUDIO.toString())) {
-//                                    File f = new File(task.getPath());
-//                                    if (f.exists()) {
-//                                        f.delete();
-//                                    }
-//                                }
-//                            }
-//                            TaskHelper.getInstance().deleteByTID(context.getContentResolver(), task.getTID());
-//                            break;
-//                        }
-//                    }
-//                    materialDialog.dismiss();
-//                }
-//            };
-//
-//
-//            MaterialDialog.Builder materialDialog = createMaterialDialogBuilder(callback);
-//            materialDialog.show();
-//        }
-        return true;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        if (R.id.list_task == parent.getId() && null != mAdapter) {
-//            Task task = TaskHelper.getInstance().cursorToTask((Cursor) mAdapter.getItem(position));
-//            Intent i = new Intent(context, AddTaskActivity.class);
-//            i.putExtra(Constants.TASK, task);
-//            i.putExtra(Constants.VIEW, true);
-//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(i);
-//        } else if (R.id.grid_task == parent.getId() && null != mCalendarAdapter) {
-//            Intent i = new Intent(context, DetailGridActivity.class);
-//            String day = ((Calendar) mCalendarAdapter.getItem(position)).getDay();
-//            String dateMonthYear = ((Calendar) mCalendarAdapter.getItem(position)).getDateMonthYear();
-//            i.putExtra(HistoryFragment.KEY_DAY, day + ", " + dateMonthYear);
-//            startActivity(i);
-//        }
-    }
-
-
     private MaterialDialog.Builder createMaterialDialogBuilder(MaterialDialog.ListCallback callback) {
         String[] menuItems = {getResources().getString(R.string.menu_edit), getResources().getString(R.string.menu_delete)};
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context);
@@ -176,62 +165,31 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
         return builder;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_sort: {
-//                isDescending = !isDescending;
-//                if (isDescending) {
-//                    mOrder = TableTask.Column.TIMESTAMP + DESC;
-//                    mAdapter.notifyDataSetChanged();
-//                    mListView.invalidate();
-//
-//                } else {
-//                    mOrder = TableTask.Column.TIMESTAMP + ASC;
-//                    mAdapter.notifyDataSetChanged();
-//                    mListView.invalidate();
-//                }
-//                getLoaderManager().restartLoader(CURSOR_LOADER_TASK, null, this);
-//
-//                if (mGridView.getVisibility() == View.VISIBLE) {
-//                    if (null != mCalendarAdapter) {
-//                        List<Calendar> val = TaskHelper.getInstance().getAvailableTimestamp(context.getContentResolver(), isDescending);
-//                        mCalendarAdapter.resetData(val);
-//                    }
-//                }
-//
-//                break;
-//            }
-//            case R.id.action_style:
-//                if (mListView.getVisibility() == View.VISIBLE) {
-//                    if (null == mCalendarAdapter) {
-//                        List<Calendar> value = TaskHelper.getInstance().getAvailableTimestamp(context.getContentResolver(), isDescending);
-//                        mCalendarAdapter = new CalendarAdapter(value, context);
-//                        mGridView.setAdapter(mCalendarAdapter);
-//                        mGridView.setOnItemClickListener(this);
-//
-//                        sizeCalendar = TaskHelper.getInstance().getCursorCount(context.getContentResolver());
-//                    }
-//                    mListView.setVisibility(View.GONE);
-//                    mGridView.setVisibility(View.VISIBLE);
-//                    isGridView = true;
-//                } else {
-//                    mListView.setVisibility(View.VISIBLE);
-//                    mGridView.setVisibility(View.GONE);
-//                    isGridView = false;
-//                }
-//                getActivity().invalidateOptionsMenu();
-//                break;
-//
-//            default:
-//                break;
-//        }
-        return true;
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+        doAnimationHeader(percentage);
+    }
+
+    private void doAnimationHeader(float percentage) {
+        if (percentage >= PERCENTAGE_TO_HIDE_TITLE) {
+            collapsingToolbarLayout.setTitle(getResources().getString(R.string.num_task, mTotalTask));
+        } else {
+            collapsingToolbarLayout.setTitle(mSelectedWords);
+        }
+
+        if (percentage >= PERCENTAGE_TO_ALPHA_TASK) {
+            numTaskView.setVisibility(View.GONE);
+        } else {
+            numTaskView.setVisibility(View.VISIBLE);
+            numTaskView.setAlpha(1f - percentage);
+        }
+    }
 }

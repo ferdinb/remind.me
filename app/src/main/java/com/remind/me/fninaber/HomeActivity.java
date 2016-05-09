@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,6 @@ import android.view.View.OnClickListener;
 import com.remind.me.fninaber.util.TaskManager;
 
 public class HomeActivity extends BaseActivity implements OnClickListener {
-    private DrawerLayout mDrawerLayout;
     private static final int REQUEST_CODE = 88;
     public static final int RESUlT_CLOSE = 77;
     public static final int RESUlT_REFRESH = 66;
@@ -29,17 +29,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setupActionBar();
+
         btnAddTask = (FloatingActionButton) findViewById(R.id.add_task_floating_btn);
         btnAddTask.setOnClickListener(this);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
 
         TaskManager.getInstance(this).validityTask();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -53,53 +46,16 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-
-                        Fragment fragment = null;
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_history:
-                                fragment = new HistoryFragment();
-                                break;
-                            case R.id.nav_feedback:
-                                sendEmail();
-                                break;
-                            case R.id.nav_settings:
-                                fragment = new SettingFragment();
-                                break;
-                            default:
-                                fragment = new HomeFragment();
-                                break;
-                        }
-                        doReplaceFragment(fragment);
-                        return true;
-                    }
-                });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void refreshFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, new HomeFragment()).commit();
     }
 
     private void setupActionBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        toolbar.setSubtitle("asdjasdladshalkjdhdlkahjkdahsdakjdhasdjka");
+//        toolbar.setTitle("opopopopopopopopopopopop");
     }
 
     private void doReplaceFragment(Fragment fragment) {

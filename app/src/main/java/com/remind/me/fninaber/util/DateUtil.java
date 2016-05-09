@@ -262,6 +262,18 @@ public class DateUtil {
         return calendar.getTimeInMillis();
     }
 
+    public static long getBeginningOfTomorrow() {
+        Calendar calendar = Calendar.getInstance();
+        Date date = new Date(System.currentTimeMillis() + (24 * 60 * 60 * 1000));
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+
     public static long getWeekAhead(long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp);

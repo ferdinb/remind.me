@@ -67,14 +67,14 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             holder.mRemaining.setText(DateUtil.remainingTime(context, timestamp));
         }
 
-        if (task.getType().equalsIgnoreCase(Type.AUDIO.toString())) {
+        holder.mImage.setVisibility(View.GONE);
+        holder.mAudio.setVisibility(View.GONE);
+        if (task.getType().equalsIgnoreCase(Type.PHOTO.toString())) {
             holder.mImage.setVisibility(View.VISIBLE);
-            Picasso.with(context).load(R.drawable.img_coffee).transform(new RoundedSelectedTransform((int) context.getResources().getDimension(R.dimen.padding_size_5dp))).into(holder.mImage);
-        } else if (task.getType().equalsIgnoreCase(Type.PHOTO.toString())) {
-            holder.mImage.setVisibility(View.VISIBLE);
-            Picasso.with(context).load(task.getPath()).centerCrop().fit().transform(new RoundedSelectedTransform((int) context.getResources().getDimension(R.dimen.padding_size_5dp))).into(holder.mImage);
-        } else {
-            holder.mImage.setVisibility(View.GONE);
+            Picasso.with(context).load(task.getPath()).centerCrop().fit().transform(new RoundedSelectedTransform((int) context.getResources().getDimension(R.dimen.padding_size_5dp), RoundedSelectedTransform.Corner.TOP)).into(holder.mImage);
+        } else if (task.getType().equalsIgnoreCase(Type.AUDIO.toString())) {
+            holder.mAudio.setVisibility(View.VISIBLE);
+            Picasso.with(context).load(R.drawable.img_flower).centerCrop().fit().transform(new RoundedSelectedTransform((int) context.getResources().getDimension(R.dimen.padding_size_5dp), RoundedSelectedTransform.Corner.RIGHT)).into(holder.mAudio);
         }
 
         String sNotes = task.getNotes();
@@ -107,6 +107,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         public FninaberText mDay;
         public FninaberText mRemaining;
         public ImageView mImage;
+        public ImageView mAudio;
         public ImageView mExpired;
 
         public ViewHolder(View v) {
@@ -120,6 +121,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             mDay = (FninaberText) v.findViewById(R.id.adapter_home_day);
             mRemaining = (FninaberText) v.findViewById(R.id.adapter_home_day_remaining);
             mImage = (ImageView) v.findViewById(R.id.adapter_home_image);
+            mAudio = (ImageView) v.findViewById(R.id.adapter_home_audio);
             mExpired = (ImageView) v.findViewById(R.id.adapter_home_expired);
         }
     }

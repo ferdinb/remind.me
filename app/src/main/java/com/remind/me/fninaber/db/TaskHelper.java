@@ -335,6 +335,27 @@ public class TaskHelper {
         return getAvailableTimestamp(resolver, getCursorDataAsc(resolver, selection));
     }
 
+    public long[] numTaskAndStartTime(ContentResolver resolver) {
+        String selection = TableTask.Column.TIMESTAMP + " >= ? " + " AND " + TableTask.Column.TIMESTAMP + " < ?";
+        String[] args = {String.valueOf(DateUtil.getBeginningOfday()), String.valueOf(DateUtil.getBeginningOfTomorrow())};
+        Cursor cursor = resolver.query(URI, null, selection, args, TableTask.Column.TIMESTAMP + " ASC");
+        if (cursor != null && cursor.getCount() >= 0) {
+            if (cursor.getCount() == 0) {
+                cursor.close();
+                return null;
+            }
+
+            cursor.moveToFirst();
+            long count = cursor.getCount();
+            long time = cursor.getLong(cursor.getColumnIndex(TableTask.Column.TIMESTAMP));
+            long[] value = {count, time};
+            cursor.close();
+            return value;
+        }
+        return null;
+    }
+
+
     public Task cursorToTask(Cursor cursor) {
         Task task = new Task();
         task.setTID(cursor.getString(cursor.getColumnIndex(TableTask.Column.TID)));

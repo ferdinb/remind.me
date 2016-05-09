@@ -14,17 +14,15 @@
         <item name="colorControlActivated">@color/yellow_900</item>
         <item name="colorControlHighlight">@color/yellow_900</item>
 
-        <item name="md_background_color">@android:color/white</item>
+        <item name="md_background_color">@color/grey_700</item>
         <item name="md_title_color">@color/yellow_900</item>
         <item name="md_content_color">@color/grey_900</item>
         <item name="md_positive_color">@color/yellow_900</item>
         <item name="md_neutral_color">@color/blue</item>
         <item name="md_negative_color">@color/grey_900</item>
         <item name="md_widget_color">@color/yellow_900</item>
-
-        <!--        <item name="md_list_selector">@drawable/btn_selected_list</item>
-                <item name="md_btn_stacked_selector">@drawable/btn_selected_list</item> -->
-
+        <item name="android:windowBackground">@color/grey_300</item>
+        <item name="android:colorBackground">@color/grey_300</item>
     </style>
 
     <style name="ActionBar.Solid.Rmindme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -136,6 +134,11 @@
     <style name="FontGreyLarge">
         <item name="android:textColor">@color/grey_700</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="FontWhiteSuperHuge">
+        <item name="android:textColor">@color/grey_200</item>
+        <item name="android:textSize">@dimen/text_size_super_huge</item>
     </style>
 
     <style name="FontWhiteLarge">

@@ -252,7 +252,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
             cameraUri = uri;
 
             int corner = (int) getResources().getDimension(R.dimen.padding_size_5dp);
-            Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedSelectedTransform(corner)).into(photoAttachment);
+            Picasso.with(AddTaskActivity.this).load(uri).skipMemoryCache().transform(new RoundedTransform(0, corner)).into(photoAttachment);
 
             photoGroup.setVisibility(View.VISIBLE);
             addAttachmentGroup.setVisibility(View.GONE);
