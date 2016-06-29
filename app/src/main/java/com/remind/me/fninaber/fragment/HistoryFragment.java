@@ -1,4 +1,4 @@
-package com.remind.me.fninaber;
+package com.remind.me.fninaber.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,6 +26,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import com.remind.me.fninaber.AddTaskActivity;
+import com.remind.me.fninaber.BaseActivity;
+import com.remind.me.fninaber.CalendarActivity;
+import com.remind.me.fninaber.Constants;
+import com.remind.me.fninaber.R;
 import com.remind.me.fninaber.adapter.TaskAdapter;
 import com.remind.me.fninaber.db.TableTask;
 import com.remind.me.fninaber.db.TaskHelper;

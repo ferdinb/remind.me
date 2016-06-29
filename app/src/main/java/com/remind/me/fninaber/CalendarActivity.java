@@ -13,6 +13,7 @@ import android.widget.GridView;
 
 import com.remind.me.fninaber.adapter.CalendarAdapter;
 import com.remind.me.fninaber.db.TaskHelper;
+import com.remind.me.fninaber.fragment.HistoryFragment;
 import com.remind.me.fninaber.model.Calendar;
 
 public class CalendarActivity extends Activity implements OnItemClickListener {

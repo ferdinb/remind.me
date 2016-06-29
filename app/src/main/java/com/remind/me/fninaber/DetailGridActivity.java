@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.remind.me.fninaber.adapter.TaskAdapter;
 import com.remind.me.fninaber.db.TableTask;
 import com.remind.me.fninaber.db.TaskHelper;
+import com.remind.me.fninaber.fragment.HistoryFragment;
 import com.remind.me.fninaber.model.Task;
 import com.remind.me.fninaber.util.DateUtil;
 

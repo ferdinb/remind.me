@@ -30,7 +30,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     private List<Task> tasks;
     private Context context;
 
-    public HomeCardAdapter(List<Task> tasks, Context context) {
+    public HomeCardAdapter(Context context) {
         this.tasks = tasks;
         this.context = context;
     }
