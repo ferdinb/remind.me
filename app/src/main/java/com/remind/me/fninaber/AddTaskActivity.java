@@ -166,6 +166,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, On
     }
 
     private void setViewEnableDisable(boolean isEnable) {
+
+        Log.e("f.ninaber", "Test");
         editTitle.setFocusable(isEnable);
         editNotes.setFocusable(isEnable);
         editTitle.setFocusableInTouchMode(isEnable);
